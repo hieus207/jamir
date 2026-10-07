@@ -1,0 +1,1477 @@
+[
+  {
+    "id": "prox1-001",
+    "slug": "tai-nghe-pro-x1",
+    "name": "Tai nghe Pro X1",
+    "brand": "JAMIR",
+    "categoryId": "tai-nghe",
+    "shortDescription": "Tai nghe chụp tai chống ồn chủ động ANC -35dB, âm thanh Hi-Res, pin 60 giờ cho những chuyến đi dài.",
+    "price": 599000,
+    "originalPrice": 799000,
+    "discount": 25,
+    "rating": 4.9,
+    "reviewCount": 214,
+    "soldCount": 6400,
+    "stock": 38,
+    "highlight": "Mới ra mắt",
+    "featureTags": [
+      "Chống ồn ANC",
+      "Hi-Res Audio",
+      "Pin 60 giờ",
+      "Gập gọn"
+    ],
+    "colors": [
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#111827",
+        "image": "/media/products/tai-nghe-pro-x1/thumb.jpg"
+      },
+      {
+        "id": "silver",
+        "name": "Bạc",
+        "hex": "#D1D5DB",
+        "image": "/media/products/tai-nghe-pro-x1/thumb.jpg"
+      },
+      {
+        "id": "midnight",
+        "name": "Xanh đêm",
+        "hex": "#1E293B",
+        "image": "/media/products/tai-nghe-pro-x1/thumb.jpg"
+      },
+      {
+        "id": "cream",
+        "name": "Kem",
+        "hex": "#EDE4D3",
+        "image": "/media/products/tai-nghe-pro-x1/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "audio-lines",
+        "label": "Chống ồn",
+        "value": "ANC -35dB",
+        "note": "Tĩnh lặng tuyệt đối"
+      },
+      {
+        "icon": "disc",
+        "label": "Driver",
+        "value": "40mm",
+        "note": "Hi-Res Audio"
+      },
+      {
+        "icon": "battery",
+        "label": "Pin",
+        "value": "60 giờ",
+        "note": "Tắt ANC"
+      },
+      {
+        "icon": "bluetooth",
+        "label": "Bluetooth",
+        "value": "5.4",
+        "note": "Kết nối 2 thiết bị"
+      },
+      {
+        "icon": "zap",
+        "label": "Sạc nhanh",
+        "value": "10 phút",
+        "note": "Nghe thêm 5 giờ"
+      },
+      {
+        "icon": "weight",
+        "label": "Trọng lượng",
+        "value": "245g",
+        "note": "Đệm tai memory foam"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "travel",
+        "icon": "mountain",
+        "title": "Hay di chuyển, du lịch",
+        "description": "Nhỏ gọn, bỏ túi mang đi mọi nơi",
+        "image": "/media/usecases/travel.jpg"
+      },
+      {
+        "id": "gaming",
+        "icon": "gamepad",
+        "title": "Gaming",
+        "description": "Độ trễ thấp, đắm chìm trong trận đấu",
+        "image": "/media/usecases/gaming.jpg"
+      },
+      {
+        "id": "music",
+        "icon": "music",
+        "title": "Nghe nhạc giải trí",
+        "description": "Âm thanh sống động mỗi ngày",
+        "image": "/media/usecases/music.jpg"
+      },
+      {
+        "id": "student",
+        "icon": "graduation-cap",
+        "title": "Học sinh, sinh viên",
+        "description": "Học online, giải trí sau giờ học",
+        "image": "/media/usecases/student.jpg"
+      },
+      {
+        "id": "gift",
+        "icon": "gift",
+        "title": "Mua làm quà tặng",
+        "description": "Hộp quà sang trọng, ai cũng thích",
+        "image": "/media/usecases/gift.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/tai-nghe-pro-x1.mp4",
+      "poster": "/media/videos/tai-nghe-pro-x1-poster.jpg",
+      "duration": 86,
+      "episode": "EP01",
+      "views": 142000,
+      "likes": 9300,
+      "comments": 418,
+      "shares": 1033,
+      "tagline": "Tĩnh lặng tuyệt đối.\nĐắm chìm trong âm nhạc."
+    },
+    "chapters": [
+      {
+        "id": "tai-nghe-pro-x1-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-1.jpg"
+      },
+      {
+        "id": "tai-nghe-pro-x1-ch2",
+        "title": "Thiết kế",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-2.jpg"
+      },
+      {
+        "id": "tai-nghe-pro-x1-ch3",
+        "title": "Chất âm",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-3.jpg"
+      },
+      {
+        "id": "tai-nghe-pro-x1-ch4",
+        "title": "Chống ồn ANC",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-4.jpg"
+      },
+      {
+        "id": "tai-nghe-pro-x1-ch5",
+        "title": "Pin & Sạc",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-5.jpg"
+      },
+      {
+        "id": "tai-nghe-pro-x1-ch6",
+        "title": "Đeo thoải mái",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-6.jpg"
+      },
+      {
+        "id": "tai-nghe-pro-x1-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/tai-nghe-pro-x1/ch-7.jpg"
+      }
+    ],
+    "faqCount": 31,
+    "thumbnail": "/media/products/tai-nghe-pro-x1/thumb.jpg",
+    "gallery": [
+      "/media/products/tai-nghe-pro-x1/1.jpg",
+      "/media/products/tai-nghe-pro-x1/2.jpg",
+      "/media/products/tai-nghe-pro-x1/3.jpg",
+      "/media/products/tai-nghe-pro-x1/4.jpg",
+      "/media/products/tai-nghe-pro-x1/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 1
+  },
+  {
+    "id": "airbuds-001",
+    "slug": "tai-nghe-airbuds",
+    "name": "Tai nghe AirBuds",
+    "brand": "JAMIR",
+    "categoryId": "tai-nghe",
+    "shortDescription": "Tai nghe true wireless nhỏ gọn, chống ồn cuộc gọi ENC, pin tổng 28 giờ — đeo cả ngày vẫn êm tai.",
+    "price": 299000,
+    "originalPrice": 349000,
+    "discount": 14,
+    "rating": 4.8,
+    "reviewCount": 96,
+    "soldCount": 12500,
+    "stock": 120,
+    "highlight": "Bán chạy tuần này",
+    "featureTags": [
+      "Chống ồn ENC",
+      "Âm thanh rõ nét",
+      "Pin 28 giờ",
+      "Bluetooth 5.3"
+    ],
+    "colors": [
+      {
+        "id": "white",
+        "name": "Trắng",
+        "hex": "#F5F5F5",
+        "image": "/media/products/tai-nghe-airbuds/thumb.jpg"
+      },
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#1F2937",
+        "image": "/media/products/tai-nghe-airbuds/thumb.jpg"
+      },
+      {
+        "id": "pink",
+        "name": "Hồng",
+        "hex": "#F4C2CF",
+        "image": "/media/products/tai-nghe-airbuds/thumb.jpg"
+      },
+      {
+        "id": "blue",
+        "name": "Xanh",
+        "hex": "#AFC8E6",
+        "image": "/media/products/tai-nghe-airbuds/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "audio-lines",
+        "label": "Chống ồn",
+        "value": "ENC",
+        "note": "Giảm ồn cuộc gọi"
+      },
+      {
+        "icon": "battery",
+        "label": "Pin",
+        "value": "28 giờ",
+        "note": "Nghe liên tục"
+      },
+      {
+        "icon": "bluetooth",
+        "label": "Bluetooth",
+        "value": "5.3",
+        "note": "Kết nối ổn định"
+      },
+      {
+        "icon": "disc",
+        "label": "Driver",
+        "value": "13mm",
+        "note": "Âm trầm sống động"
+      },
+      {
+        "icon": "feather",
+        "label": "Trọng lượng",
+        "value": "3.8g",
+        "note": "Siêu nhẹ, đeo êm"
+      },
+      {
+        "icon": "usb",
+        "label": "Sạc",
+        "value": "USB-C",
+        "note": "Sạc đầy 1.5 giờ"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "student",
+        "icon": "graduation-cap",
+        "title": "Học sinh, sinh viên",
+        "description": "Học online, giải trí sau giờ học",
+        "image": "/media/usecases/student.jpg"
+      },
+      {
+        "id": "travel",
+        "icon": "mountain",
+        "title": "Hay di chuyển, du lịch",
+        "description": "Nhỏ gọn, bỏ túi mang đi mọi nơi",
+        "image": "/media/usecases/travel.jpg"
+      },
+      {
+        "id": "music",
+        "icon": "music",
+        "title": "Nghe nhạc giải trí",
+        "description": "Âm thanh sống động mỗi ngày",
+        "image": "/media/usecases/music.jpg"
+      },
+      {
+        "id": "sport",
+        "icon": "dumbbell",
+        "title": "Chơi thể thao",
+        "description": "Chắc chắn, chống mồ hôi khi vận động",
+        "image": "/media/usecases/sport.jpg"
+      },
+      {
+        "id": "gift",
+        "icon": "gift",
+        "title": "Mua làm quà tặng",
+        "description": "Hộp quà sang trọng, ai cũng thích",
+        "image": "/media/usecases/gift.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/tai-nghe-airbuds.mp4",
+      "poster": "/media/videos/tai-nghe-airbuds-poster.jpg",
+      "duration": 86,
+      "episode": "EP02",
+      "views": 125000,
+      "likes": 7100,
+      "comments": 342,
+      "shares": 789,
+      "tagline": "Nhỏ gọn. Âm hay.\nĐeo cả ngày vẫn thoải mái."
+    },
+    "chapters": [
+      {
+        "id": "tai-nghe-airbuds-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-1.jpg"
+      },
+      {
+        "id": "tai-nghe-airbuds-ch2",
+        "title": "Thiết kế",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-2.jpg"
+      },
+      {
+        "id": "tai-nghe-airbuds-ch3",
+        "title": "Chất âm",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-3.jpg"
+      },
+      {
+        "id": "tai-nghe-airbuds-ch4",
+        "title": "Chống ồn",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-4.jpg"
+      },
+      {
+        "id": "tai-nghe-airbuds-ch5",
+        "title": "Pin & Sạc",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-5.jpg"
+      },
+      {
+        "id": "tai-nghe-airbuds-ch6",
+        "title": "Đeo thoải mái",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-6.jpg"
+      },
+      {
+        "id": "tai-nghe-airbuds-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/tai-nghe-airbuds/ch-7.jpg"
+      }
+    ],
+    "faqCount": 24,
+    "thumbnail": "/media/products/tai-nghe-airbuds/thumb.jpg",
+    "gallery": [
+      "/media/products/tai-nghe-airbuds/1.jpg",
+      "/media/products/tai-nghe-airbuds/2.jpg",
+      "/media/products/tai-nghe-airbuds/3.jpg",
+      "/media/products/tai-nghe-airbuds/4.jpg",
+      "/media/products/tai-nghe-airbuds/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 2
+  },
+  {
+    "id": "loa-s2-001",
+    "slug": "loa-mini-s2",
+    "name": "Loa Mini S2",
+    "brand": "JAMIR",
+    "categoryId": "loa",
+    "shortDescription": "Loa bluetooth nhỏ gọn, âm thanh 360° công suất 10W, chống nước IPX7 — mang cuộc vui đi bất cứ đâu.",
+    "price": 449000,
+    "originalPrice": 529000,
+    "discount": 15,
+    "rating": 4.8,
+    "reviewCount": 128,
+    "soldCount": 8900,
+    "stock": 64,
+    "highlight": "Bán chạy tuần này",
+    "featureTags": [
+      "Nhỏ gọn",
+      "Âm thanh lớn",
+      "Pin lâu",
+      "Chống nước IPX7"
+    ],
+    "colors": [
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#111827",
+        "image": "/media/products/loa-mini-s2/thumb.jpg"
+      },
+      {
+        "id": "navy",
+        "name": "Xanh navy",
+        "hex": "#1E3A8A",
+        "image": "/media/products/loa-mini-s2/thumb.jpg"
+      },
+      {
+        "id": "gray",
+        "name": "Xám",
+        "hex": "#6B7280",
+        "image": "/media/products/loa-mini-s2/thumb.jpg"
+      },
+      {
+        "id": "green",
+        "name": "Xanh rêu",
+        "hex": "#4D7C5B",
+        "image": "/media/products/loa-mini-s2/thumb.jpg"
+      },
+      {
+        "id": "lilac",
+        "name": "Tím",
+        "hex": "#C084FC",
+        "image": "/media/products/loa-mini-s2/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "volume",
+        "label": "Công suất",
+        "value": "10W",
+        "note": "Âm thanh 360°"
+      },
+      {
+        "icon": "battery",
+        "label": "Pin",
+        "value": "12 giờ",
+        "note": "Nghe nhạc liên tục"
+      },
+      {
+        "icon": "droplets",
+        "label": "Chống nước",
+        "value": "IPX7",
+        "note": "Dùng tốt ngoài trời"
+      },
+      {
+        "icon": "bluetooth",
+        "label": "Bluetooth",
+        "value": "5.3",
+        "note": "Kết nối ổn định ≤ 10m"
+      },
+      {
+        "icon": "usb",
+        "label": "Sạc",
+        "value": "USB-C",
+        "note": "Sạc đầy 2 giờ"
+      },
+      {
+        "icon": "weight",
+        "label": "Trọng lượng",
+        "value": "250g",
+        "note": "Nhỏ gọn, dễ mang theo"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "music",
+        "icon": "music",
+        "title": "Nghe nhạc giải trí",
+        "description": "Âm thanh sống động mỗi ngày",
+        "image": "/media/usecases/music.jpg"
+      },
+      {
+        "id": "travel",
+        "icon": "mountain",
+        "title": "Hay di chuyển, du lịch",
+        "description": "Nhỏ gọn, bỏ túi mang đi mọi nơi",
+        "image": "/media/usecases/travel.jpg"
+      },
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "sport",
+        "icon": "dumbbell",
+        "title": "Chơi thể thao",
+        "description": "Chắc chắn, chống mồ hôi khi vận động",
+        "image": "/media/usecases/sport.jpg"
+      },
+      {
+        "id": "home",
+        "icon": "house",
+        "title": "Gia đình",
+        "description": "Yên tâm quan sát ngôi nhà mọi lúc",
+        "image": "/media/usecases/home.jpg"
+      },
+      {
+        "id": "gift",
+        "icon": "gift",
+        "title": "Mua làm quà tặng",
+        "description": "Hộp quà sang trọng, ai cũng thích",
+        "image": "/media/usecases/gift.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/loa-mini-s2.mp4",
+      "poster": "/media/videos/loa-mini-s2-poster.jpg",
+      "duration": 86,
+      "episode": "EP03",
+      "views": 98000,
+      "likes": 5400,
+      "comments": 276,
+      "shares": 600,
+      "tagline": "Nhỏ gọn.\nÂm thanh lớn.\nCảm xúc trọn vẹn."
+    },
+    "chapters": [
+      {
+        "id": "loa-mini-s2-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/loa-mini-s2/ch-1.jpg"
+      },
+      {
+        "id": "loa-mini-s2-ch2",
+        "title": "Thiết kế",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/loa-mini-s2/ch-2.jpg"
+      },
+      {
+        "id": "loa-mini-s2-ch3",
+        "title": "Chất âm",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/loa-mini-s2/ch-3.jpg"
+      },
+      {
+        "id": "loa-mini-s2-ch4",
+        "title": "Pin & Sạc",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/loa-mini-s2/ch-4.jpg"
+      },
+      {
+        "id": "loa-mini-s2-ch5",
+        "title": "Chống nước",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/loa-mini-s2/ch-5.jpg"
+      },
+      {
+        "id": "loa-mini-s2-ch6",
+        "title": "Trải nghiệm thực tế",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/loa-mini-s2/ch-6.jpg"
+      },
+      {
+        "id": "loa-mini-s2-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/loa-mini-s2/ch-7.jpg"
+      }
+    ],
+    "faqCount": 18,
+    "thumbnail": "/media/products/loa-mini-s2/thumb.jpg",
+    "gallery": [
+      "/media/products/loa-mini-s2/1.jpg",
+      "/media/products/loa-mini-s2/2.jpg",
+      "/media/products/loa-mini-s2/3.jpg",
+      "/media/products/loa-mini-s2/4.jpg",
+      "/media/products/loa-mini-s2/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 3
+  },
+  {
+    "id": "gan65-001",
+    "slug": "sac-gan-65w",
+    "name": "Sạc GaN 65W",
+    "brand": "JAMIR",
+    "categoryId": "sac-cap",
+    "shortDescription": "Củ sạc GaN 3 cổng 65W nhỏ như củ sạc điện thoại — sạc laptop, điện thoại, tai nghe cùng lúc.",
+    "price": 399000,
+    "originalPrice": 490000,
+    "discount": 19,
+    "rating": 4.8,
+    "reviewCount": 172,
+    "soldCount": 15200,
+    "stock": 210,
+    "highlight": "Bán chạy nhất",
+    "featureTags": [
+      "3 cổng sạc",
+      "PD 3.0 / PPS",
+      "Siêu nhỏ gọn",
+      "Chống quá nhiệt"
+    ],
+    "colors": [
+      {
+        "id": "white",
+        "name": "Trắng",
+        "hex": "#F8FAFC",
+        "image": "/media/products/sac-gan-65w/thumb.jpg"
+      },
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#1F2937",
+        "image": "/media/products/sac-gan-65w/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "zap",
+        "label": "Công suất",
+        "value": "65W",
+        "note": "Sạc nhanh PD 3.0"
+      },
+      {
+        "icon": "plug",
+        "label": "Cổng sạc",
+        "value": "2C + 1A",
+        "note": "Sạc 3 thiết bị"
+      },
+      {
+        "icon": "cpu",
+        "label": "Công nghệ",
+        "value": "GaN III",
+        "note": "Mát hơn, nhỏ hơn 40%"
+      },
+      {
+        "icon": "laptop",
+        "label": "Laptop",
+        "value": "30 phút",
+        "note": "MacBook 0 → 50%"
+      },
+      {
+        "icon": "shield",
+        "label": "An toàn",
+        "value": "12 lớp",
+        "note": "Chống quá nhiệt, quá áp"
+      },
+      {
+        "icon": "weight",
+        "label": "Trọng lượng",
+        "value": "110g",
+        "note": "Chân cắm gập gọn"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "travel",
+        "icon": "mountain",
+        "title": "Hay di chuyển, du lịch",
+        "description": "Nhỏ gọn, bỏ túi mang đi mọi nơi",
+        "image": "/media/usecases/travel.jpg"
+      },
+      {
+        "id": "student",
+        "icon": "graduation-cap",
+        "title": "Học sinh, sinh viên",
+        "description": "Học online, giải trí sau giờ học",
+        "image": "/media/usecases/student.jpg"
+      },
+      {
+        "id": "gift",
+        "icon": "gift",
+        "title": "Mua làm quà tặng",
+        "description": "Hộp quà sang trọng, ai cũng thích",
+        "image": "/media/usecases/gift.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/sac-gan-65w.mp4",
+      "poster": "/media/videos/sac-gan-65w-poster.jpg",
+      "duration": 86,
+      "episode": "EP04",
+      "views": 76000,
+      "likes": 3900,
+      "comments": 188,
+      "shares": 433,
+      "tagline": "Một củ sạc.\nSạc cả thế giới."
+    },
+    "chapters": [
+      {
+        "id": "sac-gan-65w-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/sac-gan-65w/ch-1.jpg"
+      },
+      {
+        "id": "sac-gan-65w-ch2",
+        "title": "Thiết kế",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/sac-gan-65w/ch-2.jpg"
+      },
+      {
+        "id": "sac-gan-65w-ch3",
+        "title": "Công suất",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/sac-gan-65w/ch-3.jpg"
+      },
+      {
+        "id": "sac-gan-65w-ch4",
+        "title": "Sạc đa thiết bị",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/sac-gan-65w/ch-4.jpg"
+      },
+      {
+        "id": "sac-gan-65w-ch5",
+        "title": "An toàn",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/sac-gan-65w/ch-5.jpg"
+      },
+      {
+        "id": "sac-gan-65w-ch6",
+        "title": "Trải nghiệm thực tế",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/sac-gan-65w/ch-6.jpg"
+      },
+      {
+        "id": "sac-gan-65w-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/sac-gan-65w/ch-7.jpg"
+      }
+    ],
+    "faqCount": 15,
+    "thumbnail": "/media/products/sac-gan-65w/thumb.jpg",
+    "gallery": [
+      "/media/products/sac-gan-65w/1.jpg",
+      "/media/products/sac-gan-65w/2.jpg",
+      "/media/products/sac-gan-65w/3.jpg",
+      "/media/products/sac-gan-65w/4.jpg",
+      "/media/products/sac-gan-65w/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 4
+  },
+  {
+    "id": "pb20k-001",
+    "slug": "pin-du-phong-20000",
+    "name": "Pin dự phòng 20.000mAh",
+    "brand": "JAMIR",
+    "categoryId": "pin-du-phong",
+    "shortDescription": "Dung lượng 20.000mAh sạc điện thoại 4–5 lần, sạc nhanh 22.5W, màn hình LED hiển thị % pin.",
+    "price": 329000,
+    "originalPrice": 399000,
+    "discount": 18,
+    "rating": 4.7,
+    "reviewCount": 305,
+    "soldCount": 21000,
+    "stock": 0,
+    "highlight": "Đánh giá cao",
+    "featureTags": [
+      "20.000mAh",
+      "Sạc nhanh 22.5W",
+      "Màn hình LED",
+      "Mang lên máy bay"
+    ],
+    "colors": [
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#1F2937",
+        "image": "/media/products/pin-du-phong-20000/thumb.jpg"
+      },
+      {
+        "id": "white",
+        "name": "Trắng",
+        "hex": "#F1F5F9",
+        "image": "/media/products/pin-du-phong-20000/thumb.jpg"
+      },
+      {
+        "id": "mint",
+        "name": "Xanh mint",
+        "hex": "#A7F3D0",
+        "image": "/media/products/pin-du-phong-20000/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "battery",
+        "label": "Dung lượng",
+        "value": "20.000mAh",
+        "note": "Sạc iPhone ~4.5 lần"
+      },
+      {
+        "icon": "zap",
+        "label": "Sạc nhanh",
+        "value": "22.5W",
+        "note": "PD + QC 3.0"
+      },
+      {
+        "icon": "plug",
+        "label": "Cổng",
+        "value": "3 cổng",
+        "note": "USB-C in/out, 2 USB-A"
+      },
+      {
+        "icon": "gauge",
+        "label": "Màn hình",
+        "value": "LED",
+        "note": "Hiển thị % pin"
+      },
+      {
+        "icon": "plane",
+        "label": "Hàng không",
+        "value": "74Wh",
+        "note": "Được mang lên máy bay"
+      },
+      {
+        "icon": "weight",
+        "label": "Trọng lượng",
+        "value": "360g",
+        "note": "Vỏ nhôm chắc chắn"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "travel",
+        "icon": "mountain",
+        "title": "Hay di chuyển, du lịch",
+        "description": "Nhỏ gọn, bỏ túi mang đi mọi nơi",
+        "image": "/media/usecases/travel.jpg"
+      },
+      {
+        "id": "student",
+        "icon": "graduation-cap",
+        "title": "Học sinh, sinh viên",
+        "description": "Học online, giải trí sau giờ học",
+        "image": "/media/usecases/student.jpg"
+      },
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "sport",
+        "icon": "dumbbell",
+        "title": "Chơi thể thao",
+        "description": "Chắc chắn, chống mồ hôi khi vận động",
+        "image": "/media/usecases/sport.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/pin-du-phong-20000.mp4",
+      "poster": "/media/videos/pin-du-phong-20000-poster.jpg",
+      "duration": 86,
+      "episode": "EP05",
+      "views": 64000,
+      "likes": 2800,
+      "comments": 151,
+      "shares": 311,
+      "tagline": "Năng lượng\ncho cả chuyến đi."
+    },
+    "chapters": [
+      {
+        "id": "pin-du-phong-20000-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-1.jpg"
+      },
+      {
+        "id": "pin-du-phong-20000-ch2",
+        "title": "Thiết kế",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-2.jpg"
+      },
+      {
+        "id": "pin-du-phong-20000-ch3",
+        "title": "Dung lượng",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-3.jpg"
+      },
+      {
+        "id": "pin-du-phong-20000-ch4",
+        "title": "Sạc nhanh",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-4.jpg"
+      },
+      {
+        "id": "pin-du-phong-20000-ch5",
+        "title": "An toàn",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-5.jpg"
+      },
+      {
+        "id": "pin-du-phong-20000-ch6",
+        "title": "Mang theo du lịch",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-6.jpg"
+      },
+      {
+        "id": "pin-du-phong-20000-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/pin-du-phong-20000/ch-7.jpg"
+      }
+    ],
+    "faqCount": 20,
+    "thumbnail": "/media/products/pin-du-phong-20000/thumb.jpg",
+    "gallery": [
+      "/media/products/pin-du-phong-20000/1.jpg",
+      "/media/products/pin-du-phong-20000/2.jpg",
+      "/media/products/pin-du-phong-20000/3.jpg",
+      "/media/products/pin-du-phong-20000/4.jpg",
+      "/media/products/pin-du-phong-20000/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 5
+  },
+  {
+    "id": "cable240-001",
+    "slug": "cap-usb-c-240w",
+    "name": "Cáp USB-C 240W",
+    "brand": "JAMIR",
+    "categoryId": "sac-cap",
+    "shortDescription": "Cáp USB-C bện dù siêu bền, hỗ trợ sạc 240W và truyền dữ liệu 40Gbps, dài 1.5m.",
+    "price": 149000,
+    "originalPrice": 199000,
+    "discount": 25,
+    "rating": 4.9,
+    "reviewCount": 88,
+    "soldCount": 9800,
+    "stock": 500,
+    "highlight": "Giá tốt",
+    "featureTags": [
+      "Sạc 240W",
+      "USB4 40Gbps",
+      "Bện dù",
+      "Dài 1.5m"
+    ],
+    "colors": [
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#111827",
+        "image": "/media/products/cap-usb-c-240w/thumb.jpg"
+      },
+      {
+        "id": "white",
+        "name": "Trắng",
+        "hex": "#F8FAFC",
+        "image": "/media/products/cap-usb-c-240w/thumb.jpg"
+      },
+      {
+        "id": "violet",
+        "name": "Tím",
+        "hex": "#8B5CF6",
+        "image": "/media/products/cap-usb-c-240w/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "zap",
+        "label": "Công suất",
+        "value": "240W",
+        "note": "Chuẩn PD 3.1 EPR"
+      },
+      {
+        "icon": "gauge",
+        "label": "Tốc độ",
+        "value": "40Gbps",
+        "note": "USB4 / Thunderbolt 4"
+      },
+      {
+        "icon": "cpu",
+        "label": "Chip",
+        "value": "E-Marker",
+        "note": "Nhận diện thông minh"
+      },
+      {
+        "icon": "ruler",
+        "label": "Độ dài",
+        "value": "1.5m",
+        "note": "Vừa đủ mọi góc bàn"
+      },
+      {
+        "icon": "shield",
+        "label": "Độ bền",
+        "value": "30.000 lần",
+        "note": "Thử nghiệm uốn gập"
+      },
+      {
+        "icon": "monitor",
+        "label": "Xuất hình",
+        "value": "8K 60Hz",
+        "note": "Kết nối màn hình"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "student",
+        "icon": "graduation-cap",
+        "title": "Học sinh, sinh viên",
+        "description": "Học online, giải trí sau giờ học",
+        "image": "/media/usecases/student.jpg"
+      },
+      {
+        "id": "gaming",
+        "icon": "gamepad",
+        "title": "Gaming",
+        "description": "Độ trễ thấp, đắm chìm trong trận đấu",
+        "image": "/media/usecases/gaming.jpg"
+      },
+      {
+        "id": "travel",
+        "icon": "mountain",
+        "title": "Hay di chuyển, du lịch",
+        "description": "Nhỏ gọn, bỏ túi mang đi mọi nơi",
+        "image": "/media/usecases/travel.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/cap-usb-c-240w.mp4",
+      "poster": "/media/videos/cap-usb-c-240w-poster.jpg",
+      "duration": 86,
+      "episode": "EP06",
+      "views": 41000,
+      "likes": 1900,
+      "comments": 97,
+      "shares": 211,
+      "tagline": "Bền bỉ. Siêu tốc.\n240W."
+    },
+    "chapters": [
+      {
+        "id": "cap-usb-c-240w-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-1.jpg"
+      },
+      {
+        "id": "cap-usb-c-240w-ch2",
+        "title": "Chất liệu",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-2.jpg"
+      },
+      {
+        "id": "cap-usb-c-240w-ch3",
+        "title": "Tốc độ sạc",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-3.jpg"
+      },
+      {
+        "id": "cap-usb-c-240w-ch4",
+        "title": "Truyền dữ liệu",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-4.jpg"
+      },
+      {
+        "id": "cap-usb-c-240w-ch5",
+        "title": "Độ bền",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-5.jpg"
+      },
+      {
+        "id": "cap-usb-c-240w-ch6",
+        "title": "Trải nghiệm thực tế",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-6.jpg"
+      },
+      {
+        "id": "cap-usb-c-240w-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/cap-usb-c-240w/ch-7.jpg"
+      }
+    ],
+    "faqCount": 9,
+    "thumbnail": "/media/products/cap-usb-c-240w/thumb.jpg",
+    "gallery": [
+      "/media/products/cap-usb-c-240w/1.jpg",
+      "/media/products/cap-usb-c-240w/2.jpg",
+      "/media/products/cap-usb-c-240w/3.jpg",
+      "/media/products/cap-usb-c-240w/4.jpg",
+      "/media/products/cap-usb-c-240w/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 6
+  },
+  {
+    "id": "camc2-001",
+    "slug": "camera-home-c2",
+    "name": "Camera Home C2",
+    "brand": "JAMIR",
+    "categoryId": "nha-thong-minh",
+    "shortDescription": "Camera an ninh trong nhà độ phân giải 2K, xoay 360°, quay đêm hồng ngoại và AI phát hiện người.",
+    "price": 549000,
+    "originalPrice": 690000,
+    "discount": 20,
+    "rating": 4.7,
+    "reviewCount": 64,
+    "soldCount": 3200,
+    "stock": 7,
+    "highlight": "Nhà thông minh",
+    "featureTags": [
+      "2K QHD",
+      "Xoay 360°",
+      "Quay đêm",
+      "AI phát hiện người"
+    ],
+    "colors": [
+      {
+        "id": "white",
+        "name": "Trắng",
+        "hex": "#F8FAFC",
+        "image": "/media/products/camera-home-c2/thumb.jpg"
+      },
+      {
+        "id": "black",
+        "name": "Đen",
+        "hex": "#1F2937",
+        "image": "/media/products/camera-home-c2/thumb.jpg"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "camera",
+        "label": "Độ phân giải",
+        "value": "2K QHD",
+        "note": "Hình ảnh sắc nét"
+      },
+      {
+        "icon": "rotate",
+        "label": "Góc quay",
+        "value": "360°",
+        "note": "Xoay ngang, nghiêng 110°"
+      },
+      {
+        "icon": "moon",
+        "label": "Quay đêm",
+        "value": "10m",
+        "note": "Hồng ngoại không chói"
+      },
+      {
+        "icon": "mic",
+        "label": "Đàm thoại",
+        "value": "2 chiều",
+        "note": "Loa + mic khử ồn"
+      },
+      {
+        "icon": "scan",
+        "label": "AI",
+        "value": "Người",
+        "note": "Cảnh báo tức thì"
+      },
+      {
+        "icon": "wifi",
+        "label": "Kết nối",
+        "value": "Wi-Fi 2.4G",
+        "note": "Thẻ nhớ tới 256GB"
+      }
+    ],
+    "useCases": [
+      {
+        "id": "home",
+        "icon": "house",
+        "title": "Gia đình",
+        "description": "Yên tâm quan sát ngôi nhà mọi lúc",
+        "image": "/media/usecases/home.jpg"
+      },
+      {
+        "id": "office",
+        "icon": "laptop",
+        "title": "Dân văn phòng",
+        "description": "Họp online, nghe nhạc, tập trung làm việc",
+        "image": "/media/usecases/office.jpg"
+      },
+      {
+        "id": "gift",
+        "icon": "gift",
+        "title": "Mua làm quà tặng",
+        "description": "Hộp quà sang trọng, ai cũng thích",
+        "image": "/media/usecases/gift.jpg"
+      }
+    ],
+    "video": {
+      "src": "/media/videos/camera-home-c2.mp4",
+      "poster": "/media/videos/camera-home-c2-poster.jpg",
+      "duration": 86,
+      "episode": "EP07",
+      "views": 52000,
+      "likes": 2300,
+      "comments": 133,
+      "shares": 256,
+      "tagline": "Ngôi nhà\nluôn trong tầm mắt."
+    },
+    "chapters": [
+      {
+        "id": "camera-home-c2-ch1",
+        "title": "Giới thiệu",
+        "start": 0,
+        "end": 12,
+        "thumbnail": "/media/products/camera-home-c2/ch-1.jpg"
+      },
+      {
+        "id": "camera-home-c2-ch2",
+        "title": "Thiết kế",
+        "start": 12,
+        "end": 24,
+        "thumbnail": "/media/products/camera-home-c2/ch-2.jpg"
+      },
+      {
+        "id": "camera-home-c2-ch3",
+        "title": "Hình ảnh 2K",
+        "start": 24,
+        "end": 36,
+        "thumbnail": "/media/products/camera-home-c2/ch-3.jpg"
+      },
+      {
+        "id": "camera-home-c2-ch4",
+        "title": "Quay đêm",
+        "start": 36,
+        "end": 48,
+        "thumbnail": "/media/products/camera-home-c2/ch-4.jpg"
+      },
+      {
+        "id": "camera-home-c2-ch5",
+        "title": "Đàm thoại 2 chiều",
+        "start": 48,
+        "end": 60,
+        "thumbnail": "/media/products/camera-home-c2/ch-5.jpg"
+      },
+      {
+        "id": "camera-home-c2-ch6",
+        "title": "Ứng dụng",
+        "start": 60,
+        "end": 72,
+        "thumbnail": "/media/products/camera-home-c2/ch-6.jpg"
+      },
+      {
+        "id": "camera-home-c2-ch7",
+        "title": "So sánh",
+        "start": 72,
+        "end": 86,
+        "thumbnail": "/media/products/camera-home-c2/ch-7.jpg"
+      }
+    ],
+    "faqCount": 12,
+    "thumbnail": "/media/products/camera-home-c2/thumb.jpg",
+    "gallery": [
+      "/media/products/camera-home-c2/1.jpg",
+      "/media/products/camera-home-c2/2.jpg",
+      "/media/products/camera-home-c2/3.jpg",
+      "/media/products/camera-home-c2/4.jpg",
+      "/media/products/camera-home-c2/5.jpg"
+    ],
+    "shipping": {
+      "icon": "zap",
+      "title": "Giao hàng hỏa tốc 4h tại Hà Nội",
+      "description": "Nhận trong hôm nay · Áp dụng khu vực nội thành"
+    },
+    "guarantees": [
+      {
+        "icon": "shield-check",
+        "title": "Chính hãng 100%",
+        "description": "Hoàn tiền 200% nếu phát hiện hàng giả"
+      },
+      {
+        "icon": "refresh",
+        "title": "Đổi trả 30 ngày",
+        "description": "Lỗi là đổi mới, miễn phí vận chuyển"
+      },
+      {
+        "icon": "badge-check",
+        "title": "Bảo hành 12 tháng",
+        "description": "Bảo hành điện tử, tra cứu bằng SĐT"
+      }
+    ],
+    "position": 7
+  }
+]

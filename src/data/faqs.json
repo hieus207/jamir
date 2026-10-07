@@ -1,0 +1,163 @@
+[
+  {
+    "id": "faq-tai-nghe-pro-x1-1",
+    "productId": "prox1-001",
+    "question": "Chống ồn ANC hiệu quả đến đâu?",
+    "answer": "ANC giảm tới -35dB, loại bỏ gần hết tiếng động cơ máy bay, điều hòa, xe cộ. Có chế độ xuyên âm khi cần nghe xung quanh.",
+    "answerCount": 15
+  },
+  {
+    "id": "faq-tai-nghe-pro-x1-2",
+    "productId": "prox1-001",
+    "question": "Có kết nối 2 thiết bị cùng lúc không?",
+    "answer": "Có, Bluetooth 5.4 multipoint cho phép kết nối đồng thời laptop và điện thoại.",
+    "answerCount": 9
+  },
+  {
+    "id": "faq-tai-nghe-pro-x1-3",
+    "productId": "prox1-001",
+    "question": "Đeo lâu có bị đau đầu không?",
+    "answer": "Đệm tai memory foam và băng đô có đệm, lực kẹp vừa phải. Đa số khách hàng đeo 4–5 giờ liên tục vẫn thoải mái.",
+    "answerCount": 7
+  },
+  {
+    "id": "faq-tai-nghe-pro-x1-4",
+    "productId": "prox1-001",
+    "question": "Có dây AUX để dùng có dây không?",
+    "answer": "Có, hộp kèm cáp 3.5mm để nghe có dây khi hết pin hoặc trên máy bay.",
+    "answerCount": 5
+  },
+  {
+    "id": "faq-tai-nghe-airbuds-1",
+    "productId": "airbuds-001",
+    "question": "Tai nghe có chống ồn không?",
+    "answer": "AirBuds có ENC khử ồn cho mic khi gọi điện. Khi nghe nhạc, thiết kế in-ear giúp cách âm thụ động khá tốt.",
+    "answerCount": 12
+  },
+  {
+    "id": "faq-tai-nghe-airbuds-2",
+    "productId": "airbuds-001",
+    "question": "Pin dùng được bao lâu?",
+    "answer": "Tai nghe dùng liên tục 6–7 giờ, kèm hộp sạc tổng cộng khoảng 28 giờ. Sạc đầy hộp mất 1.5 giờ qua cổng USB-C.",
+    "answerCount": 8
+  },
+  {
+    "id": "faq-tai-nghe-airbuds-3",
+    "productId": "airbuds-001",
+    "question": "Có dùng được cho iPhone và Android không?",
+    "answer": "Có. AirBuds dùng Bluetooth 5.3 tiêu chuẩn nên tương thích iPhone, Android, laptop, máy tính bảng.",
+    "answerCount": 6
+  },
+  {
+    "id": "faq-tai-nghe-airbuds-4",
+    "productId": "airbuds-001",
+    "question": "Có chống nước không?",
+    "answer": "Đạt chuẩn IPX4, chống mồ hôi và nước bắn nhẹ — thoải mái khi tập thể dục.",
+    "answerCount": 4
+  },
+  {
+    "id": "faq-loa-mini-s2-1",
+    "productId": "loa-s2-001",
+    "question": "Loa có chống nước thật không?",
+    "answer": "Loa đạt chuẩn IPX7: ngâm nước sâu 1m trong 30 phút vẫn hoạt động. Nhớ đóng nắp cổng sạc trước khi xuống nước.",
+    "answerCount": 12
+  },
+  {
+    "id": "faq-loa-mini-s2-2",
+    "productId": "loa-s2-001",
+    "question": "Pin dùng được bao lâu?",
+    "answer": "Khoảng 12 giờ ở mức âm lượng 50%. Sạc đầy trong 2 giờ qua USB-C.",
+    "answerCount": 8
+  },
+  {
+    "id": "faq-loa-mini-s2-3",
+    "productId": "loa-s2-001",
+    "question": "Có kết nối được với máy tính/laptop không?",
+    "answer": "Có, kết nối Bluetooth với mọi laptop Windows/macOS. Có thể ghép đôi 2 loa S2 để nghe stereo.",
+    "answerCount": 6
+  },
+  {
+    "id": "faq-loa-mini-s2-4",
+    "productId": "loa-s2-001",
+    "question": "Có nghe được thẻ nhớ / AUX không?",
+    "answer": "S2 tập trung vào Bluetooth nên không có khe thẻ nhớ và cổng AUX.",
+    "answerCount": 3
+  },
+  {
+    "id": "faq-sac-gan-65w-1",
+    "productId": "gan65-001",
+    "question": "Có sạc được MacBook không?",
+    "answer": "Có. Cổng C1 cho tối đa 65W, sạc tốt MacBook Air/Pro 13–14 inch và hầu hết laptop USB-C.",
+    "answerCount": 10
+  },
+  {
+    "id": "faq-sac-gan-65w-2",
+    "productId": "gan65-001",
+    "question": "Sạc nhiều thiết bị cùng lúc thì công suất chia thế nào?",
+    "answer": "C1+C2: 45W+20W; C1+A: 45W+18W; ba cổng: 45W+10W+10W.",
+    "answerCount": 7
+  },
+  {
+    "id": "faq-sac-gan-65w-3",
+    "productId": "gan65-001",
+    "question": "Có bị nóng không?",
+    "answer": "Chip GaN III tỏa nhiệt thấp, có cảm biến nhiệt tự điều chỉnh công suất khi cần.",
+    "answerCount": 4
+  },
+  {
+    "id": "faq-pin-du-phong-20000-1",
+    "productId": "pb20k-001",
+    "question": "Có được mang lên máy bay không?",
+    "answer": "Có. Dung lượng 74Wh (dưới 100Wh) nên được phép mang theo hành lý xách tay.",
+    "answerCount": 11
+  },
+  {
+    "id": "faq-pin-du-phong-20000-2",
+    "productId": "pb20k-001",
+    "question": "Sạc được mấy lần cho điện thoại?",
+    "answer": "Khoảng 4–4.5 lần iPhone 15 hoặc 3 lần các máy pin 5000mAh.",
+    "answerCount": 8
+  },
+  {
+    "id": "faq-pin-du-phong-20000-3",
+    "productId": "pb20k-001",
+    "question": "Sạc đầy pin dự phòng mất bao lâu?",
+    "answer": "Khoảng 3.5–4 giờ với củ sạc 20W trở lên qua cổng USB-C.",
+    "answerCount": 5
+  },
+  {
+    "id": "faq-cap-usb-c-240w-1",
+    "productId": "cable240-001",
+    "question": "Cáp có dùng cho iPhone 15/16 không?",
+    "answer": "Có, iPhone 15 trở lên dùng cổng USB-C, cáp hỗ trợ sạc nhanh và truyền dữ liệu.",
+    "answerCount": 6
+  },
+  {
+    "id": "faq-cap-usb-c-240w-2",
+    "productId": "cable240-001",
+    "question": "Có xuất được hình ra màn hình không?",
+    "answer": "Có, hỗ trợ DisplayPort Alt Mode tới 8K 60Hz với thiết bị tương thích.",
+    "answerCount": 4
+  },
+  {
+    "id": "faq-camera-home-c2-1",
+    "productId": "camc2-001",
+    "question": "Có cần mua thẻ nhớ không?",
+    "answer": "Camera hỗ trợ thẻ microSD tới 256GB hoặc lưu trữ đám mây (miễn phí 30 ngày đầu).",
+    "answerCount": 7
+  },
+  {
+    "id": "faq-camera-home-c2-2",
+    "productId": "camc2-001",
+    "question": "Có xem từ xa được không?",
+    "answer": "Có, xem trực tiếp và nhận cảnh báo qua ứng dụng JAMIR Home trên iOS/Android.",
+    "answerCount": 5
+  },
+  {
+    "id": "faq-camera-home-c2-3",
+    "productId": "camc2-001",
+    "question": "Wi-Fi 5GHz có dùng được không?",
+    "answer": "Camera dùng Wi-Fi 2.4GHz để xuyên tường tốt hơn. Hầu hết router đều phát cả hai băng tần.",
+    "answerCount": 3
+  }
+]

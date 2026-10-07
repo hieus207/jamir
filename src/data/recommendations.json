@@ -1,0 +1,78 @@
+{
+  "related": {
+    "airbuds-001": [
+      "loa-s2-001",
+      "gan65-001",
+      "pb20k-001",
+      "prox1-001",
+      "cable240-001"
+    ],
+    "loa-s2-001": [
+      "prox1-001",
+      "gan65-001",
+      "pb20k-001",
+      "airbuds-001",
+      "camc2-001"
+    ],
+    "prox1-001": [
+      "airbuds-001",
+      "loa-s2-001",
+      "gan65-001",
+      "cable240-001",
+      "pb20k-001"
+    ],
+    "gan65-001": [
+      "cable240-001",
+      "pb20k-001",
+      "airbuds-001",
+      "prox1-001"
+    ],
+    "pb20k-001": [
+      "gan65-001",
+      "cable240-001",
+      "loa-s2-001",
+      "airbuds-001"
+    ],
+    "cable240-001": [
+      "gan65-001",
+      "pb20k-001",
+      "airbuds-001",
+      "camc2-001"
+    ],
+    "camc2-001": [
+      "loa-s2-001",
+      "gan65-001",
+      "cable240-001",
+      "airbuds-001"
+    ]
+  },
+  "boughtTogether": {
+    "airbuds-001": [
+      "gan65-001",
+      "cable240-001"
+    ],
+    "loa-s2-001": [
+      "pb20k-001"
+    ],
+    "prox1-001": [
+      "cable240-001"
+    ]
+  },
+  "forYou": [
+    "prox1-001",
+    "loa-s2-001",
+    "airbuds-001",
+    "gan65-001",
+    "pb20k-001",
+    "camc2-001",
+    "cable240-001"
+  ],
+  "trendingSearches": [
+    "tai nghe chống ồn",
+    "loa bluetooth",
+    "sạc nhanh",
+    "pin dự phòng",
+    "camera wifi",
+    "quà tặng công nghệ"
+  ]
+}

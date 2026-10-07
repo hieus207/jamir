@@ -1,0 +1,1140 @@
+[
+  {
+    "id": "rv-tai-nghe-pro-x1-1",
+    "productId": "prox1-001",
+    "userId": "u-mai",
+    "rating": 5,
+    "content": "Chống ồn ấn tượng, đi máy bay gần như không nghe tiếng động cơ. Pin cả tuần mới sạc.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/1.jpg",
+        "thumbnail": "/media/reviews/1.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/2.jpg",
+        "thumbnail": "/media/reviews/2.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/3.jpg",
+        "thumbnail": "/media/reviews/3.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/1.mp4",
+        "thumbnail": "/media/reviews/4.jpg"
+      }
+    ],
+    "createdAt": "2026-10-06T09:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-pro-x1-2",
+    "productId": "prox1-001",
+    "userId": "u-lan",
+    "rating": 5,
+    "content": "Đệm tai êm, đeo 4-5 tiếng không bị nóng tai. Âm thanh chi tiết, sân khấu rộng.",
+    "colorId": "silver",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/2.jpg",
+        "thumbnail": "/media/reviews/2.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/3.jpg",
+        "thumbnail": "/media/reviews/3.jpg"
+      }
+    ],
+    "createdAt": "2026-10-03T10:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-pro-x1-3",
+    "productId": "prox1-001",
+    "userId": "u-nam",
+    "rating": 5,
+    "content": "Kết nối cùng lúc laptop và điện thoại rất tiện cho dân văn phòng.",
+    "colorId": "midnight",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-30T11:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-pro-x1-4",
+    "productId": "prox1-001",
+    "userId": "u-anh",
+    "rating": 4,
+    "content": "Màu kem sang trọng, hộp đựng xịn. Giá này mà có ANC như vậy là quá ngon.",
+    "colorId": "cream",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/4.jpg",
+        "thumbnail": "/media/reviews/4.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/6.jpg",
+        "thumbnail": "/media/reviews/6.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/7.jpg",
+        "thumbnail": "/media/reviews/7.jpg"
+      }
+    ],
+    "createdAt": "2026-09-27T12:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-pro-x1-5",
+    "productId": "prox1-001",
+    "userId": "u-khoa",
+    "rating": 5,
+    "content": "Chơi game độ trễ thấp ở chế độ game mode. Mic hơi nhỏ khi voice chat.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/5.mp4",
+        "thumbnail": "/media/reviews/6.jpg"
+      }
+    ],
+    "createdAt": "2026-09-24T13:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-pro-x1-6",
+    "productId": "prox1-001",
+    "userId": "u-vy",
+    "rating": 4,
+    "content": "Gập gọn bỏ balo dễ. Sạc nhanh 10 phút nghe cả buổi chiều.",
+    "colorId": "silver",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 6,
+    "commentCount": 0,
+    "media": [],
+    "createdAt": "2026-09-21T14:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-pro-x1-7",
+    "productId": "prox1-001",
+    "userId": "u-duc",
+    "rating": 5,
+    "content": "Đã dùng nhiều tai nghe tầm 2-3 triệu, Pro X1 không thua kém là bao.",
+    "colorId": "midnight",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 11,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/7.jpg",
+        "thumbnail": "/media/reviews/7.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/8.jpg",
+        "thumbnail": "/media/reviews/8.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/9.jpg",
+        "thumbnail": "/media/reviews/9.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/7.mp4",
+        "thumbnail": "/media/reviews/10.jpg"
+      }
+    ],
+    "createdAt": "2026-09-18T15:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-1",
+    "productId": "airbuds-001",
+    "userId": "u-tung",
+    "rating": 5,
+    "content": "Âm thanh rõ, đeo rất êm. Dùng đi làm cả ngày không đau tai. Pin trâu. Rất đáng tiền!",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/4.jpg",
+        "thumbnail": "/media/reviews/4.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/6.jpg",
+        "thumbnail": "/media/reviews/6.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/4.mp4",
+        "thumbnail": "/media/reviews/7.jpg"
+      }
+    ],
+    "createdAt": "2026-10-03T09:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-2",
+    "productId": "airbuds-001",
+    "userId": "u-phuc",
+    "rating": 5,
+    "content": "Kết nối nhanh, âm bass khá tốt. Nghe nhạc, gọi điện đều ổn. Tầm giá này quá hợp lý.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/6.jpg",
+        "thumbnail": "/media/reviews/6.jpg"
+      }
+    ],
+    "createdAt": "2026-09-30T10:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-3",
+    "productId": "airbuds-001",
+    "userId": "u-quynh",
+    "rating": 5,
+    "content": "Thiết kế đẹp, nhỏ gọn. Mình dùng cho cả iPhone và laptop đều ổn. Pin thực tế khoảng 6-7 tiếng.",
+    "colorId": "pink",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-27T11:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-4",
+    "productId": "airbuds-001",
+    "userId": "u-ha",
+    "rating": 4,
+    "content": "Mic lọc ồn tốt, gọi ngoài đường bên kia vẫn nghe rõ. Hộp sạc nhỏ bỏ túi quần được.",
+    "colorId": "blue",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/7.jpg",
+        "thumbnail": "/media/reviews/7.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/8.jpg",
+        "thumbnail": "/media/reviews/8.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/9.jpg",
+        "thumbnail": "/media/reviews/9.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/10.jpg",
+        "thumbnail": "/media/reviews/10.jpg"
+      }
+    ],
+    "createdAt": "2026-09-24T12:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-5",
+    "productId": "airbuds-001",
+    "userId": "u-thao",
+    "rating": 5,
+    "content": "Màu hồng xinh lắm, đóng gói cẩn thận. Shop giao hỏa tốc 3 tiếng là có hàng.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/8.jpg",
+        "thumbnail": "/media/reviews/8.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/8.mp4",
+        "thumbnail": "/media/reviews/9.jpg"
+      }
+    ],
+    "createdAt": "2026-09-21T13:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-6",
+    "productId": "airbuds-001",
+    "userId": "u-mai",
+    "rating": 4,
+    "content": "Âm hơi thiên trầm, nghe EDM rất phê. Cảm ứng nhạy, đổi bài dễ.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 6,
+    "commentCount": 0,
+    "media": [],
+    "createdAt": "2026-09-18T14:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-7",
+    "productId": "airbuds-001",
+    "userId": "u-lan",
+    "rating": 5,
+    "content": "Mua tặng bạn gái, bạn ấy rất thích. Sẽ ủng hộ shop tiếp.",
+    "colorId": "pink",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 11,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/10.jpg",
+        "thumbnail": "/media/reviews/10.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/11.jpg",
+        "thumbnail": "/media/reviews/11.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/12.jpg",
+        "thumbnail": "/media/reviews/12.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/10.mp4",
+        "thumbnail": "/media/reviews/13.jpg"
+      }
+    ],
+    "createdAt": "2026-09-15T15:00:00.000Z"
+  },
+  {
+    "id": "rv-tai-nghe-airbuds-8",
+    "productId": "airbuds-001",
+    "userId": "u-nam",
+    "rating": 5,
+    "content": "Dùng được 2 tuần, chưa thấy lỗi gì. Kết nối ổn định, không bị rớt khi đi xe máy.",
+    "colorId": "blue",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 4,
+    "commentCount": 0,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/11.jpg",
+        "thumbnail": "/media/reviews/11.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/12.jpg",
+        "thumbnail": "/media/reviews/12.jpg"
+      }
+    ],
+    "createdAt": "2026-09-12T16:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-1",
+    "productId": "loa-s2-001",
+    "userId": "u-khoa",
+    "rating": 5,
+    "content": "Âm to, bass chắc. Nhỏ gọn nên mang đi du lịch rất tiện. Pin dùng được hơn 10 tiếng như mô tả.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/7.jpg",
+        "thumbnail": "/media/reviews/7.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/8.jpg",
+        "thumbnail": "/media/reviews/8.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/9.jpg",
+        "thumbnail": "/media/reviews/9.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/7.mp4",
+        "thumbnail": "/media/reviews/10.jpg"
+      }
+    ],
+    "createdAt": "2026-10-04T09:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-2",
+    "productId": "loa-s2-001",
+    "userId": "u-vy",
+    "rating": 5,
+    "content": "Thiết kế đẹp, chống nước tốt. Mình mang đi hồ bơi vẫn hoạt động bình thường. Rất đáng mua trong tầm giá.",
+    "colorId": "navy",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/8.jpg",
+        "thumbnail": "/media/reviews/8.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/9.jpg",
+        "thumbnail": "/media/reviews/9.jpg"
+      }
+    ],
+    "createdAt": "2026-10-01T10:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-3",
+    "productId": "loa-s2-001",
+    "userId": "u-duc",
+    "rating": 5,
+    "content": "Nhỏ gọn, âm thanh vượt mong đợi. Dùng trong phòng ngủ và ngoài trời đều ổn.",
+    "colorId": "gray",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-28T11:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-4",
+    "productId": "loa-s2-001",
+    "userId": "u-yen",
+    "rating": 4,
+    "content": "Đèn LED đổi màu theo nhạc rất vui mắt. Ghép 2 loa nghe stereo đã tai.",
+    "colorId": "green",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/10.jpg",
+        "thumbnail": "/media/reviews/10.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/11.jpg",
+        "thumbnail": "/media/reviews/11.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/12.jpg",
+        "thumbnail": "/media/reviews/12.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/13.jpg",
+        "thumbnail": "/media/reviews/13.jpg"
+      }
+    ],
+    "createdAt": "2026-09-25T12:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-5",
+    "productId": "loa-s2-001",
+    "userId": "u-son",
+    "rating": 5,
+    "content": "Màu xanh rêu ngoài đời đẹp hơn ảnh. Dây đeo chắc chắn.",
+    "colorId": "lilac",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/11.jpg",
+        "thumbnail": "/media/reviews/11.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/11.mp4",
+        "thumbnail": "/media/reviews/12.jpg"
+      }
+    ],
+    "createdAt": "2026-09-22T13:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-6",
+    "productId": "loa-s2-001",
+    "userId": "u-tung",
+    "rating": 4,
+    "content": "Âm lượng max hơi rè một chút nhưng ở mức 80% thì rất hay.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 6,
+    "commentCount": 0,
+    "media": [],
+    "createdAt": "2026-09-19T14:00:00.000Z"
+  },
+  {
+    "id": "rv-loa-mini-s2-7",
+    "productId": "loa-s2-001",
+    "userId": "u-phuc",
+    "rating": 5,
+    "content": "Đi camping cả nhóm ai cũng hỏi mua ở đâu. 10 điểm!",
+    "colorId": "navy",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 11,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/13.jpg",
+        "thumbnail": "/media/reviews/13.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/14.jpg",
+        "thumbnail": "/media/reviews/14.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/15.jpg",
+        "thumbnail": "/media/reviews/15.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/1.mp4",
+        "thumbnail": "/media/reviews/16.jpg"
+      }
+    ],
+    "createdAt": "2026-09-16T15:00:00.000Z"
+  },
+  {
+    "id": "rv-sac-gan-65w-1",
+    "productId": "gan65-001",
+    "userId": "u-thao",
+    "rating": 5,
+    "content": "Sạc MacBook Air rất nhanh, củ nhỏ hơn củ zin nhiều. Không nóng.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/10.jpg",
+        "thumbnail": "/media/reviews/10.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/11.jpg",
+        "thumbnail": "/media/reviews/11.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/12.jpg",
+        "thumbnail": "/media/reviews/12.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/10.mp4",
+        "thumbnail": "/media/reviews/13.jpg"
+      }
+    ],
+    "createdAt": "2026-10-05T09:00:00.000Z"
+  },
+  {
+    "id": "rv-sac-gan-65w-2",
+    "productId": "gan65-001",
+    "userId": "u-mai",
+    "rating": 5,
+    "content": "Một củ sạc cả laptop, điện thoại, tai nghe. Đi công tác gọn hẳn balo.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/11.jpg",
+        "thumbnail": "/media/reviews/11.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/12.jpg",
+        "thumbnail": "/media/reviews/12.jpg"
+      }
+    ],
+    "createdAt": "2026-10-02T10:00:00.000Z"
+  },
+  {
+    "id": "rv-sac-gan-65w-3",
+    "productId": "gan65-001",
+    "userId": "u-lan",
+    "rating": 5,
+    "content": "Chân cắm gập được, bỏ túi không sợ xước. Hoàn thiện tốt.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-29T11:00:00.000Z"
+  },
+  {
+    "id": "rv-sac-gan-65w-4",
+    "productId": "gan65-001",
+    "userId": "u-nam",
+    "rating": 4,
+    "content": "Sạc iPhone 15 Pro lên 50% trong khoảng 28 phút. Ổn áp.",
+    "colorId": "black",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/13.jpg",
+        "thumbnail": "/media/reviews/13.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/14.jpg",
+        "thumbnail": "/media/reviews/14.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/15.jpg",
+        "thumbnail": "/media/reviews/15.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/16.jpg",
+        "thumbnail": "/media/reviews/16.jpg"
+      }
+    ],
+    "createdAt": "2026-09-26T12:00:00.000Z"
+  },
+  {
+    "id": "rv-sac-gan-65w-5",
+    "productId": "gan65-001",
+    "userId": "u-anh",
+    "rating": 5,
+    "content": "Màu đen nhám sang, ít bám vân tay. Đáng mua.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/14.jpg",
+        "thumbnail": "/media/reviews/14.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/2.mp4",
+        "thumbnail": "/media/reviews/15.jpg"
+      }
+    ],
+    "createdAt": "2026-09-23T13:00:00.000Z"
+  },
+  {
+    "id": "rv-sac-gan-65w-6",
+    "productId": "gan65-001",
+    "userId": "u-khoa",
+    "rating": 4,
+    "content": "Sạc 3 thiết bị cùng lúc hơi ấm nhưng vẫn ổn định.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 6,
+    "commentCount": 0,
+    "media": [],
+    "createdAt": "2026-09-20T14:00:00.000Z"
+  },
+  {
+    "id": "rv-pin-du-phong-20000-1",
+    "productId": "pb20k-001",
+    "userId": "u-son",
+    "rating": 5,
+    "content": "Dung lượng thực tế sạc iPhone 13 được hơn 4 lần. Màn hình LED tiện theo dõi.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/13.jpg",
+        "thumbnail": "/media/reviews/13.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/14.jpg",
+        "thumbnail": "/media/reviews/14.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/15.jpg",
+        "thumbnail": "/media/reviews/15.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/1.mp4",
+        "thumbnail": "/media/reviews/16.jpg"
+      }
+    ],
+    "createdAt": "2026-10-06T09:00:00.000Z"
+  },
+  {
+    "id": "rv-pin-du-phong-20000-2",
+    "productId": "pb20k-001",
+    "userId": "u-tung",
+    "rating": 5,
+    "content": "Hơi nặng nhưng bù lại pin trâu, đi du lịch 3 ngày không lo hết pin.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/14.jpg",
+        "thumbnail": "/media/reviews/14.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/15.jpg",
+        "thumbnail": "/media/reviews/15.jpg"
+      }
+    ],
+    "createdAt": "2026-10-03T10:00:00.000Z"
+  },
+  {
+    "id": "rv-pin-du-phong-20000-3",
+    "productId": "pb20k-001",
+    "userId": "u-phuc",
+    "rating": 5,
+    "content": "Mang lên máy bay không bị giữ lại. Vỏ nhôm cầm chắc tay.",
+    "colorId": "mint",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-30T11:00:00.000Z"
+  },
+  {
+    "id": "rv-pin-du-phong-20000-4",
+    "productId": "pb20k-001",
+    "userId": "u-quynh",
+    "rating": 4,
+    "content": "Sạc nhanh ổn, Samsung báo sạc siêu nhanh. Đóng gói kỹ.",
+    "colorId": "black",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/16.jpg",
+        "thumbnail": "/media/reviews/16.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/1.jpg",
+        "thumbnail": "/media/reviews/1.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/2.jpg",
+        "thumbnail": "/media/reviews/2.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/3.jpg",
+        "thumbnail": "/media/reviews/3.jpg"
+      }
+    ],
+    "createdAt": "2026-09-27T12:00:00.000Z"
+  },
+  {
+    "id": "rv-pin-du-phong-20000-5",
+    "productId": "pb20k-001",
+    "userId": "u-ha",
+    "rating": 5,
+    "content": "Màu mint xinh xắn, ai thấy cũng khen.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/1.jpg",
+        "thumbnail": "/media/reviews/1.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/5.mp4",
+        "thumbnail": "/media/reviews/2.jpg"
+      }
+    ],
+    "createdAt": "2026-09-24T13:00:00.000Z"
+  },
+  {
+    "id": "rv-pin-du-phong-20000-6",
+    "productId": "pb20k-001",
+    "userId": "u-thao",
+    "rating": 4,
+    "content": "Tự sạc đầy pin mất khoảng 4 tiếng bằng củ 20W.",
+    "colorId": "mint",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 6,
+    "commentCount": 0,
+    "media": [],
+    "createdAt": "2026-09-21T14:00:00.000Z"
+  },
+  {
+    "id": "rv-cap-usb-c-240w-1",
+    "productId": "cable240-001",
+    "userId": "u-anh",
+    "rating": 5,
+    "content": "Cáp bện dù chắc chắn, đầu cáp hoàn thiện tốt. Sạc laptop 100W mượt.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/16.jpg",
+        "thumbnail": "/media/reviews/16.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/1.jpg",
+        "thumbnail": "/media/reviews/1.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/2.jpg",
+        "thumbnail": "/media/reviews/2.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/4.mp4",
+        "thumbnail": "/media/reviews/3.jpg"
+      }
+    ],
+    "createdAt": "2026-10-03T09:00:00.000Z"
+  },
+  {
+    "id": "rv-cap-usb-c-240w-2",
+    "productId": "cable240-001",
+    "userId": "u-khoa",
+    "rating": 5,
+    "content": "Copy dữ liệu từ SSD tốc độ rất nhanh, xuất màn hình 4K ngon lành.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/1.jpg",
+        "thumbnail": "/media/reviews/1.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/2.jpg",
+        "thumbnail": "/media/reviews/2.jpg"
+      }
+    ],
+    "createdAt": "2026-09-30T10:00:00.000Z"
+  },
+  {
+    "id": "rv-cap-usb-c-240w-3",
+    "productId": "cable240-001",
+    "userId": "u-vy",
+    "rating": 5,
+    "content": "Dài 1.5m vừa đủ, không bị rối dây. Giá tốt hơn hàng hiệu nhiều.",
+    "colorId": "violet",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-27T11:00:00.000Z"
+  },
+  {
+    "id": "rv-cap-usb-c-240w-4",
+    "productId": "cable240-001",
+    "userId": "u-duc",
+    "rating": 4,
+    "content": "Màu tím độc lạ, set up bàn làm việc rất đẹp.",
+    "colorId": "black",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/3.jpg",
+        "thumbnail": "/media/reviews/3.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/4.jpg",
+        "thumbnail": "/media/reviews/4.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/6.jpg",
+        "thumbnail": "/media/reviews/6.jpg"
+      }
+    ],
+    "createdAt": "2026-09-24T12:00:00.000Z"
+  },
+  {
+    "id": "rv-cap-usb-c-240w-5",
+    "productId": "cable240-001",
+    "userId": "u-yen",
+    "rating": 5,
+    "content": "Dùng 3 tháng chưa bị sờn đầu. Recommend!",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/4.jpg",
+        "thumbnail": "/media/reviews/4.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/8.mp4",
+        "thumbnail": "/media/reviews/5.jpg"
+      }
+    ],
+    "createdAt": "2026-09-21T13:00:00.000Z"
+  },
+  {
+    "id": "rv-camera-home-c2-1",
+    "productId": "camc2-001",
+    "userId": "u-ha",
+    "rating": 5,
+    "content": "Hình ảnh 2K rõ nét, ban đêm vẫn nhìn rõ mặt. App dễ dùng.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 32,
+    "commentCount": 5,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/3.jpg",
+        "thumbnail": "/media/reviews/3.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/4.jpg",
+        "thumbnail": "/media/reviews/4.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/7.mp4",
+        "thumbnail": "/media/reviews/6.jpg"
+      }
+    ],
+    "createdAt": "2026-10-04T09:00:00.000Z"
+  },
+  {
+    "id": "rv-camera-home-c2-2",
+    "productId": "camc2-001",
+    "userId": "u-thao",
+    "rating": 5,
+    "content": "Cài đặt rất nhanh, 5 phút là xong. Đàm thoại 2 chiều nghe rõ.",
+    "colorId": "black",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 18,
+    "commentCount": 3,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/4.jpg",
+        "thumbnail": "/media/reviews/4.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/5.jpg",
+        "thumbnail": "/media/reviews/5.jpg"
+      }
+    ],
+    "createdAt": "2026-10-01T10:00:00.000Z"
+  },
+  {
+    "id": "rv-camera-home-c2-3",
+    "productId": "camc2-001",
+    "userId": "u-mai",
+    "rating": 5,
+    "content": "Dùng để trông bé, cảnh báo khi bé thức dậy rất nhạy.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": true,
+    "helpfulCount": 25,
+    "commentCount": 4,
+    "media": [],
+    "createdAt": "2026-09-28T11:00:00.000Z"
+  },
+  {
+    "id": "rv-camera-home-c2-4",
+    "productId": "camc2-001",
+    "userId": "u-lan",
+    "rating": 4,
+    "content": "Xoay 360 độ mượt, không có tiếng động cơ to. Đáng tiền.",
+    "colorId": "black",
+    "verifiedPurchase": false,
+    "featured": false,
+    "helpfulCount": 9,
+    "commentCount": 1,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/6.jpg",
+        "thumbnail": "/media/reviews/6.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/7.jpg",
+        "thumbnail": "/media/reviews/7.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/8.jpg",
+        "thumbnail": "/media/reviews/8.jpg"
+      },
+      {
+        "type": "image",
+        "src": "/media/reviews/9.jpg",
+        "thumbnail": "/media/reviews/9.jpg"
+      }
+    ],
+    "createdAt": "2026-09-25T12:00:00.000Z"
+  },
+  {
+    "id": "rv-camera-home-c2-5",
+    "productId": "camc2-001",
+    "userId": "u-nam",
+    "rating": 5,
+    "content": "Thỉnh thoảng báo nhầm khi có thú cưng, còn lại ổn.",
+    "colorId": "white",
+    "verifiedPurchase": true,
+    "featured": false,
+    "helpfulCount": 14,
+    "commentCount": 2,
+    "media": [
+      {
+        "type": "image",
+        "src": "/media/reviews/7.jpg",
+        "thumbnail": "/media/reviews/7.jpg"
+      },
+      {
+        "type": "video",
+        "src": "/media/kol/11.mp4",
+        "thumbnail": "/media/reviews/8.jpg"
+      }
+    ],
+    "createdAt": "2026-09-22T13:00:00.000Z"
+  }
+]

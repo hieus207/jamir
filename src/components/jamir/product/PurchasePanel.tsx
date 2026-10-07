@@ -1,0 +1,71 @@
+import { BellRing, ShoppingCart } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
+import { usePurchaseActions } from '@/hooks/usePurchaseActions'
+import { cn } from '@/lib/utils'
+import { useSelectionStore } from '@/stores/selectionStore'
+import type { Product } from '@/types/domain'
+import { ProductGuarantee, ShippingBanner } from './ProductGuarantee'
+import { ProductInfo } from './ProductInfo'
+import { ProductPrice } from './ProductPrice'
+import { ProductVariant } from './ProductVariant'
+import { QuantitySelector } from './QuantitySelector'
+import { WishlistButton } from './WishlistButton'
+
+export function StockStatus({ stock, className }: { stock: number; className?: string }) {
+  const tone = stock === 0 ? 'bg-danger' : stock <= 10 ? 'bg-warning' : 'bg-success'
+  const text = stock === 0 ? 'Tạm hết hàng' : stock <= 10 ? `Chỉ còn ${stock} sản phẩm` : 'Còn hàng'
+  return (
+    <p className={cn('flex items-center gap-2 text-sm font-medium', stock === 0 ? 'text-danger' : stock <= 10 ? 'text-orange-600' : 'text-success', className)}>
+      <span className={cn('relative flex size-2.5 rounded-full', tone)}>
+        {stock > 0 && <span className={cn('absolute inset-0 animate-ping rounded-full opacity-60', tone)} />}
+      </span>
+      {text}
+    </p>
+  )
+}
+
+/**
+ * Right-hand purchase panel (desktop: sticky). On mobile the same blocks are
+ * rendered inline and the CTA moves to the sticky bottom bar.
+ */
+export function PurchasePanel({ product, className }: { product: Product; className?: string }) {
+  const { colorId, quantity, setColor, setQuantity } = useSelectionStore()
+  const actions = usePurchaseActions(product)
+
+  return (
+    <Card className={cn('flex flex-col gap-4 p-5 lg:p-6', className)}>
+      <ProductInfo product={product} />
+      <div className="flex flex-col gap-2">
+        <ProductPrice price={product.price} originalPrice={product.originalPrice} discount={product.discount} />
+        <StockStatus stock={product.stock} />
+      </div>
+      <ProductVariant colors={product.colors} value={colorId} onChange={setColor} />
+      <div className="flex items-center gap-4">
+        <span className="w-20 shrink-0 text-sm font-medium text-ink-soft">Số lượng:</span>
+        <QuantitySelector value={quantity} onChange={setQuantity} max={Math.max(1, Math.min(product.stock, 99))} />
+      </div>
+      <div className="flex gap-2.5">
+        {actions.inStock ? (
+          <>
+            <Button size="lg" className="h-[52px] flex-1 text-[17px]" onClick={actions.buyNow}>
+              <ShoppingCart aria-hidden="true" />
+              Đặt hàng ngay
+            </Button>
+            <Button variant="secondary" size="icon" className="size-[52px]" aria-label="Thêm vào giỏ hàng" onClick={actions.addToCart}>
+              <ShoppingCart className="size-6" />
+            </Button>
+          </>
+        ) : (
+          <Button variant="dark" size="lg" className="h-[52px] flex-1" onClick={actions.notifyRestock}>
+            <BellRing aria-hidden="true" />
+            Báo khi có hàng
+          </Button>
+        )}
+        <WishlistButton productId={product.id} onToggle={actions.toggleWishlist} />
+      </div>
+      <ShippingBanner shipping={product.shipping} />
+      <ProductGuarantee guarantees={product.guarantees} />
+    </Card>
+  )
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "s-pro-x1",
+    "label": "Tai nghe Pro X1",
+    "type": "product",
+    "target": "tai-nghe-pro-x1",
+    "thumbnail": "/media/products/tai-nghe-pro-x1/thumb.jpg"
+  },
+  {
+    "id": "s-loa-s2",
+    "label": "Loa Mini S2",
+    "type": "product",
+    "target": "loa-mini-s2",
+    "thumbnail": "/media/products/loa-mini-s2/thumb.jpg",
+    "hot": true
+  },
+  {
+    "id": "s-gan",
+    "label": "Sạc GaN 65W",
+    "type": "product",
+    "target": "sac-gan-65w",
+    "thumbnail": "/media/products/sac-gan-65w/thumb.jpg"
+  },
+  {
+    "id": "s-airbuds",
+    "label": "Tai nghe AirBuds",
+    "type": "product",
+    "target": "tai-nghe-airbuds",
+    "thumbnail": "/media/products/tai-nghe-airbuds/thumb.jpg",
+    "hot": true
+  },
+  {
+    "id": "s-pin",
+    "label": "Pin dự phòng",
+    "type": "product",
+    "target": "pin-du-phong-20000",
+    "thumbnail": "/media/products/pin-du-phong-20000/thumb.jpg"
+  },
+  {
+    "id": "s-smart-home",
+    "label": "Nhà thông minh",
+    "type": "category",
+    "target": "nha-thong-minh",
+    "thumbnail": "/media/products/camera-home-c2/thumb.jpg"
+  },
+  {
+    "id": "s-cable",
+    "label": "Cáp USB-C",
+    "type": "product",
+    "target": "cap-usb-c-240w",
+    "thumbnail": "/media/products/cap-usb-c-240w/thumb.jpg"
+  },
+  {
+    "id": "s-tips",
+    "label": "Tips & Hướng dẫn",
+    "type": "explore",
+    "target": "tips",
+    "thumbnail": "/media/kol/3.jpg"
+  },
+  {
+    "id": "s-audio",
+    "label": "Âm thanh",
+    "type": "category",
+    "target": "tai-nghe",
+    "thumbnail": "/media/kol/5.jpg"
+  },
+  {
+    "id": "s-accessory",
+    "label": "Phụ kiện",
+    "type": "category",
+    "target": "sac-cap",
+    "thumbnail": "/media/products/sac-gan-65w/2.jpg"
+  }
+]

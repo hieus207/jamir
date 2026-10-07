@@ -1,0 +1,38 @@
+[
+  {
+    "id": "tai-nghe",
+    "slug": "tai-nghe",
+    "name": "Tai nghe",
+    "icon": "headphones"
+  },
+  {
+    "id": "loa",
+    "slug": "loa",
+    "name": "Loa",
+    "icon": "speaker"
+  },
+  {
+    "id": "sac-cap",
+    "slug": "sac-cap",
+    "name": "Sạc & Cáp",
+    "icon": "plug"
+  },
+  {
+    "id": "pin-du-phong",
+    "slug": "pin-du-phong",
+    "name": "Pin dự phòng",
+    "icon": "battery"
+  },
+  {
+    "id": "nha-thong-minh",
+    "slug": "nha-thong-minh",
+    "name": "Nhà thông minh",
+    "icon": "house"
+  },
+  {
+    "id": "phu-kien",
+    "slug": "phu-kien",
+    "name": "Phụ kiện",
+    "icon": "package"
+  }
+]
