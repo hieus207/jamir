@@ -40,6 +40,19 @@ export function getRatingSummary(productId: string): Promise<RatingSummary> {
   })
 }
 
+/** Community feed: latest customer reviews that include photos/videos, across products. */
+export function getCommunityFeed(): Promise<(CustomerReview & { productSlug: string; productName: string })[]> {
+  return get('/community/feed', () =>
+    db.customerReviews
+      .filter((r) => r.media.length > 0)
+      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .map(({ userId, ...r }) => {
+        const p = db.products.find((x) => x.id === r.productId)!
+        return { ...r, user: userById(userId), productSlug: p.slug, productName: p.name }
+      }),
+  )
+}
+
 export function getProductFaqs(productId: string): Promise<Faq[]> {
   return get(`/products/${productId}/faqs`, () => db.faqs.filter((f) => f.productId === productId))
 }

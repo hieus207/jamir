@@ -3,6 +3,7 @@ import {
   createOrder,
   getBoughtTogether,
   getCategories,
+  getCommunityFeed,
   getCurrentUser,
   getKolFeed,
   getKolReviews,
@@ -10,6 +11,7 @@ import {
   getProductBySlug,
   getProductFaqs,
   getProductNeighbors,
+  getProductsByIds,
   getProductReviews,
   getProducts,
   getRatingSummary,
@@ -38,6 +40,8 @@ export const qk = {
   stories: ['stories'] as const,
   search: (q: string) => ['search', q] as const,
   trending: ['trending'] as const,
+  byIds: (ids: string[]) => ['products-by-ids', ids] as const,
+  community: ['community'] as const,
   me: ['me'] as const,
   orders: ['orders'] as const,
 }
@@ -46,7 +50,7 @@ export const useProducts = (categoryId?: string) =>
   useQuery({ queryKey: qk.products(categoryId), queryFn: () => getProducts({ categoryId }) })
 
 export const useProduct = (slug: string) =>
-  useQuery({ queryKey: qk.product(slug), queryFn: () => getProductBySlug(slug), retry: false })
+  useQuery({ queryKey: qk.product(slug), queryFn: () => getProductBySlug(slug), retry: false, placeholderData: keepPreviousData })
 
 export const useProductNeighbors = (slug: string) =>
   useQuery({ queryKey: qk.neighbors(slug), queryFn: () => getProductNeighbors(slug), placeholderData: keepPreviousData })
@@ -93,6 +97,11 @@ export const useSearch = (q: string) =>
 
 export const useTrendingSearches = () =>
   useQuery({ queryKey: qk.trending, queryFn: getTrendingSearches, staleTime: Infinity })
+
+export const useProductsByIds = (ids: string[]) =>
+  useQuery({ queryKey: qk.byIds(ids), queryFn: () => getProductsByIds(ids), placeholderData: keepPreviousData })
+
+export const useCommunityFeed = () => useQuery({ queryKey: qk.community, queryFn: getCommunityFeed })
 
 export const useCurrentUser = () => useQuery({ queryKey: qk.me, queryFn: getCurrentUser, staleTime: Infinity })
 

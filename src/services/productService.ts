@@ -28,6 +28,14 @@ export function getProductBySlug(slug: string): Promise<Product> {
   return get(`/products/${encodeURIComponent(slug)}`, () => db.products.find((p) => p.slug === slug))
 }
 
+export function getProductsByIds(ids: string[]): Promise<ProductSummary[]> {
+  return get(
+    '/products',
+    () => ids.map((id) => db.products.find((p) => p.id === id)).filter((p) => !!p).map(toSummary),
+    { ids: ids.join(',') },
+  )
+}
+
 /** Previous / next product in the swipe feed (wraps around). */
 export function getProductNeighbors(slug: string): Promise<ProductNeighbors> {
   return get(`/products/${encodeURIComponent(slug)}/neighbors`, () => {

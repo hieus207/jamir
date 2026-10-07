@@ -148,20 +148,20 @@ export function VideoPlayer({
       </div>
 
       {/* side action rail */}
-      <div className="absolute top-1/2 right-2 flex -translate-y-1/2 flex-col gap-1 rounded-2xl bg-black/25 p-1 backdrop-blur-md md:right-3 md:gap-2 md:p-1.5">
+      <div className="absolute top-2.5 right-2 flex flex-col gap-0.5 rounded-2xl bg-black/25 p-0.5 backdrop-blur-md md:top-1/2 md:right-3 md:-translate-y-1/2 md:gap-2 md:p-1.5">
         <RailButton label={actions.liked ? 'Bỏ thích' : 'Thích'} count={formatCompact(video.likes + (actions.liked ? 1 : 0))} onClick={actions.onLike} pressed={actions.liked}>
           <motion.span key={String(actions.liked)} initial={{ scale: 0.6 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 600, damping: 15 }}>
-            <Heart className={cn('size-6', actions.liked ? 'fill-danger text-danger' : 'fill-danger/90 text-danger/90')} />
+            <Heart className={cn('size-5 md:size-6', actions.liked ? 'fill-danger text-danger' : 'fill-danger/90 text-danger/90')} />
           </motion.span>
         </RailButton>
         <RailButton label="Bình luận" count={formatCompact(video.comments)} onClick={actions.onComment}>
-          <MessageCircle className="size-6 fill-white/90 text-white/90" />
+          <MessageCircle className="size-5 fill-white/90 text-white/90 md:size-6" />
         </RailButton>
         <RailButton label="Chia sẻ" count="Chia sẻ" onClick={actions.onShare}>
-          <Share2 className="size-6" />
+          <Share2 className="size-5 md:size-6" />
         </RailButton>
-        <RailButton label={actions.saved ? 'Bỏ lưu' : 'Lưu'} count={actions.saved ? 'Đã lưu' : 'Lưu'} onClick={actions.onSave} pressed={actions.saved}>
-          <Bookmark className={cn('size-6', actions.saved && 'fill-white')} />
+        <RailButton className="hidden md:flex" label={actions.saved ? 'Bỏ lưu' : 'Lưu'} count={actions.saved ? 'Đã lưu' : 'Lưu'} onClick={actions.onSave} pressed={actions.saved}>
+          <Bookmark className={cn('size-5 md:size-6', actions.saved && 'fill-white')} />
         </RailButton>
       </div>
 
@@ -251,8 +251,10 @@ function RailButton({
   count,
   onClick,
   pressed,
+  className,
   children,
 }: {
+  className?: string
   label: string
   count: string
   onClick: () => void
@@ -265,10 +267,10 @@ function RailButton({
       onClick={onClick}
       aria-label={label}
       aria-pressed={pressed}
-      className="flex w-12 cursor-pointer flex-col items-center gap-0.5 rounded-xl py-1.5 text-white transition-[background-color,transform] hover:bg-white/10 active:scale-95 md:w-14"
+      className={cn('flex w-11 cursor-pointer flex-col items-center gap-0.5 rounded-xl py-1 text-white transition-[background-color,transform] hover:bg-white/10 active:scale-95 md:w-14 md:py-1.5', className)}
     >
       {children}
-      <span className="text-[11px] font-semibold drop-shadow">{count}</span>
+      <span className="text-[10px] font-semibold drop-shadow md:text-[11px]">{count}</span>
     </button>
   )
 }

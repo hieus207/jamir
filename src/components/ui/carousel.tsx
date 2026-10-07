@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils'
 
 type CarouselApi = UseEmblaCarouselType[1]
 type CarouselOptions = Parameters<typeof useEmblaCarousel>[0]
+type CarouselPlugins = Parameters<typeof useEmblaCarousel>[1]
 
 interface CarouselContextValue {
   viewportRef: UseEmblaCarouselType[0]
@@ -34,12 +35,13 @@ function useCarousel() {
 /** shadcn-style Embla carousel. */
 export function Carousel({
   opts,
+  plugins,
   setApi,
   className,
   children,
   ...props
-}: ComponentProps<'div'> & { opts?: CarouselOptions; setApi?: (api: CarouselApi) => void }) {
-  const [viewportRef, api] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps', ...opts })
+}: ComponentProps<'div'> & { opts?: CarouselOptions; plugins?: CarouselPlugins; setApi?: (api: CarouselApi) => void }) {
+  const [viewportRef, api] = useEmblaCarousel({ align: 'start', containScroll: 'trimSnaps', ...opts }, plugins)
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(false)
 
