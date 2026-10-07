@@ -25,8 +25,9 @@ export function ProductVariant({
   const current = colors.find((c) => c.id === value)
   return (
     <div className={cn('flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4', className)}>
-      <span id="color-label" className="w-20 shrink-0 text-sm font-medium text-ink-soft">
-        Màu sắc: <span className="font-semibold text-ink sm:hidden">{current?.name}</span>
+      <span id="color-label" className="flex shrink-0 gap-1 text-sm sm:w-20 font-medium text-ink-soft sm:flex-col sm:gap-0">
+        Màu sắc:
+        <span className="font-semibold text-ink sm:text-xs sm:font-medium sm:text-muted">{current?.name}</span>
       </span>
       <RadioGroup
         aria-labelledby="color-label"
@@ -52,7 +53,6 @@ export function ProductVariant({
           </Radio.Root>
         ))}
       </RadioGroup>
-      <span className="hidden text-sm text-muted sm:inline">{current?.name}</span>
     </div>
   )
 }

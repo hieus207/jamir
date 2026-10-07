@@ -18,7 +18,14 @@ export const checkoutSchema = z
   .object({
     addressMode: z.enum(['saved', 'new']),
     addressId: z.string().optional(),
-    newAddress: newAddress.partial(),
+    // free-form draft; only validated (below) when "new address" is selected
+    newAddress: z.object({
+      recipient: z.string().optional(),
+      phone: z.string().optional(),
+      line: z.string().optional(),
+      district: z.string().optional(),
+      city: z.string().optional(),
+    }),
     shippingMethod: z.enum(['express', 'standard', 'economy']),
     paymentMethod: z.enum(['cod', 'ewallet', 'card', 'applepay']),
     note: z.string().max(200, 'Tối đa 200 ký tự').optional(),
