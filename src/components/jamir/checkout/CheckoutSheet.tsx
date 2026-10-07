@@ -1,12 +1,14 @@
+import { X } from 'lucide-react'
 import { Drawer as BaseDrawer } from '@base-ui/react/drawer'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CircleCheck, PackageCheck } from 'lucide-react'
 import { motion } from 'motion/react'
 import { type ReactNode, useEffect, useState } from 'react'
+import { ApiError } from '@/services'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { DialogTitle } from '@/components/ui/dialog'
 import { Drawer, DrawerContent, DrawerTitle } from '@/components/ui/drawer'
 import { toast } from '@/components/ui/toast'
 import { useCreateOrder, useCurrentUser } from '@/hooks/queries'
@@ -14,8 +16,9 @@ import { useIsDesktop } from '@/hooks/useMediaQuery'
 import { cn, formatPrice } from '@/lib/utils'
 import { getShippingFee, PAYMENT_METHODS, SHIPPING_METHODS } from '@/services'
 import { useCartStore } from '@/stores/cartStore'
-import { useCheckoutStore } from '@/stores/checkoutStore'
-import type { Order } from '@/types/domain'
+import { useCheckoutStore, useSavedVoucher } from '@/stores/checkoutStore'
+import type { Order, PromotionCheck } from '@/types/domain'
+import { PromoCodeField } from './PromoCodeField'
 import { AddressSelector } from './AddressSelector'
 import { type CheckoutForm, checkoutSchema, parseNewAddress } from './checkoutSchema'
 import { OrderSummary } from './OrderSummary'
@@ -26,7 +29,7 @@ import { ShippingMethod } from './ShippingMethod'
 
 /**
  * Checkout without leaving the page.
- * Mobile: bottom sheet (swipe to dismiss). Desktop: centered dialog.
+ * Mobile: bottom sheet (swipe down). Desktop: right drawer (swipe right) — the product stays visible.
  */
 export default function CheckoutSheet() {
   const isDesktop = useIsDesktop()
@@ -44,12 +47,25 @@ export default function CheckoutSheet() {
 
   if (isDesktop)
     return (
-      <Dialog open={open} onOpenChange={onOpenChange} onOpenChangeComplete={onClosed}>
-        <DialogContent className="flex max-h-[min(860px,92dvh)] max-w-[640px] flex-col" closeClassName="bg-line-soft text-ink-soft hover:bg-line">
-          <Header Title={DialogTitle} order={order} />
-          {body}
-        </DialogContent>
-      </Dialog>
+      <BaseDrawer.Root swipeDirection="right" open={open} onOpenChange={onOpenChange} onOpenChangeComplete={onClosed}>
+        <BaseDrawer.Portal>
+          <BaseDrawer.Backdrop className="fixed inset-0 z-50 min-h-dvh bg-ink opacity-[calc(0.45*(1-var(--drawer-swipe-progress)))] transition-opacity duration-[400ms] ease-sheet data-[ending-style]:opacity-0 data-[starting-style]:opacity-0 data-[swiping]:duration-0" />
+          <BaseDrawer.Viewport className="fixed inset-0 z-50 flex items-stretch justify-end">
+            <BaseDrawer.Popup className="relative flex h-full w-[min(600px,100vw)] flex-col rounded-l-sheet bg-surface shadow-lift outline-none [transform:translateX(var(--drawer-swipe-movement-x))] transition-transform duration-[400ms] ease-sheet data-[ending-style]:[transform:translateX(100%)] data-[starting-style]:[transform:translateX(100%)] data-[swiping]:select-none">
+              <BaseDrawer.Close
+                aria-label="Đóng"
+                className="absolute top-3 right-3 z-10 inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-line-soft text-ink-soft transition-colors hover:bg-line"
+              >
+                <X className="size-5" />
+              </BaseDrawer.Close>
+              <BaseDrawer.Content className="flex min-h-0 flex-1 flex-col">
+                <Header Title={DrawerTitle} order={order} />
+                {body}
+              </BaseDrawer.Content>
+            </BaseDrawer.Popup>
+          </BaseDrawer.Viewport>
+        </BaseDrawer.Portal>
+      </BaseDrawer.Root>
     )
 
   return (
@@ -86,13 +102,15 @@ function CheckoutBody({ onPlaced }: { onPlaced: (o: Order) => void }) {
   const clearCart = useCartStore((s) => s.clear)
   const { data: me } = useCurrentUser()
   const createOrder = useCreateOrder()
+  const [promo, setPromo] = useState<PromotionCheck | null>(null)
+  const hasSaved = !!me?.addresses?.length
 
   const form = useForm<CheckoutForm>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
-      addressMode: 'saved',
+      addressMode: hasSaved ? 'saved' : 'new',
       addressId: undefined,
-      newAddress: { recipient: '', phone: '', line: '', district: '', city: '' },
+      newAddress: { recipient: me?.name ?? '', phone: me?.phone ?? '', line: '', district: '', city: '' },
       shippingMethod: 'express',
       paymentMethod: 'cod',
       note: '',
@@ -102,12 +120,18 @@ function CheckoutBody({ onPlaced }: { onPlaced: (o: Order) => void }) {
   // pick the default saved address once the profile loads
   useEffect(() => {
     const def = me?.addresses?.find((a) => a.isDefault) ?? me?.addresses?.[0]
-    if (def && !form.getValues('addressId')) form.setValue('addressId', def.id)
+    if (def && !form.getValues('addressId')) {
+      form.setValue('addressId', def.id)
+      form.setValue('addressMode', 'saved')
+    }
   }, [me, form])
 
   const subtotal = lines.reduce((s, l) => s + l.product.price * l.quantity, 0)
   const savings = lines.reduce((s, l) => s + Math.max(0, l.product.originalPrice - l.product.price) * l.quantity, 0)
-  const shippingFee = getShippingFee(form.watch('shippingMethod'), subtotal)
+  const baseFee = getShippingFee(form.watch('shippingMethod'), subtotal)
+  const shippingFee = promo?.freeShipping ? 0 : baseFee
+  const discount = promo && !promo.freeShipping ? promo.discount : 0
+  const promoItems = lines.map((l) => ({ productId: l.product.id, quantity: l.quantity }))
 
   const onSubmit = form.handleSubmit(async (v) => {
     const saved = me?.addresses?.find((a) => a.id === v.addressId)
@@ -122,11 +146,13 @@ function CheckoutBody({ onPlaced }: { onPlaced: (o: Order) => void }) {
         shippingMethod: v.shippingMethod,
         paymentMethod: v.paymentMethod,
         note: v.note || undefined,
+        promoCode: promo?.code,
       })
       if (source === 'cart') clearCart()
+      useSavedVoucher.getState().save(null)
       onPlaced(order)
-    } catch {
-      toast.error('Đặt hàng thất bại', 'Vui lòng thử lại sau ít phút.')
+    } catch (e) {
+      toast.error('Đặt hàng thất bại', e instanceof ApiError ? e.message : 'Vui lòng thử lại sau ít phút.')
     }
   })
 
@@ -144,6 +170,9 @@ function CheckoutBody({ onPlaced }: { onPlaced: (o: Order) => void }) {
             <Section title="Phương thức giao hàng">
               <ShippingMethod subtotal={subtotal} />
             </Section>
+            <Section title="Mã giảm giá">
+              <PromoCodeField items={promoItems} shippingFee={baseFee} applied={promo} onChange={setPromo} />
+            </Section>
             <Section title="Phương thức thanh toán">
               <PaymentMethod />
             </Section>
@@ -158,8 +187,8 @@ function CheckoutBody({ onPlaced }: { onPlaced: (o: Order) => void }) {
           </div>
         </div>
         <div className="flex shrink-0 flex-col gap-3 border-t border-line bg-surface px-5 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shadow-[0_-8px_20px_-14px_rgb(17_24_39/0.2)]">
-          <OrderSummary subtotal={subtotal} shippingFee={shippingFee} savings={savings} />
-          <PlaceOrderButton total={subtotal + shippingFee} loading={form.formState.isSubmitting} />
+          <OrderSummary subtotal={subtotal} shippingFee={shippingFee} savings={savings} promo={promo ? { code: promo.code, discount, freeShipping: promo.freeShipping } : undefined} />
+          <PlaceOrderButton total={subtotal + shippingFee - discount} loading={form.formState.isSubmitting} />
         </div>
       </form>
     </FormProvider>
@@ -190,6 +219,7 @@ function OrderSuccess({ order, onDone }: { order: Order; onDone: () => void }) {
         {[
           ['Giao hàng', shipping?.name],
           ['Thanh toán', payment?.name],
+          ...(order.discount ? [['Giảm giá' + (order.promoCode ? ` (${order.promoCode})` : ''), `-${formatPrice(order.discount)}`]] : []),
           ['Tổng tiền', formatPrice(order.total)],
         ].map(([k, v]) => (
           <div key={k} className="flex justify-between gap-3 px-4 py-3">

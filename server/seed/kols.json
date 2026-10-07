@@ -1,0 +1,66 @@
+[
+  {
+    "id": "kol-linhchi",
+    "name": "Linh Chi",
+    "avatar": "/media/avatars/w1.jpg",
+    "verified": true,
+    "followers": 120000,
+    "title": "KOL Công nghệ"
+  },
+  {
+    "id": "kol-dungvan",
+    "name": "Dũng Văn",
+    "avatar": "/media/avatars/m1.jpg",
+    "verified": true,
+    "followers": 86000,
+    "title": "Reviewer Tech"
+  },
+  {
+    "id": "kol-minhtri",
+    "name": "Minh Trí",
+    "avatar": "/media/avatars/m2.jpg",
+    "verified": true,
+    "followers": 52000,
+    "title": "KOL Trải nghiệm"
+  },
+  {
+    "id": "kol-duchung",
+    "name": "Đức Hưng",
+    "avatar": "/media/avatars/m3.jpg",
+    "verified": true,
+    "followers": 64000,
+    "title": "KOL Travel"
+  },
+  {
+    "id": "kol-thutrang",
+    "name": "Thu Trang",
+    "avatar": "/media/avatars/w2.jpg",
+    "verified": true,
+    "followers": 210000,
+    "title": "Lifestyle Creator"
+  },
+  {
+    "id": "kol-quocbao",
+    "name": "Quốc Bảo",
+    "avatar": "/media/avatars/m4.jpg",
+    "verified": true,
+    "followers": 98000,
+    "title": "Gaming Streamer"
+  },
+  {
+    "id": "kol-hamy",
+    "name": "Hà My",
+    "avatar": "/media/avatars/w3.jpg",
+    "verified": true,
+    "followers": 75000,
+    "title": "Vlogger"
+  },
+  {
+    "id": "kol-tuankiet",
+    "name": "Tuấn Kiệt",
+    "avatar": "/media/avatars/m5.jpg",
+    "verified": true,
+    "followers": 140000,
+    "title": "Tech Unbox"
+  }
+]

@@ -1,0 +1,14 @@
+[Unit]
+Description=JAMIR API (JSON store)
+After=network.target
+
+[Service]
+EnvironmentFile=@ROOT@/api.env
+ExecStart=/usr/bin/node @ROOT@/api/dist/index.mjs
+WorkingDirectory=@ROOT@/api
+Restart=always
+RestartSec=3
+MemoryMax=256M
+
+[Install]
+WantedBy=multi-user.target

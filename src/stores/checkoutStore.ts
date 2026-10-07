@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { CartLine } from './cartStore'
 
 /** Items being checked out — either "buy now" (single line) or the whole cart. */
@@ -13,6 +14,11 @@ interface CheckoutState {
   setOpen: (open: boolean) => void
   setQuantity: (index: number, quantity: number) => void
 }
+
+/** Voucher the shopper saved from a product page — pre-filled at checkout. */
+export const useSavedVoucher = create<{ code: string | null; save: (code: string | null) => void }>()(
+  persist((set) => ({ code: null, save: (code) => set({ code }) }), { name: 'jamir-voucher' }),
+)
 
 export const useCheckoutStore = create<CheckoutState>()((set) => ({
   open: false,

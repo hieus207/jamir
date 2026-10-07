@@ -4,6 +4,14 @@ import {
   getBoughtTogether,
   getCategories,
   getCommunityFeed,
+  getNews,
+  getNewsArticle,
+  getSettings,
+  getAuthConfig,
+  getActiveEvents,
+  getLanding,
+  getReviewEligibility,
+  getVouchers,
   getCurrentUser,
   getKolFeed,
   getKolReviews,
@@ -21,6 +29,7 @@ import {
   getTrendingSearches,
   searchCatalog,
 } from '@/services'
+import { useSession } from '@/components/jamir/auth/authStore'
 import type { ReviewSort } from '@/types/domain'
 
 /** Centralised query keys — one place to invalidate/prefetch from. */
@@ -42,15 +51,23 @@ export const qk = {
   trending: ['trending'] as const,
   byIds: (ids: string[]) => ['products-by-ids', ids] as const,
   community: ['community'] as const,
+  news: (limit?: number) => ['news', limit] as const,
+  newsArticle: (slug: string) => ['news', 'article', slug] as const,
+  settings: ['settings'] as const,
+  authConfig: ['auth-config'] as const,
+  vouchers: (productId?: string) => ['vouchers', productId] as const,
   me: ['me'] as const,
+  eligibility: (productId: string) => ['review-eligibility', productId] as const,
+  landing: (slug: string) => ['landing', slug] as const,
+  events: ['events'] as const,
   orders: ['orders'] as const,
 }
 
 export const useProducts = (categoryId?: string) =>
   useQuery({ queryKey: qk.products(categoryId), queryFn: () => getProducts({ categoryId }) })
 
-export const useProduct = (slug: string) =>
-  useQuery({ queryKey: qk.product(slug), queryFn: () => getProductBySlug(slug), retry: false, placeholderData: keepPreviousData })
+export const useProduct = (slug: string, opts: { enabled?: boolean } = {}) =>
+  useQuery({ queryKey: qk.product(slug), queryFn: () => getProductBySlug(slug), retry: false, placeholderData: keepPreviousData, enabled: opts.enabled ?? true })
 
 export const useProductNeighbors = (slug: string) =>
   useQuery({ queryKey: qk.neighbors(slug), queryFn: () => getProductNeighbors(slug), placeholderData: keepPreviousData })
@@ -60,13 +77,25 @@ export const useKolReviews = (productId?: string) =>
 
 export const useKolFeed = () => useQuery({ queryKey: qk.kolFeed, queryFn: getKolFeed })
 
-export const useProductReviews = (productId: string | undefined, sort: ReviewSort) =>
-  useQuery({
-    queryKey: qk.reviews(productId!, sort),
+export const useProductReviews = (productId: string | undefined, sort: ReviewSort) => {
+  // the viewer's likes are part of the response
+  const token = useSession((s) => s.token)
+  return useQuery({
+    queryKey: [...qk.reviews(productId!, sort), token],
     queryFn: () => getProductReviews(productId!, sort),
     enabled: !!productId,
     placeholderData: keepPreviousData,
   })
+}
+
+export function useReviewEligibility(productId?: string) {
+  const token = useSession((s) => s.token)
+  return useQuery({ queryKey: [...qk.eligibility(productId!), token], queryFn: () => getReviewEligibility(productId!), enabled: !!productId })
+}
+
+export const useLanding = (slug: string) => useQuery({ queryKey: qk.landing(slug), queryFn: () => getLanding(slug), retry: false })
+
+export const useActiveEvents = () => useQuery({ queryKey: qk.events, queryFn: getActiveEvents, staleTime: 5 * 60_000 })
 
 export const useRatingSummary = (productId?: string) =>
   useQuery({ queryKey: qk.ratingSummary(productId!), queryFn: () => getRatingSummary(productId!), enabled: !!productId })
@@ -103,9 +132,24 @@ export const useProductsByIds = (ids: string[]) =>
 
 export const useCommunityFeed = () => useQuery({ queryKey: qk.community, queryFn: getCommunityFeed })
 
-export const useCurrentUser = () => useQuery({ queryKey: qk.me, queryFn: getCurrentUser, staleTime: Infinity })
+export const useVouchers = (productId?: string) => useQuery({ queryKey: qk.vouchers(productId), queryFn: () => getVouchers(productId) })
 
-export const useMyOrders = () => useQuery({ queryKey: qk.orders, queryFn: getMyOrders })
+export const useNews = (limit?: number) => useQuery({ queryKey: qk.news(limit), queryFn: () => getNews(limit) })
+export const useNewsArticle = (slug: string) => useQuery({ queryKey: qk.newsArticle(slug), queryFn: () => getNewsArticle(slug), retry: false })
+export const useSettings = () => useQuery({ queryKey: qk.settings, queryFn: getSettings, staleTime: 10 * 60_000 })
+export const useAuthConfig = () => useQuery({ queryKey: qk.authConfig, queryFn: getAuthConfig, staleTime: Infinity })
+
+/** Signed-in customer (refreshed from the server; null when signed out). */
+export function useCurrentUser() {
+  const token = useSession((s) => s.token)
+  const cached = useSession((s) => s.user)
+  return useQuery({ queryKey: [...qk.me, token], queryFn: getCurrentUser, enabled: !!token, initialData: cached ?? undefined, staleTime: 60_000 })
+}
+
+export function useMyOrders() {
+  const token = useSession((s) => s.token)
+  return useQuery({ queryKey: [...qk.orders, token], queryFn: getMyOrders, enabled: !!token })
+}
 
 export function useCreateOrder() {
   const qc = useQueryClient()

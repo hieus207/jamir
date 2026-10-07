@@ -3,5 +3,5 @@ import { RecommendationSection } from '../recommendation/RecommendationSection'
 
 export function RelatedProducts({ productId, className }: { productId: string; className?: string }) {
   const { data, isPending } = useRelatedProducts(productId)
-  return <RecommendationSection title="Sản phẩm liên quan" products={data} loading={isPending} className={className} />
+  return <RecommendationSection title="Sản phẩm liên quan" products={data} loading={isPending} columns={4} className={className} />
 }

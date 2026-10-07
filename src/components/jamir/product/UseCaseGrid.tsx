@@ -3,8 +3,41 @@ import { Icon } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 import type { UseCase } from '@/types/domain'
 
-/** "Phù hợp với bạn nếu" — mobile: horizontal scroll, tablet: 2 cols, desktop: 3 cols. */
-export function UseCaseGrid({ useCases, className }: { useCases: UseCase[]; className?: string }) {
+/**
+ * "Phù hợp với bạn nếu"
+ * - `full`   : image cards (mobile scroll / tablet 2 cols / desktop 3 cols)
+ * - `compact`: icon tiles for the desktop right column (as in the reference design)
+ */
+export function UseCaseGrid({
+  useCases,
+  variant = 'full',
+  className,
+}: {
+  useCases: UseCase[]
+  variant?: 'full' | 'compact'
+  className?: string
+}) {
+  if (variant === 'compact')
+    return (
+      <Card className={className}>
+        <CardHeader className="pt-4">
+          <CardTitle className="text-base md:text-lg">Phù hợp với bạn nếu</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-3">
+          <ul className="grid grid-cols-4 gap-2">
+            {useCases.slice(0, 8).map((u) => (
+              <li key={u.id} className="group flex flex-col items-center gap-1.5 rounded-[12px] px-1 py-2 text-center transition-colors hover:bg-brand-50" title={u.description}>
+                <span className="flex size-11 items-center justify-center rounded-[12px] bg-brand-50 text-brand-600 transition-transform group-hover:-translate-y-0.5">
+                  <Icon name={u.icon} className="size-6" strokeWidth={1.8} />
+                </span>
+                <span className="text-[11px] leading-tight font-medium text-ink-soft">{u.title}</span>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+    )
+
   return (
     <Card className={className}>
       <CardHeader>

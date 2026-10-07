@@ -4,7 +4,7 @@ import type { ProductSummary } from '@/types/domain'
 
 export interface CartLine {
   key: string
-  product: Pick<ProductSummary, 'id' | 'slug' | 'name' | 'thumbnail' | 'price' | 'originalPrice' | 'stock'>
+  product: Pick<ProductSummary, 'id' | 'slug' | 'name' | 'thumbnail' | 'price' | 'originalPrice' | 'stock'> & { gifts?: string[] }
   colorId: string
   colorName: string
   colorHex: string

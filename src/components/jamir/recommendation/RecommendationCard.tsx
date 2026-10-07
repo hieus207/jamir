@@ -1,4 +1,4 @@
-import { Check, ShoppingCart, Star } from 'lucide-react'
+import { Check, Flame, ShoppingCart, Star } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 import { Link } from 'react-router'
@@ -9,7 +9,7 @@ import { useCartStore } from '@/stores/cartStore'
 import type { ProductSummary } from '@/types/domain'
 
 /** Product card: image, badge, name, rating, price, discount, quick add-to-cart. */
-export function RecommendationCard({ product, className }: { product: ProductSummary; className?: string }) {
+export function RecommendationCard({ product, size = 'md', className }: { product: ProductSummary; size?: 'md' | 'lg'; className?: string }) {
   const add = useCartStore((s) => s.add)
   const prefetch = usePrefetchProduct()
   const [added, setAdded] = useState(false)
@@ -53,14 +53,32 @@ export function RecommendationCard({ product, className }: { product: ProductSum
           className={cn('size-full object-cover transition-transform duration-500 group-hover:scale-105', soldOut && 'opacity-60 grayscale')}
         />
         {product.discount > 0 && (
-          <span className="absolute top-2 left-2 rounded-md bg-danger-strong px-1.5 py-0.5 text-[11px] font-bold text-white">-{product.discount}%</span>
+          <span
+            className={cn(
+              'badge-shine absolute top-2.5 left-2.5 animate-[badge-pulse_1.6s_ease-in-out_infinite] rounded-[10px] bg-gradient-to-br from-red-600 to-pink-500 font-extrabold text-white shadow-[0_6px_18px_-4px_rgb(220_38_38/0.75)] motion-reduce:animate-none',
+              size === 'lg' ? 'px-3 py-1.5 text-base md:text-lg' : 'px-2 py-1 text-sm',
+            )}
+          >
+            -{product.discount}%
+          </span>
+        )}
+        {product.highlight && (
+          <span
+            className={cn(
+              'badge-shine absolute top-2.5 right-2.5 inline-flex items-center gap-1 rounded-[10px] bg-gradient-to-r from-orange-500 to-amber-400 font-extrabold text-white shadow-[0_6px_18px_-4px_rgb(249_115_22/0.75)]',
+              size === 'lg' ? 'px-2.5 py-1.5 text-sm md:text-base' : 'px-2 py-1 text-xs',
+            )}
+          >
+            <Flame className="size-4 animate-pulse fill-yellow-200 motion-reduce:animate-none" aria-hidden="true" />
+            {product.highlight}
+          </span>
         )}
         {soldOut && (
           <span className="absolute inset-x-0 bottom-0 bg-ink/70 py-1 text-center text-xs font-semibold text-white">Tạm hết hàng</span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-1 p-3">
-        <h3 className="line-clamp-2 text-sm leading-snug font-semibold text-ink">
+      <div className={cn('flex flex-1 flex-col gap-1', size === 'lg' ? 'p-4' : 'p-3')}>
+        <h3 className={cn('line-clamp-2 leading-snug font-semibold text-ink', size === 'lg' ? 'text-base md:text-lg' : 'text-sm')}>
           <Link to={`/product/${product.slug}`} className="after:absolute after:inset-0 hover:text-brand-700">
             {product.name}
           </Link>
@@ -73,7 +91,7 @@ export function RecommendationCard({ product, className }: { product: ProductSum
         </p>
         <div className="mt-auto flex items-end justify-between gap-2 pt-1.5">
           <div className="min-w-0">
-            <p className="text-[15px] font-bold text-brand-700 tabular-nums">{formatPrice(product.price)}</p>
+            <p className={cn('font-bold text-brand-700 tabular-nums', size === 'lg' ? 'text-lg md:text-xl' : 'text-[15px]')}>{formatPrice(product.price)}</p>
             {product.originalPrice > product.price && (
               <p className="text-xs text-subtle line-through tabular-nums">{formatPrice(product.originalPrice)}</p>
             )}

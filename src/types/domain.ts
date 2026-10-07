@@ -49,6 +49,12 @@ export interface ProductVideo {
   comments: number
   shares: number
   tagline?: string
+  /** platform player (YouTube / TikTok / Facebook) — replaces `src` when set */
+  embedUrl?: string
+  source?: VideoSource
+  /** link pasted in the admin */
+  sourceUrl?: string
+  aspectRatio?: VideoAspect
 }
 
 export interface ShippingInfo {
@@ -61,6 +67,17 @@ export interface Guarantee {
   icon: IconName
   title: string
   description: string
+}
+
+/** Free gift shipped with the product (optional). */
+export interface ProductGift {
+  id: ID
+  name: string
+  image: string
+  /** retail value shown as "Trị giá …" */
+  value: number
+  /** hidden gifts stay in the admin but are not shown or shipped */
+  hidden?: boolean
 }
 
 export interface Product {
@@ -90,6 +107,8 @@ export interface Product {
   gallery: string[]
   shipping: ShippingInfo
   guarantees: Guarantee[]
+  /** hidden when empty */
+  gifts?: ProductGift[]
 }
 
 /** Lightweight shape used by cards, stories and search results. */
@@ -118,13 +137,49 @@ export interface Category {
   icon: IconName
 }
 
+export type StoryMediaType = 'video' | 'image'
+
+/** A Jamir Story — short media that links to a product (or any URL). */
 export interface Story {
   id: ID
   label: string
-  type: 'product' | 'category' | 'explore'
-  target: string
+  /** product slug the story promotes (optional) */
+  productSlug?: string
+  /** explicit link, used when there is no product (e.g. /explore, /news/...) */
+  link?: string
   thumbnail: string
+  media: { type: StoryMediaType; src: string; poster?: string; aspectRatio: VideoAspect }
+  caption?: string
+  /** higher shows first */
+  priority: number
+  active: boolean
   hot?: boolean
+  createdAt: string
+  /** optional gift promo shown while this story plays (text and/or image) */
+  gift?: StoryGift
+}
+
+export interface StoryGift {
+  enabled: boolean
+  text: string
+  image?: string
+}
+
+/** stories.json → { config, items } */
+export interface StoriesConfig {
+  /** seconds each story plays before auto-advancing */
+  intervalSeconds: number
+  /** 'random' = shuffle each cycle, 'priority' = priority order */
+  order: 'random' | 'priority'
+  /** start in "Xem tất cả" autoplay mode on first visit */
+  autoplay: boolean
+  /** home: start "Xem tất cả" after this many idle seconds (0 = off, default 10) */
+  idleSeconds?: number
+}
+
+export interface StoriesFeed {
+  config: StoriesConfig
+  items: Story[]
 }
 
 export interface Address {
@@ -138,20 +193,170 @@ export interface Address {
   isDefault: boolean
 }
 
+/** Public display identity (KOL or review author). */
 export interface User {
   id: ID
   name: string
   avatar: string
-  role: 'kol' | 'customer'
   verified: boolean
   followers?: number
   title?: string
+}
+
+export type AuthProvider = 'password' | 'google' | 'guest'
+export type Role = 'customer' | 'admin'
+
+/** A customer account as returned to its owner / to admins (never includes secrets). */
+export interface Customer {
+  id: ID
+  name: string
+  email?: string
   phone?: string
-  addresses?: Address[]
+  avatar?: string
+  provider: AuthProvider
+  role: Role
+  addresses: Address[]
+  createdAt: string
+  lastLoginAt?: string
+}
+
+export interface AuthSession {
+  token: string
+  user: Customer
+}
+
+/** Admin view: customer + order stats */
+export interface AdminCustomer extends Customer {
+  orderCount: number
+  totalSpent: number
+  lastOrderAt?: string
+  orders: Order[]
+}
+
+export type NewsLabel = 'popular' | 'trending' | 'hot' | 'new' | 'deal' | 'guide'
+
+export interface NewsArticle {
+  id: ID
+  slug: string
+  title: string
+  excerpt: string
+  cover: string
+  /** paragraphs separated by blank lines */
+  content: string
+  productSlug?: string
+  tags: string[]
+  author: string
+  publishedAt: string
+  published: boolean
+  /** 1 = featured first; empty = ordered by date */
+  priority?: number
+  labels?: NewsLabel[]
+}
+
+export type PromotionType = 'percent' | 'fixed' | 'freeship'
+
+export interface Promotion {
+  id: ID
+  code: string
+  description: string
+  type: PromotionType
+  /** percent (0-100) or VND amount; ignored for freeship */
+  value: number
+  minOrder: number
+  maxDiscount?: number
+  startsAt?: string
+  endsAt?: string
+  usageLimit?: number
+  used: number
+  active: boolean
+  /** limit to these products (empty = whole order) */
+  productIds?: string[]
+  /** show as a voucher chip on product pages / checkout */
+  public?: boolean
+}
+
+/** Public voucher info (no usage stats). */
+export type Voucher = Pick<Promotion, 'id' | 'code' | 'description' | 'type' | 'value' | 'minOrder' | 'maxDiscount' | 'endsAt' | 'productIds'> & {
+  /** uses left when the code has a usage limit */
+  remaining?: number
+}
+
+export interface PromotionCheck {
+  code: string
+  valid: boolean
+  message: string
+  discount: number
+  freeShipping: boolean
+}
+
+export interface SiteSettings {
+  hotline: string
+  zalo: string
+  email: string
+  kolContact: string
+  community: { zaloGroup: string; facebook: string; tiktok?: string }
+  address: string
+  /** anti-spam: at most `max` orders per phone / account / IP in `windowHours` (then blocked for windowHours) */
+  orderLimit?: { max: number; windowHours: number }
+}
+
+/** Ad landing page for one product (/lp/:slug). */
+export interface LandingPage {
+  id: ID
+  slug: string
+  productId: ID
+  active: boolean
+  headline: string
+  subheadline?: string
+  /** hero: product video by default, or this image / video */
+  heroMedia?: { type: 'image' | 'video'; src: string }
+  bullets: string[]
+  ctaText: string
+  badge?: string
+  /** optional sale countdown */
+  countdownEndsAt?: string
+  showKol: boolean
+  showReviews: boolean
+}
+
+export interface LandingPayload {
+  page: LandingPage
+  product: Product
+  reviews: CustomerReview[]
+  kol: KolReview[]
+}
+
+export type EventTargetType = 'product' | 'news' | 'video' | 'url'
+
+/** Promo popup shown between startsAt and endsAt. */
+export interface SiteEvent {
+  id: ID
+  title: string
+  image: string
+  description?: string
+  startsAt?: string
+  endsAt?: string
+  active: boolean
+  /** higher wins when several events overlap */
+  priority: number
+  target: { type: EventTargetType; value: string }
+  ctaText?: string
+  /** how often the same visitor sees it */
+  frequency: 'once' | 'daily' | 'session'
+}
+
+export interface AdminOverview {
+  customers: number
+  orders: number
+  revenue: number
+  products: number
+  stories: number
+  pendingOrders: number
+  recentOrders: (Order & { customerName: string })[]
 }
 
 export type VideoAspect = '16:9' | '9:16' | '1:1' | '4:5'
-export type VideoSource = 'tiktok' | 'youtube' | 'jamir'
+export type VideoSource = 'tiktok' | 'youtube' | 'facebook' | 'jamir'
 
 export interface KolReview {
   id: ID
@@ -165,11 +370,18 @@ export interface KolReview {
   source: VideoSource
   /** optional platform embed (e.g. https://www.tiktok.com/embed/v2/<id>) — takes precedence over videoSrc */
   embedUrl?: string
+  /** link pasted in the admin */
+  sourceUrl?: string
   duration: number
   views: number
   likes: number
   publishedAt: string
   kol: User
+}
+
+/** kol-reviews.json record (KOL referenced by id) */
+export interface KolVideoRecord extends Omit<KolReview, 'kol'> {
+  kolId: ID
 }
 
 export interface ReviewMedia {
@@ -191,6 +403,32 @@ export interface CustomerReview {
   media: ReviewMedia[]
   createdAt: string
   user: User
+  /** shown without avatar, name masked */
+  anonymous?: boolean
+  /** the signed-in viewer liked it */
+  likedByMe?: boolean
+  /** answer from the shop */
+  reply?: { content: string; createdAt: string }
+}
+
+/** How a reviewer's name is shown. */
+export type ReviewerDisplay = 'full' | 'nickname' | 'anonymous'
+
+/** Can the signed-in user review / like this product? */
+export interface ReviewEligibility {
+  signedIn: boolean
+  /** bought it (non-cancelled order) or is admin */
+  canReview: boolean
+  canLike: boolean
+  alreadyReviewed: boolean
+}
+
+export interface CreateReviewInput {
+  rating: number
+  content: string
+  colorId?: string
+  display: ReviewerDisplay
+  nickname?: string
 }
 
 export type ReviewSort = 'featured' | 'newest' | 'media'
@@ -209,6 +447,10 @@ export interface Faq {
   question: string
   answer: string
   answerCount: number
+  /** customer questions wait for an answer from the admin */
+  status?: 'answered' | 'pending'
+  askedBy?: string
+  createdAt?: string
 }
 
 export type ShippingMethodId = 'express' | 'standard' | 'economy'
@@ -241,17 +483,20 @@ export type OrderStatus = 'pending' | 'confirmed' | 'shipping' | 'delivered' | '
 export interface Order {
   id: ID
   userId: ID
-  items: OrderItem[]
-  addressId: ID
+  items: (OrderItem & { name?: string; colorName?: string; thumbnail?: string; gifts?: string[] })[]
+  address: Omit<Address, 'id' | 'isDefault' | 'label'>
   shippingMethod: ShippingMethodId
   paymentMethod: PaymentMethodId
   subtotal: number
   shippingFee: number
   discount: number
   total: number
+  promoCode?: string
   status: OrderStatus
   createdAt: string
   note?: string
+  /** used by the order rate limit (admin only) */
+  clientIp?: string
 }
 
 export interface CreateOrderInput {
@@ -260,6 +505,9 @@ export interface CreateOrderInput {
   shippingMethod: ShippingMethodId
   paymentMethod: PaymentMethodId
   note?: string
+  promoCode?: string
+  /** guest checkout: contact used to create/find the customer record */
+  email?: string
 }
 
 export interface ProductNeighbors {

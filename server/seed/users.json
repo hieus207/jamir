@@ -1,0 +1,68 @@
+[
+  {
+    "id": "c-demo1",
+    "name": "Nguyễn Hoàng Long",
+    "email": "long.nguyen@example.com",
+    "phone": "0912345678",
+    "avatar": "/media/avatars/m6.jpg",
+    "provider": "password",
+    "role": "customer",
+    "addresses": [
+      {
+        "id": "addr-1",
+        "label": "Nhà riêng",
+        "recipient": "Nguyễn Hoàng Long",
+        "phone": "0912345678",
+        "line": "25 Lý Thường Kiệt, P. Hàng Bài",
+        "district": "Q. Hoàn Kiếm",
+        "city": "Hà Nội",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-09-20T08:12:00.000Z",
+    "lastLoginAt": "2026-10-04T10:30:00.000Z"
+  },
+  {
+    "id": "c-demo2",
+    "name": "Trần Minh Anh",
+    "email": "minhanh.tran@gmail.com",
+    "phone": "0987654321",
+    "avatar": "/media/avatars/w5.jpg",
+    "provider": "google",
+    "role": "customer",
+    "addresses": [
+      {
+        "id": "addr-c2",
+        "label": "Nhà riêng",
+        "recipient": "Trần Minh Anh",
+        "phone": "0987654321",
+        "line": "120 Nguyễn Văn Linh, P. Tân Phong",
+        "district": "Quận 7",
+        "city": "TP. Hồ Chí Minh",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-09-27T14:02:00.000Z",
+    "lastLoginAt": "2026-10-06T21:15:00.000Z"
+  },
+  {
+    "id": "c-demo3",
+    "name": "Lê Thu Hương",
+    "phone": "0905111222",
+    "provider": "guest",
+    "role": "customer",
+    "addresses": [
+      {
+        "id": "addr-c3",
+        "label": "Giao hàng",
+        "recipient": "Lê Thu Hương",
+        "phone": "0905111222",
+        "line": "45 Bạch Đằng",
+        "district": "Q. Hải Châu",
+        "city": "Đà Nẵng",
+        "isDefault": true
+      }
+    ],
+    "createdAt": "2026-10-05T09:40:00.000Z"
+  }
+]

@@ -1,31 +1,32 @@
-import { Compass, Heart, ShoppingCart, UsersRound } from 'lucide-react'
+import { Compass, LayoutDashboard, LogOut, ShoppingCart, UserRound, UsersRound } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
+import { Avatar } from '@/components/ui/avatar'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { toast } from '@/components/ui/toast'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { selectCartCount, useCartStore } from '@/stores/cartStore'
 import { useUiStore } from '@/stores/uiStore'
-import { useWishlistStore } from '@/stores/wishlistStore'
 import { Logo } from '../brand/Logo'
-import { useAuthDialog } from '../auth/authStore'
+import { useAuthDialog, useSession } from '../auth/authStore'
 import { SearchBox } from './SearchBox'
 
 const NAV = [
   { to: '/explore', label: 'Khám phá', icon: Compass },
-  { to: '/wishlist', label: 'Yêu thích', icon: Heart },
   { to: '/community', label: 'Cộng đồng', icon: UsersRound },
 ]
 
 /** Desktop / tablet header (≥ md). */
 export function Header() {
-  const wishCount = useWishlistStore((s) => s.ids.length)
   const openAuth = useAuthDialog((s) => s.show)
+  const user = useSession((s) => s.user)
 
   return (
     <header className="sticky top-0 z-40 hidden border-b border-line/70 bg-surface/85 backdrop-blur-xl md:block">
       <div className="container-page flex h-[68px] items-center gap-6">
         <Logo />
-        <SearchBox className="max-w-[440px] flex-1" />
+        <SearchBox className="max-w-[400px] min-w-0 flex-1" />
         <nav aria-label="Điều hướng chính" className="ml-auto flex items-center gap-1">
           {NAV.map(({ to, label, icon: Icon }) => (
             <NavLink
@@ -33,30 +34,72 @@ export function Header() {
               to={to}
               className={({ isActive }) =>
                 cn(
-                  'relative hidden items-center gap-2 rounded-[10px] px-3 py-2 text-sm font-semibold transition-colors lg:inline-flex',
+                  'relative hidden items-center gap-2 rounded-[10px] px-2.5 py-2 text-sm font-semibold whitespace-nowrap transition-colors lg:inline-flex',
                   isActive ? 'text-brand-700' : 'text-ink-soft hover:bg-line-soft hover:text-ink',
                 )
               }
             >
               <Icon className="size-[18px]" aria-hidden="true" />
               {label}
-              {to === '/wishlist' && wishCount > 0 && (
-                <span className="absolute top-1 left-6 size-2 rounded-full bg-danger-strong ring-2 ring-surface" aria-hidden="true" />
-              )}
             </NavLink>
           ))}
           <CartButton />
         </nav>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="md" className="px-5" onClick={() => openAuth('login')}>
-            Đăng nhập
-          </Button>
-          <Button variant="solid" size="md" className="px-5" onClick={() => openAuth('register')}>
-            Đăng ký
-          </Button>
-        </div>
+        {user ? (
+          <UserMenu />
+        ) : (
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="md" className="px-4" onClick={() => openAuth('login')}>
+              Đăng nhập
+            </Button>
+            <Button variant="solid" size="md" className="px-4" onClick={() => openAuth('register')}>
+              Đăng ký
+            </Button>
+          </div>
+        )}
       </div>
     </header>
+  )
+}
+
+function UserMenu() {
+  const { user, logout } = useSession()
+  const navigate = useNavigate()
+  if (!user) return null
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger className="flex cursor-pointer items-center gap-2 rounded-full py-1 pr-3 pl-1 transition-colors hover:bg-line-soft">
+        <Avatar src={user.avatar} name={user.name} className="size-9" />
+        <span className="hidden max-w-28 truncate text-sm font-semibold xl:inline">{user.name}</span>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56">
+        <div className="px-2.5 py-2">
+          <p className="truncate text-sm font-semibold">{user.name}</p>
+          <p className="truncate text-xs text-muted">{user.email ?? user.phone}</p>
+        </div>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => navigate('/account')}>
+          <UserRound />
+          Tài khoản & đơn hàng
+        </DropdownMenuItem>
+        {user.role === 'admin' && (
+          <DropdownMenuItem onClick={() => navigate('/admin')}>
+            <LayoutDashboard />
+            Trang quản trị
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            logout()
+            toast.info('Đã đăng xuất')
+          }}
+        >
+          <LogOut />
+          Đăng xuất
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

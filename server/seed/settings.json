@@ -1,0 +1,16 @@
+{
+  "hotline": "0901 234 567",
+  "zalo": "https://zalo.me/0901234567",
+  "email": "hotro@jamir.vn",
+  "kolContact": "https://zalo.me/0901234568",
+  "address": "Tầng 12, 54 Liễu Giai, Ba Đình, Hà Nội",
+  "community": {
+    "zaloGroup": "https://zalo.me/g/jamir-community",
+    "facebook": "https://facebook.com/groups/jamir.vn",
+    "tiktok": "https://tiktok.com/@jamir.vn"
+  },
+  "orderLimit": {
+    "max": 5,
+    "windowHours": 8
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "config": {
+    "intervalSeconds": 20,
+    "order": "random",
+    "autoplay": true
+  },
+  "items": [
+    {
+      "id": "st-tai-nghe-pro-x1",
+      "label": "Tai nghe Pro X1",
+      "productSlug": "tai-nghe-pro-x1",
+      "thumbnail": "/media/products/tai-nghe-pro-x1/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/tai-nghe-pro-x1.mp4",
+        "poster": "/media/videos/tai-nghe-pro-x1-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Chống ồn ANC -35dB — tĩnh lặng tuyệt đối trên mọi chuyến đi.",
+      "priority": 100,
+      "active": true,
+      "hot": false,
+      "createdAt": "2026-10-01T08:00:00.000Z"
+    },
+    {
+      "id": "st-loa-mini-s2",
+      "label": "Loa Mini S2",
+      "productSlug": "loa-mini-s2",
+      "thumbnail": "/media/products/loa-mini-s2/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/loa-mini-s2.mp4",
+        "poster": "/media/videos/loa-mini-s2-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Nhỏ gọn. Âm thanh lớn. Chống nước IPX7.",
+      "priority": 90,
+      "active": true,
+      "hot": true,
+      "createdAt": "2026-10-02T08:00:00.000Z"
+    },
+    {
+      "id": "st-sac-gan-65w",
+      "label": "Sạc GaN 65W",
+      "productSlug": "sac-gan-65w",
+      "thumbnail": "/media/products/sac-gan-65w/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/sac-gan-65w.mp4",
+        "poster": "/media/videos/sac-gan-65w-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Củ sạc GaN 3 cổng 65W nhỏ như củ sạc điện thoại — sạc laptop, điện thoại, tai nghe cùng lúc.",
+      "priority": 80,
+      "active": true,
+      "hot": false,
+      "createdAt": "2026-10-03T08:00:00.000Z"
+    },
+    {
+      "id": "st-tai-nghe-airbuds",
+      "label": "Tai nghe AirBuds",
+      "productSlug": "tai-nghe-airbuds",
+      "thumbnail": "/media/products/tai-nghe-airbuds/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/tai-nghe-airbuds.mp4",
+        "poster": "/media/videos/tai-nghe-airbuds-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Đeo cả ngày vẫn êm — pin tổng 28 giờ.",
+      "priority": 85,
+      "active": true,
+      "hot": true,
+      "createdAt": "2026-10-04T08:00:00.000Z"
+    },
+    {
+      "id": "st-pin-du-phong-20000",
+      "label": "Pin dự phòng",
+      "productSlug": "pin-du-phong-20000",
+      "thumbnail": "/media/products/pin-du-phong-20000/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/pin-du-phong-20000.mp4",
+        "poster": "/media/videos/pin-du-phong-20000-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Dung lượng 20.000mAh sạc điện thoại 4–5 lần, sạc nhanh 22.5W, màn hình LED hiển thị % pin.",
+      "priority": 70,
+      "active": true,
+      "hot": false,
+      "createdAt": "2026-10-05T08:00:00.000Z"
+    },
+    {
+      "id": "st-camera-home-c2",
+      "label": "Nhà thông minh",
+      "productSlug": "camera-home-c2",
+      "thumbnail": "/media/products/camera-home-c2/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/camera-home-c2.mp4",
+        "poster": "/media/videos/camera-home-c2-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Camera 2K xoay 360° — ngôi nhà luôn trong tầm mắt.",
+      "priority": 60,
+      "active": true,
+      "hot": false,
+      "createdAt": "2026-10-06T08:00:00.000Z"
+    },
+    {
+      "id": "st-cap-usb-c-240w",
+      "label": "Cáp USB-C",
+      "productSlug": "cap-usb-c-240w",
+      "thumbnail": "/media/products/cap-usb-c-240w/thumb.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/videos/cap-usb-c-240w.mp4",
+        "poster": "/media/videos/cap-usb-c-240w-poster.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Cáp USB-C bện dù siêu bền, hỗ trợ sạc 240W và truyền dữ liệu 40Gbps, dài 1.5m.",
+      "priority": 50,
+      "active": true,
+      "hot": false,
+      "createdAt": "2026-10-07T08:00:00.000Z"
+    },
+    {
+      "id": "st-tips",
+      "label": "Tips & Hướng dẫn",
+      "link": "/explore",
+      "thumbnail": "/media/kol/v2.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/kol/v2.mp4",
+        "poster": "/media/kol/v2.jpg",
+        "aspectRatio": "9:16"
+      },
+      "caption": "Mẹo dùng tai nghe, loa và sạc nhanh từ KOL JAMIR.",
+      "priority": 40,
+      "active": true,
+      "createdAt": "2026-10-01T08:00:00.000Z"
+    },
+    {
+      "id": "st-audio",
+      "label": "Âm thanh",
+      "link": "/shop?category=tai-nghe",
+      "thumbnail": "/media/kol/v1.jpg",
+      "media": {
+        "type": "video",
+        "src": "/media/kol/v1.mp4",
+        "poster": "/media/kol/v1.jpg",
+        "aspectRatio": "9:16"
+      },
+      "caption": "Tai nghe & loa đang hot nhất tuần.",
+      "priority": 30,
+      "active": true,
+      "createdAt": "2026-10-01T08:00:00.000Z"
+    },
+    {
+      "id": "st-accessory",
+      "label": "Phụ kiện",
+      "link": "/shop?category=sac-cap",
+      "thumbnail": "/media/products/sac-gan-65w/2.jpg",
+      "media": {
+        "type": "image",
+        "src": "/media/products/sac-gan-65w/2.jpg",
+        "aspectRatio": "16:9"
+      },
+      "caption": "Sạc, cáp, pin dự phòng — giảm đến 25%.",
+      "priority": 20,
+      "active": true,
+      "createdAt": "2026-10-01T08:00:00.000Z"
+    }
+  ]
+}

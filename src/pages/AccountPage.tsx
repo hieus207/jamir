@@ -1,11 +1,12 @@
-import { MapPin, Package } from 'lucide-react'
+import { LayoutDashboard, LogOut, MapPin, Package, UserRound } from 'lucide-react'
 import { useEffect } from 'react'
-import { useAuthDialog } from '@/components/jamir/auth/authStore'
+import { Link } from 'react-router'
+import { useAuthDialog, useSession } from '@/components/jamir/auth/authStore'
 import { PageHeader } from '@/components/jamir/layout/PageHeader'
 import { StateBlock } from '@/components/jamir/layout/PageStates'
 import { Avatar } from '@/components/ui/avatar'
 import { Badge, type BadgeProps } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useCurrentUser, useMyOrders, useProducts } from '@/hooks/queries'
@@ -28,10 +29,32 @@ export default function AccountPage() {
   const { data: orders, isPending } = useMyOrders()
   const { data: products } = useProducts()
   const showAuth = useAuthDialog((s) => s.show)
+  const signedIn = useSession((s) => !!s.token)
+  const logout = useSession((s) => s.logout)
   useEffect(() => {
     document.title = 'Tài khoản — JAMIR'
   }, [])
   const product = (id: string) => products?.find((p) => p.id === id)
+
+  if (!signedIn)
+    return (
+      <div className="container-page pt-4 pb-10 md:pt-6">
+        <PageHeader title="Tài khoản" />
+        <StateBlock
+          icon={UserRound}
+          title="Bạn chưa đăng nhập"
+          description="Đăng nhập bằng tài khoản JAMIR hoặc Google để xem đơn hàng và sổ địa chỉ."
+          action={
+            <div className="flex gap-2">
+              <Button onClick={() => showAuth('login')}>Đăng nhập</Button>
+              <Button variant="outline" onClick={() => showAuth('register')}>
+                Đăng ký
+              </Button>
+            </div>
+          }
+        />
+      </div>
+    )
 
   return (
     <div className="container-page flex flex-col gap-5 pt-4 pb-10 md:pt-6">
@@ -41,10 +64,20 @@ export default function AccountPage() {
           <Avatar src={me?.avatar} name={me?.name ?? 'J'} className="size-14" />
           <div className="min-w-0 flex-1">
             <p className="text-lg font-bold">{me?.name ?? '…'}</p>
-            <p className="text-sm text-muted">{me?.phone} · Tài khoản demo</p>
+            <p className="text-sm text-muted">
+              {[me?.phone, me?.email].filter(Boolean).join(' · ')}
+              {me?.provider === 'google' && ' · Google'}
+            </p>
           </div>
-          <Button variant="outline" size="sm" onClick={() => showAuth('login')}>
-            Đăng nhập
+          {me?.role === 'admin' && (
+            <Link to="/admin" className={buttonVariants({ variant: 'secondary', size: 'sm' })}>
+              <LayoutDashboard />
+              <span className="hidden sm:inline">Quản trị</span>
+            </Link>
+          )}
+          <Button variant="outline" size="sm" onClick={logout}>
+            <LogOut />
+            <span className="hidden sm:inline">Đăng xuất</span>
           </Button>
         </CardContent>
       </Card>
@@ -95,6 +128,7 @@ export default function AccountPage() {
             <CardTitle>Sổ địa chỉ</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-3">
+            {!me?.addresses?.length && <p className="text-sm text-muted">Địa chỉ được lưu tự động khi bạn đặt hàng.</p>}
             {me?.addresses?.map((a) => (
               <div key={a.id} className="flex gap-3 rounded-[14px] bg-canvas p-3 text-sm">
                 <MapPin className="mt-0.5 size-5 shrink-0 text-brand-600" aria-hidden="true" />

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ev-sale-1010",
+    "title": "Siêu sale 10.10: giảm đến 25%",
+    "image": "/media/banners/hero-2.jpg",
+    "description": "Loa Mini S2 và phụ kiện âm thanh giảm sâu, chỉ trong tuần này.",
+    "active": true,
+    "priority": 10,
+    "frequency": "daily",
+    "ctaText": "Xem ngay",
+    "target": {
+      "type": "product",
+      "value": "loa-mini-s2"
+    }
+  }
+]

@@ -1,15 +1,14 @@
 import Autoplay from 'embla-carousel-autoplay'
 import { ArrowRight, BadgeCheck, Play, RefreshCw, Truck } from 'lucide-react'
 import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router'
-import { PageHeader } from '@/components/jamir/layout/PageHeader'
-import { CategoryNavigation } from '@/components/jamir/navigation/CategoryNavigation'
-import { ProductStories } from '@/components/jamir/navigation/ProductStories'
-import { KolVideoGrid } from '@/components/jamir/recommendation/KolVideoGrid'
-import { ProductGrid } from '@/components/jamir/recommendation/ProductGrid'
+import { Link } from 'react-router'
+import { NewsSection } from '@/components/jamir/news/NewsSection'
+import { RecommendationSection } from '@/components/jamir/recommendation/RecommendationSection'
+import { StoriesHero } from '@/components/jamir/stories/StoriesHero'
+import { KolHotSection } from '@/components/jamir/recommendation/KolHotSection'
 import { buttonVariants } from '@/components/ui/button'
 import { Carousel, CarouselContent, CarouselDots, CarouselItem } from '@/components/ui/carousel'
-import { useKolFeed, useRecommendedForYou } from '@/hooks/queries'
+import { useRecommendedForYou } from '@/hooks/queries'
 
 const BANNERS = [
   {
@@ -43,9 +42,7 @@ const USPS = [
 ]
 
 export default function HomePage() {
-  const navigate = useNavigate()
   const forYou = useRecommendedForYou()
-  const kol = useKolFeed()
   useEffect(() => {
     document.title = 'JAMIR — Mua sắm công nghệ qua video'
   }, [])
@@ -53,6 +50,7 @@ export default function HomePage() {
   return (
     <div className="container-page flex flex-col gap-8 pt-3 pb-10 md:gap-10 md:pt-5">
       <h1 className="sr-only">JAMIR — Mua sắm công nghệ qua video</h1>
+      <StoriesHero />
       <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]} aria-label="Ưu đãi nổi bật">
         <CarouselContent>
           {BANNERS.map((b, i) => (
@@ -95,31 +93,17 @@ export default function HomePage() {
         ))}
       </ul>
 
-      <ProductStories />
+      <KolHotSection count={5} />
 
-      <section className="flex flex-col gap-4">
-        <PageHeader as="h2" title={<span className="text-xl md:text-2xl">Danh mục</span>} />
-        <CategoryNavigation value={null} onChange={(id) => navigate(id ? `/shop?category=${id}` : '/shop')} />
-      </section>
+      <NewsSection />
 
-      <section className="flex flex-col gap-4">
-        <PageHeader
-          as="h2"
-          title={<span className="text-xl md:text-2xl">Video hot từ KOL</span>}
-          description="Review thật — xem trước khi mua"
-          aside={
-            <Link to="/explore" className="flex items-center gap-1 text-sm font-semibold text-brand-700">
-              Xem tất cả <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          }
-        />
-        <KolVideoGrid videos={kol.data?.slice(0, 4)} loading={kol.isPending} />
-      </section>
-
-      <section className="flex flex-col gap-4">
-        <PageHeader as="h2" title={<span className="text-xl md:text-2xl">Gợi ý cho bạn</span>} description="Chọn lọc từ những sản phẩm được yêu thích nhất" />
-        <ProductGrid products={forYou.data} loading={forYou.isPending} />
-      </section>
+      <RecommendationSection
+        title="Gợi ý cho bạn"
+        description="Chọn lọc từ những sản phẩm được yêu thích nhất"
+        products={forYou.data}
+        loading={forYou.isPending}
+        autoplayMs={5000}
+      />
     </div>
   )
 }

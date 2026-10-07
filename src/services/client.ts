@@ -1,18 +1,13 @@
 /**
- * Data source switch.
+ * HTTP client for the JAMIR REST API.
  *
- * - No VITE_API_BASE_URL → every service resolves against the bundled JSON mock
- *   (with a small artificial latency so loading states are visible).
- * - VITE_API_BASE_URL set (e.g. https://api.jamir.vn/v1) → the same service
- *   functions call the REST backend instead. The UI never knows the difference.
+ * Every service calls get/post/put/del with a path; the base URL comes from
+ * VITE_API_BASE_URL (default "/api", proxied by Vite in dev and nginx in prod).
+ * Swapping the Node/JSON backend for Spring Boot + MariaDB only requires the
+ * new backend to serve the same endpoints.
  */
 
-import { loadDb } from './db'
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string | undefined
-const MOCK_LATENCY = Number(import.meta.env.VITE_MOCK_LATENCY ?? 350)
-
-export const isRemote = Boolean(API_BASE_URL)
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? '/api'
 
 export class ApiError extends Error {
   readonly status: number
@@ -32,41 +27,50 @@ export class NotFoundError extends ApiError {
 
 type Query = Record<string, string | number | boolean | undefined>
 
-function buildUrl(path: string, query?: Query) {
-  const url = new URL(path.replace(/^\//, ''), API_BASE_URL!.replace(/\/?$/, '/'))
-  if (query)
-    for (const [key, value] of Object.entries(query))
-      if (value !== undefined) url.searchParams.set(key, String(value))
-  return url
+/** Session token provider (set by the auth store; avoids a circular import). */
+let tokenProvider: () => string | null = () => null
+export const setTokenProvider = (fn: () => string | null) => {
+  tokenProvider = fn
+}
+let onUnauthorized: () => void = () => {}
+export const setUnauthorizedHandler = (fn: () => void) => {
+  onUnauthorized = fn
 }
 
-async function http<T>(method: string, path: string, opts: { query?: Query; body?: unknown } = {}) {
+function buildUrl(path: string, query?: Query) {
+  const qs = new URLSearchParams()
+  if (query) for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== '') qs.set(k, String(v))
+  const s = qs.toString()
+  return `${API_BASE_URL.replace(/\/$/, '')}${path}${s ? `?${s}` : ''}`
+}
+
+export async function request<T>(
+  method: string,
+  path: string,
+  opts: { query?: Query; body?: unknown; raw?: BodyInit; headers?: Record<string, string> } = {},
+): Promise<T> {
+  const token = tokenProvider()
   const res = await fetch(buildUrl(path, opts.query), {
     method,
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: opts.body === undefined ? undefined : JSON.stringify(opts.body),
+    headers: {
+      Accept: 'application/json',
+      ...(opts.body !== undefined ? { 'Content-Type': 'application/json' } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      ...opts.headers,
+    },
+    body: opts.raw ?? (opts.body === undefined ? undefined : JSON.stringify(opts.body)),
   })
-  if (res.status === 404) throw new NotFoundError()
-  if (!res.ok) throw new ApiError(`Request failed: ${res.status}`, res.status)
-  return (await res.json()) as T
+  if (res.status === 204) return undefined as T
+  const data = (await res.json().catch(() => ({}))) as { error?: string }
+  if (!res.ok) {
+    if (res.status === 401 && token) onUnauthorized()
+    if (res.status === 404) throw new NotFoundError(data.error)
+    throw new ApiError(data.error ?? `Lỗi ${res.status}`, res.status)
+  }
+  return data as T
 }
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-/** structuredClone so callers can never mutate the in-memory "database". */
-async function mock<T>(resolve: () => T | undefined, latency = MOCK_LATENCY): Promise<T> {
-  await Promise.all([loadDb(), sleep(latency * (0.6 + Math.random() * 0.8))])
-  const value = resolve()
-  if (value === undefined) throw new NotFoundError()
-  return structuredClone(value)
-}
-
-/** GET from the backend, or resolve the same resource from mock JSON. */
-export function get<T>(path: string, fallback: () => T | undefined, query?: Query): Promise<T> {
-  return isRemote ? http<T>('GET', path, { query }) : mock(fallback)
-}
-
-/** POST to the backend, or run the mock mutation. */
-export function post<T>(path: string, body: unknown, fallback: () => T): Promise<T> {
-  return isRemote ? http<T>('POST', path, { body }) : mock(fallback, MOCK_LATENCY * 2)
-}
+export const get = <T>(path: string, query?: Query) => request<T>('GET', path, { query })
+export const post = <T>(path: string, body?: unknown) => request<T>('POST', path, { body: body ?? {} })
+export const put = <T>(path: string, body: unknown) => request<T>('PUT', path, { body })
+export const del = (path: string) => request<void>('DELETE', path)

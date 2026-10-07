@@ -7,6 +7,8 @@ import { CartSheet } from '../checkout/CartSheet'
 import { BottomNavigation } from '../navigation/BottomNavigation'
 import { Header } from '../navigation/Header'
 import { MobileHeader } from '../navigation/MobileHeader'
+import { StoryModeController } from '../stories/StoryModeController'
+import { EventPopup } from './EventPopup'
 import { Footer } from './Footer'
 import { PageFallback } from './PageStates'
 
@@ -28,6 +30,8 @@ export function AppLayout() {
   // product → product uses the swipe slide instead
   const onProduct = useMatch('/product/:slug')
   const pageKey = onProduct ? 'product' : pathname
+  // ad landing pages: no site navigation
+  const bare = !!useMatch('/lp/:slug')
   return (
     <div className="flex min-h-dvh flex-col">
       <a
@@ -36,8 +40,8 @@ export function AppLayout() {
       >
         Bỏ qua đến nội dung chính
       </a>
-      <Header />
-      <MobileHeader />
+      {!bare && <Header />}
+      {!bare && <MobileHeader />}
       <main id="main" className="flex-1">
         <Suspense fallback={<PageFallback />}>
           <motion.div
@@ -50,16 +54,18 @@ export function AppLayout() {
           </motion.div>
         </Suspense>
       </main>
-      <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />
-      {!onProduct && <BottomNavigation />}
+      {!bare && <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
+      {!onProduct && !bare && <BottomNavigation />}
+      <EventPopup />
       <MountOnce when={authOpen}>
         <AuthDialog />
       </MountOnce>
+      <StoryModeController />
       <CartSheet />
       <MountOnce when={checkoutOpen}>
         <CheckoutSheet />
       </MountOnce>
-      <ScrollRestoration getKey={(location) => location.pathname} />
+      <ScrollRestoration getKey={(location) => ((location.state as { story?: boolean } | null)?.story ? location.key : location.pathname)} />
     </div>
   )
 }

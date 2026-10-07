@@ -1,0 +1,141 @@
+[
+  {
+    "id": "JM2609281042",
+    "userId": "c-demo1",
+    "items": [
+      {
+        "productId": "prox1-001",
+        "colorId": "cream",
+        "quantity": 1,
+        "unitPrice": 599000,
+        "name": "Tai nghe Pro X1",
+        "colorName": "Kem",
+        "thumbnail": "/media/products/tai-nghe-pro-x1/thumb.jpg"
+      }
+    ],
+    "address": {
+      "recipient": "Nguyễn Hoàng Long",
+      "phone": "0912345678",
+      "line": "25 Lý Thường Kiệt, P. Hàng Bài",
+      "district": "Q. Hoàn Kiếm",
+      "city": "Hà Nội"
+    },
+    "shippingMethod": "express",
+    "paymentMethod": "cod",
+    "subtotal": 599000,
+    "shippingFee": 30000,
+    "discount": 0,
+    "total": 629000,
+    "status": "delivered",
+    "createdAt": "2026-09-28T03:42:00.000Z"
+  },
+  {
+    "id": "JM2610041733",
+    "userId": "c-demo1",
+    "items": [
+      {
+        "productId": "gan65-001",
+        "colorId": "white",
+        "quantity": 1,
+        "unitPrice": 399000,
+        "name": "Sạc GaN 65W",
+        "colorName": "Trắng",
+        "thumbnail": "/media/products/sac-gan-65w/thumb.jpg"
+      },
+      {
+        "productId": "cable240-001",
+        "colorId": "black",
+        "quantity": 2,
+        "unitPrice": 149000,
+        "name": "Cáp USB-C 240W",
+        "colorName": "Đen",
+        "thumbnail": "/media/products/cap-usb-c-240w/thumb.jpg"
+      }
+    ],
+    "address": {
+      "recipient": "Nguyễn Hoàng Long",
+      "phone": "0912345678",
+      "line": "25 Lý Thường Kiệt, P. Hàng Bài",
+      "district": "Q. Hoàn Kiếm",
+      "city": "Hà Nội"
+    },
+    "shippingMethod": "standard",
+    "paymentMethod": "ewallet",
+    "subtotal": 697000,
+    "shippingFee": 18000,
+    "discount": 50000,
+    "total": 665000,
+    "status": "shipping",
+    "createdAt": "2026-10-04T10:33:00.000Z",
+    "promoCode": "GIAM50K"
+  },
+  {
+    "id": "JM2610062118",
+    "userId": "c-demo2",
+    "items": [
+      {
+        "productId": "loa-s2-001",
+        "colorId": "lilac",
+        "quantity": 1,
+        "unitPrice": 449000,
+        "name": "Loa Mini S2",
+        "colorName": "Tím",
+        "thumbnail": "/media/products/loa-mini-s2/thumb.jpg"
+      },
+      {
+        "productId": "airbuds-001",
+        "colorId": "pink",
+        "quantity": 1,
+        "unitPrice": 299000,
+        "name": "Tai nghe AirBuds",
+        "colorName": "Hồng",
+        "thumbnail": "/media/products/tai-nghe-airbuds/thumb.jpg"
+      }
+    ],
+    "address": {
+      "recipient": "Trần Minh Anh",
+      "phone": "0987654321",
+      "line": "120 Nguyễn Văn Linh, P. Tân Phong",
+      "district": "Quận 7",
+      "city": "TP. Hồ Chí Minh"
+    },
+    "shippingMethod": "express",
+    "paymentMethod": "card",
+    "subtotal": 748000,
+    "shippingFee": 30000,
+    "discount": 0,
+    "total": 778000,
+    "status": "confirmed",
+    "createdAt": "2026-10-06T14:18:00.000Z"
+  },
+  {
+    "id": "JM2610050940",
+    "userId": "c-demo3",
+    "items": [
+      {
+        "productId": "camc2-001",
+        "colorId": "white",
+        "quantity": 2,
+        "unitPrice": 549000,
+        "name": "Camera Home C2",
+        "colorName": "Trắng",
+        "thumbnail": "/media/products/camera-home-c2/thumb.jpg"
+      }
+    ],
+    "address": {
+      "recipient": "Lê Thu Hương",
+      "phone": "0905111222",
+      "line": "45 Bạch Đằng",
+      "district": "Q. Hải Châu",
+      "city": "Đà Nẵng"
+    },
+    "shippingMethod": "economy",
+    "paymentMethod": "cod",
+    "subtotal": 1098000,
+    "shippingFee": 0,
+    "discount": 0,
+    "total": 1098000,
+    "status": "pending",
+    "createdAt": "2026-10-05T02:40:00.000Z"
+  }
+]

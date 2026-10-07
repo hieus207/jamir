@@ -13,6 +13,7 @@ export const isVertical = (a: VideoAspect) => aspectValue(a) < 1
 const SOURCE: Record<Exclude<VideoSource, 'jamir'>, { label: string; className: string; icon: typeof Play }> = {
   tiktok: { label: 'TikTok', className: 'bg-black/75 text-white', icon: Music2 },
   youtube: { label: 'YouTube', className: 'bg-[#cc0000] text-white', icon: Play },
+  facebook: { label: 'Facebook', className: 'bg-[#1877f2] text-white', icon: Play },
 }
 
 export function SourceBadge({ source, className }: { source: VideoSource; className?: string }) {

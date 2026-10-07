@@ -1,13 +1,15 @@
 import type {
+  AuthSession,
   CreateOrderInput,
+  Customer,
   Order,
   PaymentMethod,
+  PromotionCheck,
   ShippingMethod,
   ShippingMethodId,
-  User,
+  Voucher,
 } from '@/types/domain'
 import { get, post } from './client'
-import { db } from './db'
 
 export const SHIPPING_METHODS: ShippingMethod[] = [
   { id: 'express', name: 'Hỏa tốc 4h', description: 'Nội thành Hà Nội & TP.HCM', fee: 30000, eta: 'Nhận trong hôm nay' },
@@ -22,42 +24,25 @@ export const PAYMENT_METHODS: PaymentMethod[] = [
   { id: 'applepay', name: 'Apple Pay', description: 'Thanh toán nhanh bằng Face ID', icon: 'smartphone' },
 ]
 
+/** Display estimate — the server recomputes the real fee when the order is placed. */
 export function getShippingFee(method: ShippingMethodId, subtotal: number) {
   if (method === 'economy') return subtotal >= 300000 ? 0 : 15000
   return SHIPPING_METHODS.find((s) => s.id === method)?.fee ?? 0
 }
 
-export function getCurrentUser(): Promise<User> {
-  return get('/me', () => db.users.find((u) => u.id === 'u-me'))
-}
+export const createOrder = (input: CreateOrderInput) => post<Order>('/orders', input)
 
-export function getMyOrders(): Promise<Order[]> {
-  return get('/me/orders', () => db.orders.filter((o) => o.userId === 'u-me'))
-}
+export const validatePromotion = (code: string, items: { productId: string; quantity: number }[], shippingFee: number) =>
+  post<PromotionCheck>('/promotions/validate', { code, items, shippingFee })
 
-export function createOrder(input: CreateOrderInput): Promise<Order> {
-  return post('/orders', input, () => {
-    const subtotal = input.items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0)
-    const shippingFee = getShippingFee(input.shippingMethod, subtotal)
-    const now = new Date()
-    const pad = (n: number) => String(n).padStart(2, '0')
-    const stamp = `${String(now.getFullYear()).slice(2)}${pad(now.getMonth() + 1)}${pad(now.getDate())}${pad(now.getHours())}${pad(now.getMinutes())}`
-    const order: Order = {
-      id: `JM${stamp}${Math.floor(Math.random() * 90 + 10)}`,
-      userId: 'u-me',
-      items: input.items,
-      addressId: input.address.id ?? 'new',
-      shippingMethod: input.shippingMethod,
-      paymentMethod: input.paymentMethod,
-      subtotal,
-      shippingFee,
-      discount: 0,
-      total: subtotal + shippingFee,
-      status: 'confirmed',
-      createdAt: now.toISOString(),
-      note: input.note,
-    }
-    db.orders.unshift(order) // in-memory only for the prototype
-    return order
-  })
-}
+/** Public vouchers (all, or those usable for one product). */
+export const getVouchers = (productId?: string) => get<Voucher[]>('/promotions', { productId })
+
+/* ---- account ---- */
+
+export const getAuthConfig = () => get<{ googleClientId: string }>('/auth/config')
+export const login = (identifier: string, password: string) => post<AuthSession>('/auth/login', { identifier, password })
+export const register = (input: { name: string; phone: string; email?: string; password: string }) => post<AuthSession>('/auth/register', input)
+export const loginWithGoogle = (credential: string) => post<AuthSession>('/auth/google', { credential })
+export const getCurrentUser = () => get<Customer>('/me')
+export const getMyOrders = () => get<Order[]>('/me/orders')

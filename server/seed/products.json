@@ -221,7 +221,21 @@
         "description": "Bảo hành điện tử, tra cứu bằng SĐT"
       }
     ],
-    "position": 1
+    "position": 1,
+    "gifts": [
+      {
+        "id": "g-case",
+        "name": "Túi đựng chống sốc cao cấp",
+        "image": "/media/products/tai-nghe-pro-x1/5.jpg",
+        "value": 150000
+      },
+      {
+        "id": "g-aux",
+        "name": "Cáp AUX 3.5mm mạ vàng",
+        "image": "/media/products/cap-usb-c-240w/2.jpg",
+        "value": 59000
+      }
+    ]
   },
   {
     "id": "airbuds-001",
@@ -445,7 +459,15 @@
         "description": "Bảo hành điện tử, tra cứu bằng SĐT"
       }
     ],
-    "position": 2
+    "position": 2,
+    "gifts": [
+      {
+        "id": "g-silicon",
+        "name": "Ốp silicon bảo vệ hộp sạc",
+        "image": "/media/products/tai-nghe-airbuds/5.jpg",
+        "value": 49000
+      }
+    ]
   },
   {
     "id": "loa-s2-001",
@@ -873,7 +895,15 @@
         "description": "Bảo hành điện tử, tra cứu bằng SĐT"
       }
     ],
-    "position": 4
+    "position": 4,
+    "gifts": [
+      {
+        "id": "g-cable1m",
+        "name": "Cáp USB-C to USB-C 1m",
+        "image": "/media/products/cap-usb-c-240w/thumb.jpg",
+        "value": 99000
+      }
+    ]
   },
   {
     "id": "pb20k-001",

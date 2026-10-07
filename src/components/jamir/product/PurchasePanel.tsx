@@ -5,10 +5,12 @@ import { usePurchaseActions } from '@/hooks/usePurchaseActions'
 import { cn } from '@/lib/utils'
 import { useSelectionStore } from '@/stores/selectionStore'
 import type { Product } from '@/types/domain'
+import { ProductGifts } from './ProductGifts'
 import { ProductGuarantee, ShippingBanner } from './ProductGuarantee'
 import { ProductInfo } from './ProductInfo'
 import { ProductPrice } from './ProductPrice'
 import { ProductVariant } from './ProductVariant'
+import { ProductVouchers } from './ProductVouchers'
 import { QuantitySelector } from './QuantitySelector'
 import { WishlistButton } from './WishlistButton'
 
@@ -49,6 +51,8 @@ export function PurchasePanel({
         <ProductPrice price={product.price} originalPrice={product.originalPrice} discount={product.discount} />
         <StockStatus stock={product.stock} />
       </div>
+      <ProductGifts gifts={product.gifts} />
+      <ProductVouchers productId={product.id} />
       <ProductVariant colors={product.colors} value={colorId} onChange={setColor} />
       <div className="flex items-center gap-4">
         <span className="w-20 shrink-0 text-sm font-medium text-ink-soft">Số lượng:</span>

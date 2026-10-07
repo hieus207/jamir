@@ -1,0 +1,67 @@
+[
+  {
+    "id": "pm-1",
+    "code": "JAMIR10",
+    "description": "Giảm 10% tối đa 50K cho đơn từ 200K",
+    "type": "percent",
+    "value": 10,
+    "minOrder": 200000,
+    "maxDiscount": 50000,
+    "used": 12,
+    "usageLimit": 500,
+    "active": true,
+    "public": true
+  },
+  {
+    "id": "pm-2",
+    "code": "GIAM50K",
+    "description": "Giảm 50K cho đơn từ 500K",
+    "type": "fixed",
+    "value": 50000,
+    "minOrder": 500000,
+    "used": 4,
+    "active": true,
+    "public": true
+  },
+  {
+    "id": "pm-3",
+    "code": "FREESHIP",
+    "description": "Miễn phí vận chuyển mọi đơn",
+    "type": "freeship",
+    "value": 0,
+    "minOrder": 0,
+    "used": 30,
+    "active": true,
+    "public": true
+  },
+  {
+    "id": "pm-4",
+    "code": "GAN30K",
+    "description": "Giảm 30K cho Sạc GaN 65W",
+    "type": "fixed",
+    "value": 30000,
+    "minOrder": 0,
+    "used": 2,
+    "active": true,
+    "public": true,
+    "productIds": [
+      "gan65-001"
+    ]
+  },
+  {
+    "id": "pm-5",
+    "code": "AUDIO15",
+    "description": "Giảm 15% tối đa 80K cho tai nghe",
+    "type": "percent",
+    "value": 15,
+    "minOrder": 250000,
+    "maxDiscount": 80000,
+    "used": 7,
+    "active": true,
+    "public": true,
+    "productIds": [
+      "airbuds-001",
+      "prox1-001"
+    ]
+  }
+]

@@ -38,3 +38,7 @@ export function formatRelative(iso: string, now = Date.now()) {
 }
 
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
+
+/** Lowercase + strip Vietnamese diacritics so "tai nghe" matches "Tài nghe". */
+export const normalizeText = (s: string) =>
+  s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').trim()

@@ -15,8 +15,10 @@ export function KolReviewCard({
   review,
   onOpen,
   layout = 'fluid',
+  tone = 'light',
   className,
 }: {
+  tone?: 'light' | 'dark'
   review: KolReview
   onOpen: () => void
   layout?: 'fluid' | 'row'
@@ -50,19 +52,19 @@ export function KolReviewCard({
           {formatDuration(review.duration)}
         </span>
       </button>
-      <h3 className="line-clamp-2 text-sm leading-snug font-semibold text-ink">
-        <button type="button" onClick={onOpen} className="cursor-pointer text-left hover:text-brand-700">
+      <h3 className={cn('line-clamp-2 text-sm leading-snug font-semibold', tone === 'dark' ? 'text-white' : 'text-ink')}>
+        <button type="button" onClick={onOpen} className={cn('cursor-pointer text-left', tone === 'dark' ? 'hover:text-brand-200' : 'hover:text-brand-700')}>
           {review.title}
         </button>
       </h3>
       <div className="flex min-w-0 items-center gap-2">
         <Avatar src={review.kol.avatar} name={review.kol.name} className="size-8" />
         <div className="min-w-0 text-xs">
-          <p className="flex items-center gap-1 font-semibold text-ink">
+          <p className={cn('flex items-center gap-1 font-semibold', tone === 'dark' ? 'text-white' : 'text-ink')}>
             <span className="truncate">{review.kol.name}</span>
             {review.kol.verified && <BadgeCheck className="size-3.5 shrink-0 fill-brand-600 text-white" aria-label="Đã xác minh" />}
           </p>
-          <p className="truncate text-muted">
+          <p className={cn('truncate', tone === 'dark' ? 'text-white/60' : 'text-muted')}>
             {formatCompact(review.views)} lượt xem · {review.kol.title}
           </p>
         </div>

@@ -1,9 +1,10 @@
 import { Home, PackageX } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Link, useParams } from 'react-router'
 import { StateBlock } from '@/components/jamir/layout/PageStates'
 import { ProductStories } from '@/components/jamir/navigation/ProductStories'
+import { StoryModeBar } from '@/components/jamir/stories/StoryModeBar'
 import { ProductFaq } from '@/components/jamir/product/ProductFaq'
 import { ProductPageSkeleton } from '@/components/jamir/product/ProductPageSkeleton'
 import { ProductSpecs } from '@/components/jamir/product/ProductSpecs'
@@ -17,6 +18,7 @@ import { CustomerReviewSection } from '@/components/jamir/review/CustomerReviewS
 import { KolReviewSection } from '@/components/jamir/review/KolReviewSection'
 import { buttonVariants } from '@/components/ui/button'
 import { useKolReviews, useProduct } from '@/hooks/queries'
+import { useStickyTop } from '@/hooks/useStickyTop'
 import { useSelectionStore } from '@/stores/selectionStore'
 import { useSwipeStore } from '@/stores/swipeStore'
 
@@ -27,9 +29,13 @@ const slide = {
 }
 
 /**
- * Section order differs per breakpoint (CSS `order`):
- *   mobile : video → info/panel → KOL → specs → use cases → FAQ → reviews
- *   desktop: video → specs → use cases → KOL → reviews → FAQ  (+ sticky panel on the right)
+ * Jamir V1 funnel — one layer per question, buy CTA always reachable:
+ *   1 Cảm xúc  : video            "Có hấp dẫn không?"
+ *   2 Niềm tin : KOL + khách hàng "Người khác dùng thế nào?"
+ *   3 Lý trí   : thông số         "Có phù hợp không?"
+ *   4 Cá nhân  : phù hợp với ai   "Có hợp với mình không?"
+ *   5 Hành động: mua (sticky panel on desktop, sticky bar on mobile) + hỏi đáp
+ * Mobile shows the compact purchase panel right after the video.
  */
 export default function ProductPage() {
   const { slug = '' } = useParams()
@@ -37,6 +43,8 @@ export default function ProductPage() {
   const { data: kol } = useKolReviews(product?.id)
   const resetSelection = useSelectionStore((s) => s.reset)
   const direction = useSwipeStore((s) => s.direction)
+  const asideRef = useRef<HTMLDivElement>(null)
+  const asideTop = useStickyTop(asideRef)
 
   useEffect(() => {
     if (product) resetSelection(product)
@@ -65,6 +73,7 @@ export default function ProductPage() {
 
   return (
     <>
+      <StoryModeBar />
       <ProductSwipeNavigator slug={product.slug}>
         <div className="container-page pt-3 pb-28 md:pt-5 lg:pb-14">
           <ProductStories activeSlug={product.slug} className="mb-4 md:mb-5" />
@@ -78,17 +87,17 @@ export default function ProductPage() {
               exit="exit"
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_372px] xl:grid-cols-[minmax(0,1fr)_400px]">
+              <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_372px] xl:grid-cols-[minmax(0,1fr)_420px] 2xl:grid-cols-[minmax(0,1fr)_460px]">
                 <div className="flex min-w-0 flex-col gap-4 md:gap-5">
                   <ProductVideo key={product.id} product={product} kolCount={kol?.length} className="order-1" />
                   <PurchasePanel product={product} inline className="order-2 lg:hidden" />
-                  <KolReviewSection productId={product.id} className="order-3 lg:order-4" />
-                  <ProductSpecs specs={product.specs} className="order-4 lg:order-2" />
-                  <UseCaseGrid useCases={product.useCases} className="order-5 lg:order-3" />
-                  <ProductFaq productId={product.id} total={product.faqCount} className="order-6" />
-                  <CustomerReviewSection product={product} className="order-7 lg:order-5" />
+                  <KolReviewSection productId={product.id} className="order-3" />
+                  <CustomerReviewSection product={product} className="order-4" />
+                  <ProductSpecs specs={product.specs} className="order-5" />
+                  <UseCaseGrid useCases={product.useCases} className="order-6" />
+                  <ProductFaq productId={product.id} total={product.faqCount} className="order-7" />
                 </div>
-                <aside className="sticky top-[88px] hidden lg:block" aria-label="Mua hàng">
+                <aside ref={asideRef} style={{ top: asideTop }} className="sticky hidden flex-col gap-4 lg:flex" aria-label="Mua hàng">
                   <PurchasePanel product={product} />
                 </aside>
               </div>

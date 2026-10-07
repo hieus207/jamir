@@ -4,6 +4,7 @@ import { useVideoController } from '@/hooks/useVideoController'
 import { cn } from '@/lib/utils'
 import { useIsWishlisted, useWishlistStore } from '@/stores/wishlistStore'
 import type { Product } from '@/types/domain'
+import { SourceBadge } from '../review/KolMedia'
 import { VideoChapterList } from './VideoChapterList'
 import { VideoPlayer } from './VideoPlayer'
 
@@ -38,6 +39,40 @@ export function ProductVideo({
   const [liked, setLiked] = useState(false)
   const saved = useIsWishlisted(product.id)
   const toggleWishlist = useWishlistStore((s) => s.toggle)
+
+  const [start, setStart] = useState<number | null>(null)
+
+  // YouTube / TikTok / Facebook video chosen in the admin
+  if (product.video.embedUrl) {
+    const vertical = product.video.aspectRatio === '9:16' || product.video.aspectRatio === '4:5'
+    const yt = product.video.source === 'youtube'
+    const src = yt && start !== null ? `${product.video.embedUrl}&start=${Math.floor(start)}&autoplay=1` : product.video.embedUrl
+    return (
+      <div className={cn('flex flex-col gap-3', className)}>
+      <div className="relative isolate -mx-4 aspect-video w-[calc(100%+2rem)] overflow-hidden bg-black md:mx-0 md:w-full md:rounded-card">
+        <img src={product.video.poster || product.thumbnail} alt="" aria-hidden="true" className="absolute inset-0 -z-10 size-full scale-110 object-cover opacity-50 blur-2xl" />
+        <iframe
+          key={src}
+          src={src}
+          title={product.name}
+          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+          allowFullScreen
+          className={cn('border-0', vertical ? 'mx-auto block aspect-[9/16] h-full' : 'size-full')}
+        />
+        {product.video.source && <SourceBadge source={product.video.source} className="absolute top-3 left-3" />}
+      </div>
+      {product.chapters.length > 0 && (
+        <VideoChapterList
+          chapters={product.chapters}
+          currentTime={start ?? -1}
+          onSelect={(c) => (yt ? setStart(c.start) : undefined)}
+          moreCount={kolCount}
+          onMore={() => scrollToSection('kol-reviews')}
+        />
+      )}
+      </div>
+    )
+  }
 
   return (
     <div className={cn('flex flex-col gap-3', className)}>

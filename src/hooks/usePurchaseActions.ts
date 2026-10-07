@@ -22,6 +22,7 @@ export function usePurchaseActions(product: Product) {
       price: product.price,
       originalPrice: product.originalPrice,
       stock: product.stock,
+      gifts: product.gifts?.map((g) => g.name),
     },
     colorId: color.id,
     colorName: color.name,

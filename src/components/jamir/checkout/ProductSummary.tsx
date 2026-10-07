@@ -22,6 +22,9 @@ export function ProductSummary({
                 <span className="size-3 rounded-full ring-1 ring-line" style={{ backgroundColor: l.colorHex }} aria-hidden="true" />
                 Màu: {l.colorName}
               </p>
+              {!!l.product.gifts?.length && (
+                <p className="mt-0.5 text-xs font-medium text-pink-700">🎁 Tặng: {l.product.gifts.join(', ')}</p>
+              )}
             </div>
             <div className="flex items-center justify-between gap-2">
               <QuantitySelector

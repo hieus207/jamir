@@ -1,56 +1,67 @@
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Clapperboard } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useKolReviews } from '@/hooks/queries'
-import { cn } from '@/lib/utils'
+import { cn, formatCompact } from '@/lib/utils'
 import type { KolReview } from '@/types/domain'
 import { SectionError } from '../layout/PageStates'
 import { KolReviewCard } from './KolReviewCard'
 import { KolVideoViewer } from './KolVideoViewer'
 
+/** Dark "theater" section so KOL/customer videos stand out on the product page. */
 export function KolReviewSection({ productId, className }: { productId: string; className?: string }) {
   const { data: reviews, isPending, isError, refetch } = useKolReviews(productId)
   const [active, setActive] = useState<KolReview | null>(null)
+  const totalViews = reviews?.reduce((s, r) => s + r.views, 0) ?? 0
 
   return (
-    <Card id="kol-reviews" className={cn('scroll-mt-24', className)}>
-      <CardHeader>
-        <CardTitle>Video review từ KOL & khách hàng</CardTitle>
-        <Link to="/explore" className="flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800">
+    <section
+      id="kol-reviews"
+      aria-labelledby="kol-title"
+      className={cn('relative scroll-mt-24 overflow-hidden rounded-card bg-ink text-white shadow-lift', className)}
+    >
+      <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-accent-600/30 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -bottom-32 -left-20 size-72 rounded-full bg-brand-600/30 blur-3xl" aria-hidden="true" />
+      <div className="relative flex flex-wrap items-end justify-between gap-3 px-4 pt-5 md:px-6 md:pt-6">
+        <div>
+          <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold tracking-wide text-brand-300 uppercase">
+            <Clapperboard className="size-4" aria-hidden="true" />
+            Review thật · {reviews?.length ?? 0} video · {formatCompact(totalViews)} lượt xem
+          </p>
+          <h2 id="kol-title" className="text-xl font-extrabold tracking-tight md:text-2xl">
+            Video review từ KOL & khách hàng
+          </h2>
+        </div>
+        <Link to="/explore" className="flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-200 hover:text-white">
           Xem tất cả <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="relative p-4 md:p-6">
         {isError ? (
           <SectionError onRetry={() => refetch()} />
         ) : isPending ? (
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="flex gap-3 overflow-hidden">
             {Array.from({ length: 4 }, (_, i) => (
-              <div key={i} className="flex flex-col gap-2">
-                <Skeleton className="aspect-video rounded-[14px]" />
-                <Skeleton className="h-4 w-4/5" />
-                <Skeleton className="h-8 w-3/5" />
-              </div>
+              <Skeleton key={i} className={cn('h-[200px] shrink-0 rounded-[14px] opacity-20 md:h-[260px]', i % 2 ? 'w-[133px] md:w-[146px]' : 'w-[420px] md:w-[462px]')} />
             ))}
           </div>
         ) : (
-          <Carousel opts={{ dragFree: true }} aria-label="Video review" className="[--kol-card-h:196px] md:[--kol-card-h:220px]">
+          <Carousel opts={{ dragFree: true }} aria-label="Video review" className="[--kol-card-h:200px] md:[--kol-card-h:260px]">
             <CarouselContent>
               {reviews?.map((r) => (
                 <CarouselItem key={r.id} className="basis-auto">
-                  <KolReviewCard review={r} layout="row" onOpen={() => setActive(r)} />
+                  <KolReviewCard review={r} layout="row" tone="dark" onOpen={() => setActive(r)} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="top-[30%]" />
-            <CarouselNext className="top-[30%]" />
+            <CarouselPrevious className="top-[40%] -left-3" />
+            <CarouselNext className="top-[40%] -right-3" />
           </Carousel>
         )}
-      </CardContent>
+      </div>
       <KolVideoViewer review={active} playlist={reviews ?? []} onChange={setActive} onClose={() => setActive(null)} />
-    </Card>
+    </section>
   )
 }

@@ -1,7 +1,20 @@
 import { formatPrice } from '@/lib/utils'
 
-export function OrderSummary({ subtotal, shippingFee, savings }: { subtotal: number; shippingFee: number; savings: number }) {
-  const total = subtotal + shippingFee
+export function OrderSummary({
+  subtotal,
+  shippingFee,
+  savings,
+  promo,
+}: {
+  subtotal: number
+  /** fee after any free-shipping voucher */
+  shippingFee: number
+  savings: number
+  /** applied voucher; `discount` is subtracted from the total (0 for free shipping) */
+  promo?: { code: string; discount: number; freeShipping: boolean }
+}) {
+  const discount = promo?.discount ?? 0
+  const total = subtotal + shippingFee - discount
   return (
     <dl className="flex flex-col gap-2 text-sm">
       <div className="flex justify-between text-muted">
@@ -12,9 +25,15 @@ export function OrderSummary({ subtotal, shippingFee, savings }: { subtotal: num
         <dt>Phí vận chuyển</dt>
         <dd className="tabular-nums">{shippingFee === 0 ? 'Miễn phí' : formatPrice(shippingFee)}</dd>
       </div>
+      {promo && (
+        <div className="flex justify-between text-success-strong">
+          <dt>Mã {promo.code}</dt>
+          <dd className="tabular-nums">{promo.freeShipping ? 'Freeship' : `-${formatPrice(discount)}`}</dd>
+        </div>
+      )}
       {savings > 0 && (
         <div className="flex justify-between text-success-strong">
-          <dt>Tiết kiệm</dt>
+          <dt>Tiết kiệm so với giá gốc</dt>
           <dd className="tabular-nums">-{formatPrice(savings)}</dd>
         </div>
       )}

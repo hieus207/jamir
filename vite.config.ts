@@ -8,7 +8,12 @@ export default defineConfig({
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
-  server: { host: true },
+  server: {
+    host: true,
+    // the API (server/) runs on :3001 — `npm run dev:api`
+    proxy: { '/api': 'http://127.0.0.1:3001' },
+  },
+  preview: { proxy: { '/api': 'http://127.0.0.1:3001' } },
   build: {
     rolldownOptions: {
       output: {
