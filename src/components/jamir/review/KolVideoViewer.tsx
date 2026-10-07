@@ -7,6 +7,7 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerTitle } from '@/compone
 import { useIsDesktop } from '@/hooks/useMediaQuery'
 import { cn, formatCompact, formatDuration, formatRelative } from '@/lib/utils'
 import type { KolReview } from '@/types/domain'
+import { aspectValue, isVertical, KolMediaPlayer, SourceBadge } from './KolMedia'
 
 /**
  * KOL video viewer: large Dialog on desktop, near-full-screen bottom sheet on mobile.
@@ -33,13 +34,16 @@ export function KolVideoViewer({
   if (isDesktop)
     return (
       <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-        <DialogContent className="flex max-w-5xl flex-row bg-ink text-white">
+        <DialogContent className="flex w-auto max-w-[min(1120px,calc(100vw-4rem))] flex-row bg-ink text-white">
           {shown && (
             <>
-              <div className="flex min-w-0 flex-1 items-center bg-black">
-                <video key={shown.id} src={shown.videoSrc} poster={shown.thumbnail} controls autoPlay muted playsInline className="aspect-video w-full" />
-              </div>
-              <ViewerInfo review={shown} playlist={playlist} onChange={onChange} className="w-80 shrink-0" Title={DialogTitle} Description={DialogDescription} />
+              {/* frame follows the clip: tall for TikTok 9:16, wide for 16:9 */}
+              <KolMediaPlayer
+                review={shown}
+                className={cn('shrink', isVertical(shown.aspectRatio) ? 'h-[min(84dvh,780px)]' : 'w-[min(760px,calc(100vw-26rem))]')}
+                style={{ aspectRatio: aspectValue(shown.aspectRatio) }}
+              />
+              <ViewerInfo review={shown} playlist={playlist} onChange={onChange} className="max-h-[min(84dvh,780px)] w-80 shrink-0" Title={DialogTitle} Description={DialogDescription} />
             </>
           )}
         </DialogContent>
@@ -51,7 +55,10 @@ export function KolVideoViewer({
       <DrawerContent className="max-h-[calc(96dvh+3rem)] bg-ink text-white [&>div:first-child>div]:bg-white/30">
         {shown && (
           <div className="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain">
-            <video key={shown.id} src={shown.videoSrc} poster={shown.thumbnail} controls autoPlay muted playsInline className="aspect-video w-full shrink-0 bg-black" />
+            <KolMediaPlayer
+              review={shown}
+              className={cn('w-full shrink-0', isVertical(shown.aspectRatio) ? 'h-[68dvh]' : 'aspect-video')}
+            />
             <ViewerInfo review={shown} playlist={playlist} onChange={onChange} Title={DrawerTitle} Description={DrawerDescription} />
           </div>
         )}
@@ -94,6 +101,7 @@ function ViewerInfo({
         Theo dõi
       </Button>
       <div>
+        <SourceBadge source={review.source} className="mb-1.5" />
         <Title className="text-base leading-snug font-bold text-white">{review.title}</Title>
         <Description className="mt-1.5 flex items-center gap-3 text-xs text-white/60">
           <span className="flex items-center gap-1">

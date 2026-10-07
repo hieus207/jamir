@@ -39,8 +39,10 @@ export function VideoPlayer({
   controller,
   actions,
   title,
+  fallbackImage,
   className,
 }: {
+  fallbackImage?: string
   video: ProductVideo
   chapters: VideoChapter[]
   controller: VideoController
@@ -136,6 +138,9 @@ export function VideoPlayer({
         onClick={userToggle}
         className="absolute inset-0 size-full object-cover"
       />
+      {state.error && fallbackImage && (
+        <img src={fallbackImage} alt="" className="absolute inset-0 size-full object-cover" />
+      )}
 
       {/* top scrim + meta */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 to-transparent" />
@@ -177,9 +182,7 @@ export function VideoPlayer({
           >
             {state.waiting && state.playing ? (
               <LoaderCircle className="size-12 animate-spin text-white/90" aria-label="Đang tải video" />
-            ) : state.error ? (
-              <p className="rounded-xl bg-black/60 px-4 py-2 text-sm text-white">Không tải được video</p>
-            ) : (
+            ) : state.error ? null : (
               <button
                 type="button"
                 onClick={userToggle}

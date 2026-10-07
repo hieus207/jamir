@@ -10,7 +10,7 @@ import products from '@/data/products.json'
 import recommendations from '@/data/recommendations.json'
 import stories from '@/data/stories.json'
 import users from '@/data/users.json'
-import type { Category, Faq, Order, Product, Story, User } from '@/types/domain'
+import type { Category, Faq, KolReview, Order, Product, Story, User } from '@/types/domain'
 
 export interface KolReviewRecord {
   id: string
@@ -19,6 +19,9 @@ export interface KolReviewRecord {
   title: string
   thumbnail: string
   videoSrc: string
+  aspectRatio: KolReview['aspectRatio']
+  source: KolReview['source']
+  embedUrl?: string
   duration: number
   views: number
   likes: number

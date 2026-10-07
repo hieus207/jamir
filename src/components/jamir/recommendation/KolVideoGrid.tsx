@@ -7,14 +7,14 @@ import { KolVideoViewer } from '../review/KolVideoViewer'
 
 export function KolVideoGrid({ videos, loading, className }: { videos?: KolReview[]; loading?: boolean; className?: string }) {
   const [active, setActive] = useState<KolReview | null>(null)
-  const grid = cn('grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4', className)
+  const grid = cn('columns-2 gap-3 sm:columns-3 md:gap-4 lg:columns-4', className)
   return (
     <>
       {loading ? (
         <div className={grid}>
           {Array.from({ length: 8 }, (_, i) => (
-            <div key={i} className="flex flex-col gap-2">
-              <Skeleton className="aspect-video rounded-[14px]" />
+            <div key={i} className="mb-5 flex break-inside-avoid flex-col gap-2">
+              <Skeleton className={i % 2 ? 'aspect-[9/16] rounded-[14px]' : 'aspect-video rounded-[14px]'} />
               <Skeleton className="h-4 w-4/5" />
               <Skeleton className="h-8 w-1/2" />
             </div>
@@ -25,7 +25,7 @@ export function KolVideoGrid({ videos, loading, className }: { videos?: KolRevie
         <h2 className="sr-only">Danh sách video</h2>
         <ul className={grid}>
           {videos?.map((v) => (
-            <li key={v.id}>
+            <li key={v.id} className="mb-5 break-inside-avoid">
               <KolReviewCard review={v} onOpen={() => setActive(v)} />
             </li>
           ))}

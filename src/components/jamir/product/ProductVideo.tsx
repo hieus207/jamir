@@ -46,6 +46,7 @@ export function ProductVideo({
         chapters={product.chapters}
         controller={controller}
         title={product.name}
+        fallbackImage={product.gallery[0] ?? product.thumbnail}
         className="-mx-4 w-[calc(100%+2rem)] md:mx-0 md:w-full md:rounded-card"
         actions={{
           liked,

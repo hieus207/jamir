@@ -150,12 +150,21 @@ export interface User {
   addresses?: Address[]
 }
 
+export type VideoAspect = '16:9' | '9:16' | '1:1' | '4:5'
+export type VideoSource = 'tiktok' | 'youtube' | 'jamir'
+
 export interface KolReview {
   id: ID
   productId: ID
   title: string
   thumbnail: string
+  /** direct video file (mp4/HLS); used when no embedUrl */
   videoSrc: string
+  /** native frame — TikTok/Reels clips are 9:16 */
+  aspectRatio: VideoAspect
+  source: VideoSource
+  /** optional platform embed (e.g. https://www.tiktok.com/embed/v2/<id>) — takes precedence over videoSrc */
+  embedUrl?: string
   duration: number
   views: number
   likes: number

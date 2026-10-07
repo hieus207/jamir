@@ -37,11 +37,11 @@ export function KolReviewSection({ productId, className }: { productId: string; 
             ))}
           </div>
         ) : (
-          <Carousel opts={{ dragFree: true }} aria-label="Video review">
+          <Carousel opts={{ dragFree: true }} aria-label="Video review" className="[--kol-card-h:196px] md:[--kol-card-h:220px]">
             <CarouselContent>
               {reviews?.map((r) => (
-                <CarouselItem key={r.id} className="basis-[72%] sm:basis-1/2 md:basis-1/3 xl:basis-1/4">
-                  <KolReviewCard review={r} onOpen={() => setActive(r)} />
+                <CarouselItem key={r.id} className="basis-auto">
+                  <KolReviewCard review={r} layout="row" onOpen={() => setActive(r)} />
                 </CarouselItem>
               ))}
             </CarouselContent>
