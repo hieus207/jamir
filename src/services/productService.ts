@@ -4,7 +4,11 @@ import { db } from './db'
 
 export function toSummary(p: Product): ProductSummary {
   const { id, slug, name, categoryId, price, originalPrice, discount, rating, reviewCount, soldCount, stock, thumbnail, highlight, position } = p
-  return { id, slug, name, categoryId, price, originalPrice, discount, rating, reviewCount, soldCount, stock, thumbnail, highlight, position }
+  const c = p.colors[0]!
+  return {
+    id, slug, name, categoryId, price, originalPrice, discount, rating, reviewCount, soldCount, stock, thumbnail, highlight, position,
+    defaultColor: { id: c.id, name: c.name, hex: c.hex },
+  }
 }
 
 const ordered = () => [...db.products].sort((a, b) => a.position - b.position)

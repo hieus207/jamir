@@ -109,7 +109,7 @@ export type ProductSummary = Pick<
   | 'thumbnail'
   | 'highlight'
   | 'position'
->
+> & { defaultColor: Pick<ProductColor, 'id' | 'name' | 'hex'> }
 
 export interface Category {
   id: ID

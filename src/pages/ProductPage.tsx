@@ -1,11 +1,22 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
 import { ProductStories } from '@/components/jamir/navigation/ProductStories'
+import { ProductFaq } from '@/components/jamir/product/ProductFaq'
+import { ProductSpecs } from '@/components/jamir/product/ProductSpecs'
 import { ProductVideo } from '@/components/jamir/product/ProductVideo'
 import { PurchasePanel } from '@/components/jamir/product/PurchasePanel'
+import { RelatedProducts } from '@/components/jamir/product/RelatedProducts'
+import { UseCaseGrid } from '@/components/jamir/product/UseCaseGrid'
+import { CustomerReviewSection } from '@/components/jamir/review/CustomerReviewSection'
+import { KolReviewSection } from '@/components/jamir/review/KolReviewSection'
 import { useKolReviews, useProduct } from '@/hooks/queries'
 import { useSelectionStore } from '@/stores/selectionStore'
 
+/**
+ * Section order differs per breakpoint (CSS `order`):
+ *   mobile : video → info/panel → KOL → specs → use cases → FAQ → reviews
+ *   desktop: video → specs → use cases → KOL → reviews → FAQ  (+ sticky panel on the right)
+ */
 export default function ProductPage() {
   const { slug = '' } = useParams()
   const { data: product, isPending, isError } = useProduct(slug)
@@ -27,14 +38,20 @@ export default function ProductPage() {
     <div className="container-page pt-3 pb-28 md:pt-5 lg:pb-14">
       <ProductStories activeSlug={product.slug} className="mb-4 md:mb-5" />
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_372px] xl:grid-cols-[minmax(0,1fr)_400px]">
-        <div className="flex min-w-0 flex-col gap-5">
+        <div className="flex min-w-0 flex-col gap-4 md:gap-5">
           <ProductVideo key={product.id} product={product} kolCount={kol?.length} className="order-1" />
           <PurchasePanel product={product} className="order-2 lg:hidden" />
+          <KolReviewSection productId={product.id} className="order-3 lg:order-4" />
+          <ProductSpecs specs={product.specs} className="order-4 lg:order-2" />
+          <UseCaseGrid useCases={product.useCases} className="order-5 lg:order-3" />
+          <ProductFaq productId={product.id} total={product.faqCount} className="order-6" />
+          <CustomerReviewSection product={product} className="order-7 lg:order-5" />
         </div>
         <aside className="sticky top-[88px] hidden lg:block" aria-label="Mua hàng">
           <PurchasePanel product={product} />
         </aside>
       </div>
+      <RelatedProducts productId={product.id} className="mt-8" />
     </div>
   )
 }
