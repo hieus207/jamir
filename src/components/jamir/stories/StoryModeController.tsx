@@ -1,11 +1,11 @@
 import { useCallback, useEffect } from 'react'
 import { useMatch, useNavigate } from 'react-router'
-import { useStories } from '@/hooks/queries'
+import { usePrefetchProduct, useStories } from '@/hooks/queries'
 import { useCheckoutStore } from '@/stores/checkoutStore'
 import { useSwipeStore } from '@/stores/swipeStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useAuthDialog } from '../auth/authStore'
-import { type PauseReason, useStoryMode } from './storyMode'
+import { elapsedNow, type PauseReason, useStoryMode } from './storyMode'
 
 /** Story-mode navigation: update the playlist and open the product page. */
 export function useStoryNav() {
@@ -100,22 +100,27 @@ export function StoryModeController() {
     }
   }, [active, userPaused, dialogOpen])
 
-  // timer
+  // timer: a single timeout per story (no per-frame state updates — they made
+  // page transitions lag on slower machines); progress bars animate in CSS
   const running = useStoryMode((s) => s.active && s.pauseReason === null)
+  const storyKey = useStoryMode((s) => `${s.queue.join('|')}#${s.pos}`)
+  useEffect(() => {
+    useStoryMode.getState().run(running)
+  }, [running])
   useEffect(() => {
     if (!running) return
-    let raf = 0
-    let last = performance.now()
-    const loop = (now: number) => {
-      useStoryMode.getState().tick(now - last)
-      last = now
-      const { elapsed, interval } = useStoryMode.getState()
-      if (elapsed >= interval) next()
-      raf = requestAnimationFrame(loop)
-    }
-    raf = requestAnimationFrame(loop)
-    return () => cancelAnimationFrame(raf)
-  }, [running, next])
+    const st = useStoryMode.getState()
+    const t = setTimeout(next, Math.max(0, st.interval - elapsedNow(st)))
+    return () => clearTimeout(t)
+  }, [running, storyKey, next])
+
+  // warm the next product so the jump renders instantly
+  const prefetch = usePrefetchProduct()
+  useEffect(() => {
+    const { active, queue, pos } = useStoryMode.getState()
+    const upcoming = queue[pos + 1] ?? queue[0]
+    if (active && upcoming) void prefetch(upcoming)
+  }, [storyKey, prefetch])
 
   return null
 }

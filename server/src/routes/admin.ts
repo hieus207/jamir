@@ -106,6 +106,14 @@ export function adminRoutes(r: Router, db: Store) {
         { active: true, bullets: [], ctaText: 'Mua ngay', showKol: true, showReviews: true, ...d, slug: uniqueSlug(d, all, 'headline') }
       ),
     },
+    banners: {
+      collection: db.banners as unknown as Collection<Rec>,
+      prefix: 'bn',
+      prepare: (d, _e, all) => (
+        required(d, 'image'),
+        { active: true, overlay: true, ctaText: 'Xem ngay', target: { type: 'product', value: '' }, priority: Math.max(0, ...all.map((x) => Number(x.priority) || 0)) + 10, ...d }
+      ),
+    },
     events: {
       collection: db.events as unknown as Collection<Rec>,
       prefix: 'ev',

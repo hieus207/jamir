@@ -1,6 +1,7 @@
 import {
   Clapperboard,
   FolderTree,
+  Images,
   CalendarHeart,
   LayoutDashboard,
   Megaphone,
@@ -63,6 +64,7 @@ const SECTIONS: Section[] = [
   { id: 'faqs', label: 'Hỏi đáp', icon: MessagesSquare, render: () => <ResourcePanel config={R.faqs} /> },
   { id: 'news', label: 'Tin tức', icon: Newspaper, render: () => <ResourcePanel config={R.news} /> },
   { id: 'promotions', label: 'Khuyến mại', icon: TicketPercent, render: () => <ResourcePanel config={R.promotions} /> },
+  { id: 'banners', label: 'Banner trang chủ', icon: Images, render: () => <ResourcePanel config={R.banners} /> },
   { id: 'landing-pages', label: 'Landing page', icon: Megaphone, render: () => <ResourcePanel config={R.landingPages} /> },
   { id: 'events', label: 'Sự kiện & popup', icon: CalendarHeart, render: () => <ResourcePanel config={R.events} /> },
   { id: 'categories', label: 'Danh mục', icon: FolderTree, render: () => <ResourcePanel config={R.categories} /> },

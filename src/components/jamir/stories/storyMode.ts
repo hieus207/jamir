@@ -28,8 +28,10 @@ interface StoryModeState {
   /** product slugs in play order for the current cycle */
   queue: string[]
   pos: number
-  /** ms spent on the current story */
+  /** ms spent on the current story before the last resume */
   elapsed: number
+  /** Date.now() when the timer last resumed; null while paused */
+  startedAt: number | null
   /** ms per story (stories.json → config.intervalSeconds) */
   interval: number
   order: StoriesConfig['order']
@@ -44,7 +46,8 @@ interface StoryModeState {
   prev: () => string | undefined
   /** jump to a product's story; the rest of the cycle continues after it */
   goTo: (slug: string) => void
-  tick: (ms: number) => void
+  /** start / stop the clock (called by the controller) */
+  run: (on: boolean) => void
   setUserPaused: (v: boolean) => void
   setPauseReason: (r: PauseReason) => void
 }
@@ -55,13 +58,15 @@ interface StoryModeState {
  */
 export const useStoryMode = create<StoryModeState>()((set, get) => {
   const arrange = (slugs: string[]) => (get().order === 'priority' ? slugs : shuffle(slugs))
-  const reset = { elapsed: 0 }
+  // new story: clock back to 0, keep running if it was running
+  const reset = () => ({ elapsed: 0, startedAt: get().startedAt === null ? null : Date.now() })
   return {
     active: false,
     stories: [],
     queue: [],
     pos: 0,
     elapsed: 0,
+    startedAt: null,
     interval: 20_000,
     order: 'random',
     userPaused: false,
@@ -78,24 +83,25 @@ export const useStoryMode = create<StoryModeState>()((set, get) => {
         pos: 0,
         interval: Math.max(3, config?.intervalSeconds ?? 20) * 1000,
         userPaused: false,
-        ...reset,
+        elapsed: 0,
+        startedAt: null,
       })
     },
 
-    stop: () => set({ active: false, queue: [], pos: 0, userPaused: false, pauseReason: null, ...reset }),
+    stop: () => set({ active: false, queue: [], pos: 0, userPaused: false, pauseReason: null, elapsed: 0, startedAt: null }),
 
     next: () => {
       const { queue, pos, stories } = get()
       if (!queue.length) return
       if (pos + 1 < queue.length) {
-        set({ pos: pos + 1, ...reset })
+        set({ pos: pos + 1, ...reset() })
         return queue[pos + 1]
       }
       // cycle done → reshuffle, never repeat the last story right away
       const last = queue[queue.length - 1]
       let order = arrange(stories.map((s) => s.productSlug!))
       if (order[0] === last && order.length > 1) order = [...order.slice(1), order[0]!]
-      set({ queue: order, pos: 0, ...reset })
+      set({ queue: order, pos: 0, ...reset() })
       return order[0]
     },
 
@@ -103,7 +109,7 @@ export const useStoryMode = create<StoryModeState>()((set, get) => {
       const { queue, pos } = get()
       if (!queue.length) return
       const p = Math.max(0, pos - 1)
-      set({ pos: p, ...reset })
+      set({ pos: p, ...reset() })
       return queue[p]
     },
 
@@ -115,13 +121,17 @@ export const useStoryMode = create<StoryModeState>()((set, get) => {
       if (i > pos) {
         // upcoming story: move it to the current slot
         const rest = queue.slice(pos).filter((x) => x !== slug)
-        set({ queue: [...seen, slug, ...rest], pos, ...reset })
+        set({ queue: [...seen, slug, ...rest], pos, ...reset() })
       } else if (i >= 0) {
-        set({ pos: i, ...reset })
+        set({ pos: i, ...reset() })
       }
     },
 
-    tick: (ms) => set((s) => ({ elapsed: Math.min(s.interval, s.elapsed + ms) })),
+    run: (on) => {
+      const { startedAt, elapsed } = get()
+      if (on && startedAt === null) set({ startedAt: Date.now() })
+      if (!on && startedAt !== null) set({ elapsed: elapsed + Date.now() - startedAt, startedAt: null })
+    },
     setUserPaused: (userPaused) => set({ userPaused }),
     setPauseReason: (pauseReason) => set({ pauseReason }),
   }
@@ -129,3 +139,6 @@ export const useStoryMode = create<StoryModeState>()((set, get) => {
 
 export const currentStory = (s: Pick<StoryModeState, 'stories' | 'queue' | 'pos'>) =>
   s.stories.find((x) => x.productSlug === s.queue[s.pos])
+
+/** ms spent on the current story right now. */
+export const elapsedNow = (s: Pick<StoryModeState, 'elapsed' | 'startedAt'>) => s.elapsed + (s.startedAt === null ? 0 : Date.now() - s.startedAt)

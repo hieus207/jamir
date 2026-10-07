@@ -85,6 +85,14 @@ export function publicRoutes(r: Router, db: Store) {
     return { page, product: toPublicProduct(product), reviews, kol }
   })
 
+  /* ---- home hero banners running now ---- */
+  r.get('/banners', async () => {
+    const now = Date.now()
+    return (await db.banners.list())
+      .filter((b) => b.active && (!b.startsAt || new Date(b.startsAt).getTime() <= now) && (!b.endsAt || new Date(b.endsAt).getTime() > now))
+      .sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))
+  })
+
   /* ---- promo popups running now ---- */
   r.get('/events/active', async () => {
     const now = Date.now()

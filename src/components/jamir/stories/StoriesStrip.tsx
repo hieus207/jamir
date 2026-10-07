@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react'
-import { useEffect, useRef } from 'react'
+import { type ReactNode, useEffect, useRef } from 'react'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import type { Story } from '@/types/domain'
@@ -15,17 +15,21 @@ export function StoriesStrip({
   items,
   loading,
   activeId,
-  progress = 0,
+  progressFill,
   autoplay,
   countdown,
   onSelect,
   onPlayAll,
+  onPreload,
   className,
 }: {
+  /** hover / touch on a tile: warm the product so opening it is instant */
+  onPreload?: (story: Story) => void
   items: Story[]
   loading?: boolean
   activeId?: string
-  progress?: number
+  /** drawn in the active tile (story mode) */
+  progressFill?: ReactNode
   /** true while auto-advancing through all stories */
   autoplay?: boolean
   /** seconds until "Xem tất cả" starts by itself (home idle) */
@@ -101,6 +105,8 @@ export function StoriesStrip({
                   type="button"
                   data-story={s.id}
                   onClick={() => onSelect(s)}
+                  onPointerEnter={() => onPreload?.(s)}
+                  onFocus={() => onPreload?.(s)}
                   aria-current={active ? 'true' : undefined}
                   aria-label={`Xem story ${s.label}`}
                   className={cn('group flex flex-col gap-1.5', TILE)}
@@ -124,9 +130,9 @@ export function StoriesStrip({
                           Hot
                         </span>
                       )}
-                      {active && autoplay && (
+                      {active && progressFill && (
                         <span className="absolute inset-x-2 bottom-2 h-1 overflow-hidden rounded-full bg-white/35" aria-hidden="true">
-                          <span className="block h-full rounded-full bg-white" style={{ width: `${progress * 100}%` }} />
+                          {progressFill}
                         </span>
                       )}
                     </span>

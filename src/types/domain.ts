@@ -328,6 +328,27 @@ export interface LandingPayload {
 
 export type EventTargetType = 'product' | 'news' | 'video' | 'url'
 
+/** Home hero slider (admin → Banner trang chủ). */
+export interface HomeBanner {
+  id: ID
+  image: string
+  /** optional portrait image for phones */
+  mobileImage?: string
+  eyebrow?: string
+  /** line breaks are kept */
+  title?: string
+  subtitle?: string
+  ctaText?: string
+  target: { type: EventTargetType; value: string }
+  /** darken the left side so white text stays readable (default on) */
+  overlay?: boolean
+  active: boolean
+  /** higher shows first */
+  priority: number
+  startsAt?: string
+  endsAt?: string
+}
+
 /** Promo popup shown between startsAt and endsAt. */
 export interface SiteEvent {
   id: ID

@@ -9,6 +9,7 @@ import {
   getSettings,
   getAuthConfig,
   getActiveEvents,
+  getBanners,
   getLanding,
   getReviewEligibility,
   getVouchers,
@@ -60,6 +61,7 @@ export const qk = {
   eligibility: (productId: string) => ['review-eligibility', productId] as const,
   landing: (slug: string) => ['landing', slug] as const,
   events: ['events'] as const,
+  banners: ['banners'] as const,
   orders: ['orders'] as const,
 }
 
@@ -165,3 +167,5 @@ export function usePrefetchProduct() {
   return (slug: string) =>
     qc.prefetchQuery({ queryKey: qk.product(slug), queryFn: () => getProductBySlug(slug), staleTime: 60_000 })
 }
+
+export const useBanners = () => useQuery({ queryKey: qk.banners, queryFn: getBanners, staleTime: 5 * 60_000 })

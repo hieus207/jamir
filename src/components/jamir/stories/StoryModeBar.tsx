@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Pause, Play, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { currentStory, useStoryMode } from './storyMode'
+import { SecondsLeft, StoryProgressFill, useStoryKey } from './StoryProgress'
 import { useStoryNav } from './StoryModeController'
 
 const PAUSE_TEXT = {
@@ -19,8 +20,7 @@ export function StoryModeBar() {
   const active = useStoryMode((s) => s.active)
   const queue = useStoryMode((s) => s.queue)
   const pos = useStoryMode((s) => s.pos)
-  const progress = useStoryMode((s) => s.elapsed / s.interval)
-  const interval = useStoryMode((s) => s.interval)
+  const storyKey = useStoryKey()
   const reason = useStoryMode((s) => s.pauseReason)
   const story = useStoryMode(currentStory)
   const { setUserPaused, stop } = useStoryMode.getState()
@@ -31,7 +31,6 @@ export function StoryModeBar() {
     if (reason === 'scroll') window.scrollTo({ top: 0, behavior: 'smooth' })
     setUserPaused(false)
   }
-  const secondsLeft = Math.max(0, Math.ceil((interval * (1 - progress)) / 1000))
 
   return (
     <div className="sticky top-14 z-30 border-b border-line/70 bg-surface/90 backdrop-blur-xl md:top-[68px]" role="region" aria-label="Jamir Stories đang phát">
@@ -39,10 +38,8 @@ export function StoryModeBar() {
         <div className="flex gap-1" aria-hidden="true">
           {queue.map((slug, i) => (
             <span key={slug} className="h-1 flex-1 overflow-hidden rounded-full bg-line">
-              <span
-                className="block h-full rounded-full bg-brand-gradient"
-                style={{ width: i < pos ? '100%' : i === pos ? `${progress * 100}%` : '0%' }}
-              />
+              {i < pos && <span className="block h-full rounded-full bg-brand-gradient" />}
+              {i === pos && <StoryProgressFill key={storyKey} className="bg-brand-gradient" />}
             </span>
           ))}
         </div>
@@ -59,7 +56,13 @@ export function StoryModeBar() {
               <span className="text-brand-gradient">Jamir Stories</span> · {story.label}
             </p>
             <p className={cn('truncate text-xs', reason ? 'text-orange-700' : 'text-muted')}>
-              {pos + 1}/{queue.length} · {reason ? PAUSE_TEXT[reason] : `Sản phẩm tiếp theo sau ${secondsLeft}s`}
+              {pos + 1}/{queue.length} · {reason ? (
+                PAUSE_TEXT[reason]
+              ) : (
+                <>
+                  Sản phẩm tiếp theo sau <SecondsLeft />
+                </>
+              )}
             </p>
           </div>
           <BarButton label="Story trước" onClick={prev} disabled={pos === 0}>

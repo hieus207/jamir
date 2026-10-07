@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
-import { parseVideoUrl, VIDEO_SOURCES } from '@/lib/video'
+import { normalizeEmbedUrl, parseVideoUrl, VIDEO_SOURCES } from '@/lib/video'
 import type { VideoSource } from '@/types/domain'
 import { getPath, MediaInput, setPath } from './fields'
 
@@ -100,7 +100,7 @@ export function VideoSourceField({ keys, record, onChange }: { keys: VideoKeys; 
             ))}
           {preview && embed && (
             <div className={cn('overflow-hidden rounded-[12px] bg-black', vertical ? 'mx-auto aspect-[9/16] w-56' : 'aspect-video w-full')}>
-              <iframe src={embed} title="Xem thử video" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowFullScreen className="size-full border-0" />
+              <iframe src={normalizeEmbedUrl(embed)} title="Xem thử video" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowFullScreen className="size-full border-0" />
             </div>
           )}
         </>

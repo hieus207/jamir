@@ -1,4 +1,4 @@
-import type { Category, LandingPayload, NewsArticle, SearchResult, SiteEvent, SiteSettings, StoriesFeed } from '@/types/domain'
+import type { Category, HomeBanner, LandingPayload, NewsArticle, SearchResult, SiteEvent, SiteSettings, StoriesFeed } from '@/types/domain'
 import { get } from './client'
 
 export const getCategories = () => get<Category[]>('/categories')
@@ -21,3 +21,6 @@ export const getLanding = (slug: string) => get<LandingPayload>(`/landing/${enco
 
 /** Promo popups running right now (highest priority first). */
 export const getActiveEvents = () => get<SiteEvent[]>('/events/active')
+
+/** Home hero banners running now (highest priority first). */
+export const getBanners = () => get<HomeBanner[]>('/banners')

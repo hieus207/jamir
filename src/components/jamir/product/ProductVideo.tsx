@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { useIsWishlisted, useWishlistStore } from '@/stores/wishlistStore'
 import type { Product } from '@/types/domain'
 import { SourceBadge } from '../review/KolMedia'
+import { normalizeEmbedUrl } from '@/lib/video'
 import { VideoChapterList } from './VideoChapterList'
 import { VideoPlayer } from './VideoPlayer'
 
@@ -46,7 +47,8 @@ export function ProductVideo({
   if (product.video.embedUrl) {
     const vertical = product.video.aspectRatio === '9:16' || product.video.aspectRatio === '4:5'
     const yt = product.video.source === 'youtube'
-    const src = yt && start !== null ? `${product.video.embedUrl}&start=${Math.floor(start)}&autoplay=1` : product.video.embedUrl
+    const base = normalizeEmbedUrl(product.video.embedUrl)!
+    const src = yt && start !== null ? `${base}&start=${Math.floor(start)}&autoplay=1` : base
     return (
       <div className={cn('flex flex-col gap-3', className)}>
       <div className="relative isolate -mx-4 aspect-video w-[calc(100%+2rem)] overflow-hidden bg-black md:mx-0 md:w-full md:rounded-card">

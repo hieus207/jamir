@@ -1,6 +1,6 @@
 import { Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
-import { useStories } from '@/hooks/queries'
+import { usePrefetchProduct, useStories } from '@/hooks/queries'
 import { cn } from '@/lib/utils'
 import { useCheckoutStore } from '@/stores/checkoutStore'
 import { useUiStore } from '@/stores/uiStore'
@@ -19,6 +19,7 @@ export function StoriesHero({ className }: { className?: string }) {
   const { data, isPending } = useStories()
   const items = useMemo(() => productStories(data?.items ?? []), [data])
   const { start } = useStoryNav()
+  const prefetch = usePrefetchProduct()
   const idle = data ? (data.config.idleSeconds ?? 10) : 0
   const [countdown, setCountdown] = useState<number | null>(null)
   const busy = useCheckoutStore((s) => s.open)
@@ -69,6 +70,7 @@ export function StoriesHero({ className }: { className?: string }) {
         countdown={countdown}
         onSelect={(s) => start(s.productSlug)}
         onPlayAll={() => start()}
+        onPreload={(s) => s.productSlug && void prefetch(s.productSlug)}
       />
     </section>
   )

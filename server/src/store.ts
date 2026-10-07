@@ -19,6 +19,7 @@ import type {
   User,
   LandingPage,
   SiteEvent,
+  HomeBanner,
 } from '../../src/types/domain'
 import type { CustomerRecord, RecommendationsRecord, ReviewRecord } from './types'
 
@@ -53,6 +54,7 @@ export interface Store {
   recommendations: Doc<RecommendationsRecord>
   landingPages: Collection<LandingPage>
   events: Collection<SiteEvent>
+  banners: Collection<HomeBanner>
 }
 
 /* ------------------------------------------------------------------ */
@@ -170,6 +172,7 @@ export function createJsonStore(dataDir: string, seedDir: string): Store & { flu
     recommendations: jsonDoc(f('recommendations.json')),
     landingPages: jsonCollection(f('landing-pages.json')),
     events: jsonCollection(f('events.json')),
+    banners: jsonCollection(f('banners.json')),
     flush: () => files.forEach((file) => file.flush()),
   }
 }

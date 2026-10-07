@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import { useStories } from '@/hooks/queries'
+import { usePrefetchProduct, useStories } from '@/hooks/queries'
 import { cn } from '@/lib/utils'
 import { StoriesStrip } from '../stories/StoriesStrip'
 import { productStories, useStoryMode } from '../stories/storyMode'
 import { useStoryNav } from '../stories/StoryModeController'
+import { StoryProgressFill, useStoryKey } from '../stories/StoryProgress'
 
 /** Stories strip on product pages: highlights the playing story; tapping one jumps there. */
 export function ProductStories({ activeSlug, className }: { activeSlug?: string; className?: string }) {
@@ -11,8 +12,9 @@ export function ProductStories({ activeSlug, className }: { activeSlug?: string;
   const items = useMemo(() => productStories(data?.items ?? []), [data])
   const mode = useStoryMode((s) => s.active)
   const running = useStoryMode((s) => s.active && s.pauseReason === null)
-  const progress = useStoryMode((s) => s.elapsed / s.interval)
+  const storyKey = useStoryKey()
   const { start, goTo } = useStoryNav()
+  const prefetch = usePrefetchProduct()
   const active = items.find((s) => s.productSlug === activeSlug)
 
   return (
@@ -27,8 +29,9 @@ export function ProductStories({ activeSlug, className }: { activeSlug?: string;
         items={items}
         loading={isPending}
         activeId={active?.id}
-        progress={mode ? progress : 0}
+        progressFill={mode ? <StoryProgressFill key={storyKey} className="bg-white" /> : undefined}
         autoplay={running}
+        onPreload={(s) => s.productSlug && void prefetch(s.productSlug)}
         onSelect={(s) => (mode ? goTo(s.productSlug!) : start(s.productSlug))}
         onPlayAll={() => {
           const st = useStoryMode.getState()

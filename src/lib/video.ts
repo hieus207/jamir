@@ -75,9 +75,9 @@ export function parseVideoUrl(source: VideoSource, raw: string): ParsedVideo {
   if (source === 'tiktok') {
     if (host === 'vt.tiktok.com' || host === 'vm.tiktok.com')
       return { error: 'Đây là link rút gọn. Hãy mở nó trên trình duyệt rồi copy link đầy đủ dạng tiktok.com/@…/video/<số>' }
-    const m = url.pathname.match(/\/video\/(\d+)/) ?? url.pathname.match(/\/embed\/(?:v2\/)?(\d+)/)
+    const m = url.pathname.match(/\/video\/(\d+)/) ?? url.pathname.match(/\/(?:embed(?:\/v2)?|player\/v1)\/(\d+)/)
     if (!host.endsWith('tiktok.com') || !m) return { error: 'Link TikTok cần có dạng tiktok.com/@ten-kenh/video/<dãy số>' }
-    return { embedUrl: `https://www.tiktok.com/embed/v2/${m[1]}`, aspect: '9:16' }
+    return { embedUrl: tiktokPlayer(m[1]!), aspect: '9:16' }
   }
 
   // facebook
@@ -90,4 +90,14 @@ export function parseVideoUrl(source: VideoSource, raw: string): ParsedVideo {
     embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(input)}&show_text=false&autoplay=false`,
     aspect: isReel ? '9:16' : '16:9',
   }
+}
+
+/** TikTok's official embed player (the old /embed/v2/ endpoint now answers 503 "overload-protect"). */
+export const tiktokPlayer = (id: string) => `https://www.tiktok.com/player/v1/${id}?music_info=1&description=1&rel=0`
+
+/** Upgrade embed URLs saved in the old format so existing videos keep playing. */
+export function normalizeEmbedUrl(url?: string) {
+  if (!url) return url
+  const old = url.match(/tiktok\.com\/embed\/(?:v2\/)?(\d+)/)
+  return old ? tiktokPlayer(old[1]!) : url
 }

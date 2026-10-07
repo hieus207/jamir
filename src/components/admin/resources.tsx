@@ -654,3 +654,54 @@ export const events: ResourceConfig = {
     { key: 'active', label: 'Bật', type: 'switch' },
   ],
 }
+
+export const banners: ResourceConfig = {
+  collection: 'banners',
+  title: 'Banner trang chủ',
+  noun: 'banner',
+  search: (r) => `${s(r.title)} ${s(r.eyebrow)}`,
+  sort: (a, b) => Number(b.priority ?? 0) - Number(a.priority ?? 0),
+  toggle: { key: 'active', label: 'Hiển thị' },
+  defaults: { active: true, overlay: true, ctaText: 'Xem ngay', target: { type: 'product', value: '' } },
+  columns: [
+    {
+      label: 'Banner',
+      className: 'max-w-md',
+      render: (r) => (
+        <div className="flex items-center gap-3">
+          <img src={s(r.image)} alt="" className="h-12 w-24 shrink-0 rounded-[8px] bg-line-soft object-cover" />
+          <div className="min-w-0">
+            <p className="line-clamp-2 font-semibold whitespace-pre-line">{s(r.title) || '(không có tiêu đề)'}</p>
+            {!!r.eyebrow && <p className="truncate text-xs text-muted">{s(r.eyebrow)}</p>}
+          </div>
+        </div>
+      ),
+    },
+    {
+      label: 'Khi bấm',
+      render: (r) => {
+        const t = (r.target ?? {}) as Rec
+        return t.value ? <Badge variant="outline">{TARGET_LABEL[s(t.type)] ?? '—'}: {s(t.value)}</Badge> : <span className="text-subtle">—</span>
+      },
+    },
+    {
+      label: 'Thời gian',
+      render: (r) => (r.startsAt || r.endsAt ? <span className="text-xs">{fmtDate(r.startsAt)} → {fmtDate(r.endsAt)}</span> : <span className="text-xs text-muted">Luôn hiện</span>),
+    },
+    { label: 'Thứ tự', render: (r) => <span className="font-semibold">{s(r.priority)}</span> },
+  ],
+  fields: [
+    { key: 'image', label: 'Ảnh banner (máy tính, ngang khoảng 1920×720)', type: 'media', required: true, wide: true },
+    { key: 'mobileImage', label: 'Ảnh cho điện thoại (không bắt buộc, khoảng 1080×700)', type: 'media', wide: true },
+    { key: 'eyebrow', label: 'Nhãn nhỏ phía trên', type: 'text', placeholder: 'Ưu đãi tuần này' },
+    { key: 'ctaText', label: 'Chữ trên nút', type: 'text', placeholder: 'Xem ngay' },
+    { key: 'title', label: 'Tiêu đề lớn', type: 'textarea', wide: true, help: 'Xuống dòng sẽ được giữ nguyên trên banner' },
+    { key: 'subtitle', label: 'Mô tả ngắn (không bắt buộc)', type: 'text', wide: true },
+    { key: 'target', label: 'Khi bấm nút thì mở', type: 'target', wide: true },
+    { key: 'priority', label: 'Thứ tự', type: 'number', help: 'Số lớn hiện trước' },
+    { key: 'overlay', label: 'Làm tối nền bên trái cho chữ dễ đọc', type: 'switch' },
+    { key: 'startsAt', label: 'Bắt đầu hiện', type: 'datetime', help: 'Để trống = hiện ngay' },
+    { key: 'endsAt', label: 'Ngừng hiện', type: 'datetime', help: 'Để trống = không hết hạn' },
+    { key: 'active', label: 'Hiển thị', type: 'switch' },
+  ],
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "bn-1",
+    "image": "/media/banners/hero-1.jpg",
+    "eyebrow": "Video commerce",
+    "title": "Xem trước. Chọn đúng.\nMua ngay trong video.",
+    "ctaText": "Xem Tai nghe Pro X1",
+    "target": {
+      "type": "product",
+      "value": "tai-nghe-pro-x1"
+    },
+    "overlay": true,
+    "active": true,
+    "priority": 30
+  },
+  {
+    "id": "bn-2",
+    "image": "/media/banners/hero-2.jpg",
+    "eyebrow": "Ưu đãi tuần này",
+    "title": "Âm thanh di động\ngiảm đến 25%",
+    "ctaText": "Khám phá Loa Mini S2",
+    "target": {
+      "type": "product",
+      "value": "loa-mini-s2"
+    },
+    "overlay": true,
+    "active": true,
+    "priority": 20
+  },
+  {
+    "id": "bn-3",
+    "image": "/media/banners/hero-3.jpg",
+    "eyebrow": "Sạc nhanh — sống chậm",
+    "title": "Một củ sạc GaN 65W\ncho mọi thiết bị",
+    "ctaText": "Xem Sạc GaN 65W",
+    "target": {
+      "type": "product",
+      "value": "sac-gan-65w"
+    },
+    "overlay": true,
+    "active": true,
+    "priority": 10
+  }
+]

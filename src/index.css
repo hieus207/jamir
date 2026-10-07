@@ -91,6 +91,11 @@
   color: transparent;
 }
 /* light sweep across a badge (parent must be positioned) */
+/* story progress: GPU-friendly, no React renders */
+@keyframes story-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
 @keyframes shine-sweep {
   0%, 55% { transform: translateX(-130%); }
   100% { transform: translateX(130%); }

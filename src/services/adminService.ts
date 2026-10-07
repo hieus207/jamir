@@ -15,6 +15,7 @@ export type AdminCollection =
   | 'orders'
   | 'landing-pages'
   | 'events'
+  | 'banners'
 
 export type AdminDoc = 'settings' | 'stories-config' | 'recommendations'
 

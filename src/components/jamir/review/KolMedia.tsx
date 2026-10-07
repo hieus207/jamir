@@ -1,6 +1,7 @@
 import { Music2, Play } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import { cn } from '@/lib/utils'
+import { normalizeEmbedUrl } from '@/lib/video'
 import type { KolReview, VideoAspect, VideoSource } from '@/types/domain'
 
 /** '9:16' → 0.5625 (width / height) */
@@ -39,7 +40,7 @@ export function KolMediaPlayer({ review, className, style }: { review: KolReview
       {review.embedUrl ? (
         <iframe
           key={review.id}
-          src={review.embedUrl}
+          src={normalizeEmbedUrl(review.embedUrl)}
           title={review.title}
           allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
           allowFullScreen
