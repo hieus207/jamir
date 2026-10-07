@@ -5,16 +5,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useKolReviews } from '@/hooks/queries'
+import { cn } from '@/lib/utils'
 import type { KolReview } from '@/types/domain'
+import { SectionError } from '../layout/PageStates'
 import { KolReviewCard } from './KolReviewCard'
 import { KolVideoViewer } from './KolVideoViewer'
 
 export function KolReviewSection({ productId, className }: { productId: string; className?: string }) {
-  const { data: reviews, isPending } = useKolReviews(productId)
+  const { data: reviews, isPending, isError, refetch } = useKolReviews(productId)
   const [active, setActive] = useState<KolReview | null>(null)
 
   return (
-    <Card id="kol-reviews" className={className}>
+    <Card id="kol-reviews" className={cn('scroll-mt-24', className)}>
       <CardHeader>
         <CardTitle>Video review từ KOL & khách hàng</CardTitle>
         <Link to="/explore" className="flex shrink-0 items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800">
@@ -22,7 +24,9 @@ export function KolReviewSection({ productId, className }: { productId: string; 
         </Link>
       </CardHeader>
       <CardContent>
-        {isPending ? (
+        {isError ? (
+          <SectionError onRetry={() => refetch()} />
+        ) : isPending ? (
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
             {Array.from({ length: 4 }, (_, i) => (
               <div key={i} className="flex flex-col gap-2">

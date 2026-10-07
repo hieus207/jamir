@@ -7,7 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { useProductReviews } from '@/hooks/queries'
 import { cn } from '@/lib/utils'
 import type { Product, ReviewSort } from '@/types/domain'
-import { StateBlock } from '../layout/PageStates'
+import { SectionError, StateBlock } from '../layout/PageStates'
 import { RatingSummary } from './RatingSummary'
 import { ReviewCard } from './ReviewCard'
 import { ReviewFilter } from './ReviewFilter'
@@ -17,7 +17,7 @@ const PAGE = 6
 export function CustomerReviewSection({ product, className }: { product: Product; className?: string }) {
   const [sort, setSort] = useState<ReviewSort>('featured')
   const [limit, setLimit] = useState(PAGE)
-  const { data: reviews, isPending, isPlaceholderData } = useProductReviews(product.id, sort)
+  const { data: reviews, isPending, isError, refetch, isPlaceholderData } = useProductReviews(product.id, sort)
   const colorName = (id?: string) => product.colors.find((c) => c.id === id)?.name
 
   return (
@@ -36,7 +36,9 @@ export function CustomerReviewSection({ product, className }: { product: Product
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         <RatingSummary productId={product.id} className="md:max-w-md" />
-        {isPending ? (
+        {isError ? (
+          <SectionError onRetry={() => refetch()} />
+        ) : isPending ? (
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {Array.from({ length: 3 }, (_, i) => (
               <Skeleton key={i} className="h-48 rounded-[14px]" />

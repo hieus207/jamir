@@ -5,11 +5,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { toast } from '@/components/ui/toast'
 import { useProductFaqs } from '@/hooks/queries'
+import { cn } from '@/lib/utils'
+import { SectionError } from '../layout/PageStates'
 
 export function ProductFaq({ productId, total, className }: { productId: string; total: number; className?: string }) {
-  const { data: faqs, isPending } = useProductFaqs(productId)
+  const { data: faqs, isPending, isError, refetch } = useProductFaqs(productId)
   return (
-    <Card id="faq" className={className}>
+    <Card id="faq" className={cn('scroll-mt-24', className)}>
       <CardHeader>
         <CardTitle>
           Hỏi đáp khách hàng <span className="text-brand-600">({total})</span>
@@ -25,7 +27,9 @@ export function ProductFaq({ productId, total, className }: { productId: string;
         </Button>
       </CardHeader>
       <CardContent className="pt-2">
-        {isPending ? (
+        {isError ? (
+          <SectionError onRetry={() => refetch()} />
+        ) : isPending ? (
           <div className="flex flex-col gap-3 py-2">
             {Array.from({ length: 3 }, (_, i) => (
               <Skeleton key={i} className="h-10" />

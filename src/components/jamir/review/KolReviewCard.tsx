@@ -9,7 +9,6 @@ export function KolReviewCard({ review, onOpen, className }: { review: KolReview
       <button
         type="button"
         onClick={onOpen}
-        aria-label={`Xem video: ${review.title}`}
         className="relative aspect-video w-full cursor-pointer overflow-hidden rounded-[14px] bg-line-soft"
       >
         <img
@@ -24,7 +23,8 @@ export function KolReviewCard({ review, onOpen, className }: { review: KolReview
             <Play className="size-5 translate-x-0.5 fill-white" aria-hidden="true" />
           </span>
         </span>
-        <span className="absolute right-2 bottom-2 rounded-md bg-black/65 px-1.5 py-0.5 text-[11px] font-semibold text-white tabular-nums">
+        <span className="sr-only">Xem video: {review.title}</span>
+        <span aria-hidden="true" className="absolute right-2 bottom-2 rounded-md bg-black/65 px-1.5 py-0.5 text-[11px] font-semibold text-white tabular-nums">
           {formatDuration(review.duration)}
         </span>
       </button>

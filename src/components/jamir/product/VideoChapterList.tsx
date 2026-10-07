@@ -43,7 +43,6 @@ export function VideoChapterList({
                 type="button"
                 onClick={() => onSelect(c)}
                 aria-current={active ? 'step' : undefined}
-                aria-label={`${c.title}, bắt đầu ${formatDuration(c.start)}`}
                 className="group flex w-full cursor-pointer flex-col gap-1.5 text-left"
               >
                 <div
@@ -72,7 +71,11 @@ export function VideoChapterList({
                 </div>
                 <span className="px-0.5">
                   <span className={cn('block truncate text-xs font-semibold', active ? 'text-accent-600' : 'text-ink')}>{c.title}</span>
-                  <span className="block text-[11px] text-muted tabular-nums">{formatDuration(c.end - c.start)}</span>
+                  <span className="block text-[11px] text-muted tabular-nums">
+                    <span className="sr-only">thời lượng </span>
+                    {formatDuration(c.end - c.start)}
+                    <span className="sr-only">, bắt đầu tại {formatDuration(c.start)}</span>
+                  </span>
                 </span>
               </button>
             </li>

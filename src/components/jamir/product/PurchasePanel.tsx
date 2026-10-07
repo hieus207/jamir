@@ -16,7 +16,7 @@ export function StockStatus({ stock, className }: { stock: number; className?: s
   const tone = stock === 0 ? 'bg-danger' : stock <= 10 ? 'bg-warning' : 'bg-success'
   const text = stock === 0 ? 'Tạm hết hàng' : stock <= 10 ? `Chỉ còn ${stock} sản phẩm` : 'Còn hàng'
   return (
-    <p className={cn('flex items-center gap-2 text-sm font-medium', stock === 0 ? 'text-danger' : stock <= 10 ? 'text-orange-600' : 'text-success', className)}>
+    <p className={cn('flex items-center gap-2 text-sm font-medium', stock === 0 ? 'text-danger' : stock <= 10 ? 'text-orange-700' : 'text-success-strong', className)}>
       <span className={cn('relative flex size-2.5 rounded-full', tone)}>
         {stock > 0 && <span className={cn('absolute inset-0 animate-ping rounded-full opacity-60', tone)} />}
       </span>

@@ -28,7 +28,7 @@ export function ShippingMethod({ subtotal }: { subtotal: number }) {
                     {m.eta} · {m.description}
                   </p>
                 </div>
-                <span className="text-sm font-semibold text-ink tabular-nums">{fee === 0 ? <span className="text-success">Miễn phí</span> : formatPrice(fee)}</span>
+                <span className="text-sm font-semibold text-ink tabular-nums">{fee === 0 ? <span className="text-success-strong">Miễn phí</span> : formatPrice(fee)}</span>
               </RadioCard>
             )
           })}

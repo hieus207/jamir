@@ -28,7 +28,7 @@ import { ShippingMethod } from './ShippingMethod'
  * Checkout without leaving the page.
  * Mobile: bottom sheet (swipe to dismiss). Desktop: centered dialog.
  */
-export function CheckoutSheet() {
+export default function CheckoutSheet() {
   const isDesktop = useIsDesktop()
   const { open, setOpen } = useCheckoutStore()
   const [order, setOrder] = useState<Order | null>(null)
@@ -178,7 +178,7 @@ function OrderSuccess({ order, onDone }: { order: Order; onDone: () => void }) {
         transition={{ type: 'spring', stiffness: 420, damping: 18 }}
         className="flex size-20 items-center justify-center rounded-full bg-success-50"
       >
-        <CircleCheck className="size-11 text-success" aria-hidden="true" />
+        <CircleCheck className="size-11 text-success-strong" aria-hidden="true" />
       </motion.span>
       <div>
         <p className="text-xl font-extrabold text-ink">Cảm ơn bạn đã mua hàng!</p>

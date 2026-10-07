@@ -1,6 +1,6 @@
 import { MapPin, Package } from 'lucide-react'
 import { useEffect } from 'react'
-import { useAuthDialog } from '@/components/jamir/auth/AuthDialog'
+import { useAuthDialog } from '@/components/jamir/auth/authStore'
 import { PageHeader } from '@/components/jamir/layout/PageHeader'
 import { StateBlock } from '@/components/jamir/layout/PageStates'
 import { Avatar } from '@/components/ui/avatar'

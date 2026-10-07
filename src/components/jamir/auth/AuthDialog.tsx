@@ -1,20 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { create } from 'zustand'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog'
 import { FormField, Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/toast'
 import { LogoMark } from '../brand/Logo'
-
-type Mode = 'login' | 'register'
-
-export const useAuthDialog = create<{ mode: Mode | null; show: (m: Mode) => void; hide: () => void }>()((set) => ({
-  mode: null,
-  show: (mode) => set({ mode }),
-  hide: () => set({ mode: null }),
-}))
+import { useAuthDialog } from './authStore'
 
 const phone = z
   .string()
@@ -31,7 +23,7 @@ const registerSchema = loginSchema.extend({
 type FormValues = z.infer<typeof registerSchema>
 
 /** Demo-only auth: validates the form and pretends to sign in. */
-export function AuthDialog() {
+export default function AuthDialog() {
   const { mode, show, hide } = useAuthDialog()
   const isRegister = mode === 'register'
   const {

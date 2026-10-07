@@ -21,15 +21,18 @@
 
   --color-ink: #111827;
   --color-ink-soft: #374151;
-  --color-muted: #6b7280;
-  --color-subtle: #9ca3af;
+  --color-muted: #5b6372;
+  --color-subtle: #6b7280;
   --color-canvas: #f8fafc;
   --color-surface: #ffffff;
   --color-line: #e5e7eb;
   --color-line-soft: #f1f5f9;
   --color-success: #16a34a;
+  --color-success-strong: #15803d;
   --color-success-50: #f0fdf4;
   --color-danger: #ef4444;
+  /* white text on red needs ≥ 4.5:1 */
+  --color-danger-strong: #dc2626;
   --color-danger-50: #fef2f2;
   --color-warning: #f59e0b;
   --color-warning-50: #fffbeb;

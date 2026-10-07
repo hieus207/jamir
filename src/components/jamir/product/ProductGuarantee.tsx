@@ -8,7 +8,7 @@ export function ShippingBanner({ shipping, className }: { shipping: ShippingInfo
     <div className={cn('flex items-center gap-3 rounded-[14px] border border-orange-100 bg-gradient-to-r from-orange-50 to-amber-50/60 p-3.5', className)}>
       <Icon name={shipping.icon} className="size-7 shrink-0 fill-amber-400 text-orange-500" />
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-bold text-orange-600">{shipping.title}</p>
+        <p className="text-sm font-bold text-orange-700">{shipping.title}</p>
         <p className="text-xs text-muted">{shipping.description}</p>
       </div>
       <ChevronRight className="size-5 shrink-0 text-orange-400" aria-hidden="true" />

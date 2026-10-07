@@ -14,7 +14,7 @@ export function ProductInfo({ product, className, compact }: { product: Product;
           {product.video.episode}
         </Badge>
         {product.highlight && (
-          <span className="flex items-center gap-1 text-sm font-semibold text-orange-600">
+          <span className="flex items-center gap-1 text-sm font-semibold text-orange-700">
             <Flame className="size-4 fill-orange-500 text-orange-500" aria-hidden="true" />
             {product.highlight}
           </span>

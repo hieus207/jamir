@@ -35,7 +35,7 @@ export function ProductPrice({
           {!!discount && (
             <span
               className={cn(
-                'rounded-lg bg-danger font-bold text-white',
+                'rounded-lg bg-danger-strong font-bold text-white',
                 size === 'lg' ? 'px-2 py-1 text-sm' : 'px-1.5 py-0.5 text-[11px]',
               )}
             >

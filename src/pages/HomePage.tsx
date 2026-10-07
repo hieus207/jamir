@@ -52,6 +52,7 @@ export default function HomePage() {
 
   return (
     <div className="container-page flex flex-col gap-8 pt-3 pb-10 md:gap-10 md:pt-5">
+      <h1 className="sr-only">JAMIR — Mua sắm công nghệ qua video</h1>
       <Carousel opts={{ loop: true }} plugins={[Autoplay({ delay: 5000, stopOnInteraction: true })]} aria-label="Ưu đãi nổi bật">
         <CarouselContent>
           {BANNERS.map((b, i) => (
@@ -97,12 +98,13 @@ export default function HomePage() {
       <ProductStories />
 
       <section className="flex flex-col gap-4">
-        <PageHeader title={<span className="text-xl md:text-2xl">Danh mục</span>} />
+        <PageHeader as="h2" title={<span className="text-xl md:text-2xl">Danh mục</span>} />
         <CategoryNavigation value={null} onChange={(id) => navigate(id ? `/shop?category=${id}` : '/shop')} />
       </section>
 
       <section className="flex flex-col gap-4">
         <PageHeader
+          as="h2"
           title={<span className="text-xl md:text-2xl">Video hot từ KOL</span>}
           description="Review thật — xem trước khi mua"
           aside={
@@ -115,7 +117,7 @@ export default function HomePage() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <PageHeader title={<span className="text-xl md:text-2xl">Gợi ý cho bạn</span>} description="Chọn lọc từ những sản phẩm được yêu thích nhất" />
+        <PageHeader as="h2" title={<span className="text-xl md:text-2xl">Gợi ý cho bạn</span>} description="Chọn lọc từ những sản phẩm được yêu thích nhất" />
         <ProductGrid products={forYou.data} loading={forYou.isPending} />
       </section>
     </div>

@@ -53,7 +53,7 @@ export function RecommendationCard({ product, className }: { product: ProductSum
           className={cn('size-full object-cover transition-transform duration-500 group-hover:scale-105', soldOut && 'opacity-60 grayscale')}
         />
         {product.discount > 0 && (
-          <span className="absolute top-2 left-2 rounded-md bg-danger px-1.5 py-0.5 text-[11px] font-bold text-white">-{product.discount}%</span>
+          <span className="absolute top-2 left-2 rounded-md bg-danger-strong px-1.5 py-0.5 text-[11px] font-bold text-white">-{product.discount}%</span>
         )}
         {soldOut && (
           <span className="absolute inset-x-0 bottom-0 bg-ink/70 py-1 text-center text-xs font-semibold text-white">Tạm hết hàng</span>

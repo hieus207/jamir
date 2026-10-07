@@ -11,7 +11,7 @@ export function UseCaseGrid({ useCases, className }: { useCases: UseCase[]; clas
         <CardTitle>Phù hợp với bạn nếu</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="scrollbar-none -mx-4 flex snap-x gap-3 overflow-x-auto scroll-px-4 px-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
+        <ul tabIndex={0} aria-label="Đối tượng phù hợp" className="scrollbar-none -mx-4 flex snap-x gap-3 overflow-x-auto scroll-px-4 px-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3">
           {useCases.map((u) => (
             <li
               key={u.id}

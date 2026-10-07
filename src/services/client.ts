@@ -7,6 +7,8 @@
  *   functions call the REST backend instead. The UI never knows the difference.
  */
 
+import { loadDb } from './db'
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string | undefined
 const MOCK_LATENCY = Number(import.meta.env.VITE_MOCK_LATENCY ?? 350)
 
@@ -53,7 +55,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 /** structuredClone so callers can never mutate the in-memory "database". */
 async function mock<T>(resolve: () => T | undefined, latency = MOCK_LATENCY): Promise<T> {
-  await sleep(latency * (0.6 + Math.random() * 0.8))
+  await Promise.all([loadDb(), sleep(latency * (0.6 + Math.random() * 0.8))])
   const value = resolve()
   if (value === undefined) throw new NotFoundError()
   return structuredClone(value)

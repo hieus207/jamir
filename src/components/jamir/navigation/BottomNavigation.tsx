@@ -45,7 +45,7 @@ export function BottomNavigation() {
                   <span className="relative">
                     <Icon className="size-[22px]" strokeWidth={isActive ? 2.4 : 2} aria-hidden="true" />
                     {to === '/wishlist' && wishCount > 0 && (
-                      <span className="absolute -top-1 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-danger px-1 text-[10px] font-bold text-white">
+                      <span className="absolute -top-1 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-danger-strong px-1 text-[10px] font-bold text-white">
                         {wishCount}
                       </span>
                     )}

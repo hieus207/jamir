@@ -21,6 +21,8 @@ export function KolVideoGrid({ videos, loading, className }: { videos?: KolRevie
           ))}
         </div>
       ) : (
+        <>
+        <h2 className="sr-only">Danh sách video</h2>
         <ul className={grid}>
           {videos?.map((v) => (
             <li key={v.id}>
@@ -28,6 +30,7 @@ export function KolVideoGrid({ videos, loading, className }: { videos?: KolRevie
             </li>
           ))}
         </ul>
+        </>
       )}
       <KolVideoViewer review={active} playlist={videos ?? []} onChange={setActive} onClose={() => setActive(null)} />
     </>

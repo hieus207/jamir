@@ -15,7 +15,7 @@ export const toast = {
 }
 
 const ICON: Record<ToastType, ReactNode> = {
-  success: <CircleCheck className="size-5 text-success" />,
+  success: <CircleCheck className="size-5 text-success-strong" />,
   error: <TriangleAlert className="size-5 text-danger" />,
   info: <Info className="size-5 text-brand-600" />,
 }

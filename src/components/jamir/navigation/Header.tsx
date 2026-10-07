@@ -7,7 +7,7 @@ import { selectCartCount, useCartStore } from '@/stores/cartStore'
 import { useUiStore } from '@/stores/uiStore'
 import { useWishlistStore } from '@/stores/wishlistStore'
 import { Logo } from '../brand/Logo'
-import { useAuthDialog } from '../auth/AuthDialog'
+import { useAuthDialog } from '../auth/authStore'
 import { SearchBox } from './SearchBox'
 
 const NAV = [
@@ -41,7 +41,7 @@ export function Header() {
               <Icon className="size-[18px]" aria-hidden="true" />
               {label}
               {to === '/wishlist' && wishCount > 0 && (
-                <span className="absolute top-1 left-6 size-2 rounded-full bg-danger ring-2 ring-surface" aria-hidden="true" />
+                <span className="absolute top-1 left-6 size-2 rounded-full bg-danger-strong ring-2 ring-surface" aria-hidden="true" />
               )}
             </NavLink>
           ))}
@@ -82,7 +82,7 @@ export function CartButton({ className }: { className?: string }) {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.4, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 600, damping: 22 }}
-            className="absolute top-1 right-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger px-1 text-[11px] font-bold text-white ring-2 ring-surface"
+            className="absolute top-1 right-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger-strong px-1 text-[11px] font-bold text-white ring-2 ring-surface"
           >
             {count > 99 ? '99+' : count}
           </motion.span>

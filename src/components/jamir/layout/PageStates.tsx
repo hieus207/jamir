@@ -45,4 +45,15 @@ export function StateBlock({
   )
 }
 
-export const ErrorIcon = TriangleAlert
+/** Inline error for a data section, with retry. */
+export function SectionError({ onRetry, className }: { onRetry: () => void; className?: string }) {
+  return (
+    <div role="alert" className={cn('flex flex-col items-center gap-2 rounded-[14px] bg-danger-50/60 px-4 py-6 text-center', className)}>
+      <TriangleAlert className="size-6 text-danger" aria-hidden="true" />
+      <p className="text-sm font-medium text-ink">Không tải được nội dung</p>
+      <button type="button" onClick={onRetry} className="cursor-pointer text-sm font-semibold text-brand-700 hover:underline">
+        Thử lại
+      </button>
+    </div>
+  )
+}

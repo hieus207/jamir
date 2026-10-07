@@ -30,6 +30,8 @@ export function ProductGrid({
       </div>
     )
   return (
+    <>
+    <h2 className="sr-only">Danh sách sản phẩm</h2>
     <ul className={grid}>
       {products?.map((p, i) => (
         <motion.li
@@ -42,5 +44,6 @@ export function ProductGrid({
         </motion.li>
       ))}
     </ul>
+    </>
   )
 }

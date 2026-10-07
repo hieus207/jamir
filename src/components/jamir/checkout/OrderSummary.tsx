@@ -13,7 +13,7 @@ export function OrderSummary({ subtotal, shippingFee, savings }: { subtotal: num
         <dd className="tabular-nums">{shippingFee === 0 ? 'Miễn phí' : formatPrice(shippingFee)}</dd>
       </div>
       {savings > 0 && (
-        <div className="flex justify-between text-success">
+        <div className="flex justify-between text-success-strong">
           <dt>Tiết kiệm</dt>
           <dd className="tabular-nums">-{formatPrice(savings)}</dd>
         </div>

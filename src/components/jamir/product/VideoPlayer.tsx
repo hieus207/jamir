@@ -265,11 +265,11 @@ function RailButton({
     <button
       type="button"
       onClick={onClick}
-      aria-label={label}
       aria-pressed={pressed}
       className={cn('flex w-11 cursor-pointer flex-col items-center gap-0.5 rounded-xl py-1 text-white transition-[background-color,transform] hover:bg-white/10 active:scale-95 md:w-14 md:py-1.5', className)}
     >
       {children}
+      <span className="sr-only">{label}: </span>
       <span className="text-[10px] font-semibold drop-shadow md:text-[11px]">{count}</span>
     </button>
   )
