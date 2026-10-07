@@ -5,6 +5,7 @@ import { ProductFaq } from '@/components/jamir/product/ProductFaq'
 import { ProductSpecs } from '@/components/jamir/product/ProductSpecs'
 import { ProductVideo } from '@/components/jamir/product/ProductVideo'
 import { PurchasePanel } from '@/components/jamir/product/PurchasePanel'
+import { StickyPurchaseBar } from '@/components/jamir/product/StickyPurchaseBar'
 import { RelatedProducts } from '@/components/jamir/product/RelatedProducts'
 import { UseCaseGrid } from '@/components/jamir/product/UseCaseGrid'
 import { CustomerReviewSection } from '@/components/jamir/review/CustomerReviewSection'
@@ -40,7 +41,7 @@ export default function ProductPage() {
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_372px] xl:grid-cols-[minmax(0,1fr)_400px]">
         <div className="flex min-w-0 flex-col gap-4 md:gap-5">
           <ProductVideo key={product.id} product={product} kolCount={kol?.length} className="order-1" />
-          <PurchasePanel product={product} className="order-2 lg:hidden" />
+          <PurchasePanel product={product} inline className="order-2 lg:hidden" />
           <KolReviewSection productId={product.id} className="order-3 lg:order-4" />
           <ProductSpecs specs={product.specs} className="order-4 lg:order-2" />
           <UseCaseGrid useCases={product.useCases} className="order-5 lg:order-3" />
@@ -52,6 +53,7 @@ export default function ProductPage() {
         </aside>
       </div>
       <RelatedProducts productId={product.id} className="mt-8" />
+      <StickyPurchaseBar product={product} />
     </div>
   )
 }

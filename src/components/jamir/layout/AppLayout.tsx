@@ -1,6 +1,8 @@
 import { Suspense } from 'react'
 import { Outlet, ScrollRestoration, useMatch } from 'react-router'
 import { AuthDialog } from '../auth/AuthDialog'
+import { CartSheet } from '../checkout/CartSheet'
+import { CheckoutSheet } from '../checkout/CheckoutSheet'
 import { BottomNavigation } from '../navigation/BottomNavigation'
 import { Header } from '../navigation/Header'
 import { MobileHeader } from '../navigation/MobileHeader'
@@ -27,6 +29,8 @@ export function AppLayout() {
       <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />
       {!onProduct && <BottomNavigation />}
       <AuthDialog />
+      <CartSheet />
+      <CheckoutSheet />
       <ScrollRestoration getKey={(location) => location.pathname} />
     </div>
   )

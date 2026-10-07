@@ -29,7 +29,16 @@ export function StockStatus({ stock, className }: { stock: number; className?: s
  * Right-hand purchase panel (desktop: sticky). On mobile the same blocks are
  * rendered inline and the CTA moves to the sticky bottom bar.
  */
-export function PurchasePanel({ product, className }: { product: Product; className?: string }) {
+export function PurchasePanel({
+  product,
+  inline,
+  className,
+}: {
+  product: Product
+  /** inline (< lg): CTA row lives in the sticky bottom bar instead. */
+  inline?: boolean
+  className?: string
+}) {
   const { colorId, quantity, setColor, setQuantity } = useSelectionStore()
   const actions = usePurchaseActions(product)
 
@@ -45,7 +54,7 @@ export function PurchasePanel({ product, className }: { product: Product; classN
         <span className="w-20 shrink-0 text-sm font-medium text-ink-soft">Số lượng:</span>
         <QuantitySelector value={quantity} onChange={setQuantity} max={Math.max(1, Math.min(product.stock, 99))} />
       </div>
-      <div className="flex gap-2.5">
+      <div className={cn('flex gap-2.5', inline && 'hidden')}>
         {actions.inStock ? (
           <>
             <Button size="lg" className="h-[52px] flex-1 text-[17px]" onClick={actions.buyNow}>
@@ -64,6 +73,12 @@ export function PurchasePanel({ product, className }: { product: Product; classN
         )}
         <WishlistButton productId={product.id} onToggle={actions.toggleWishlist} />
       </div>
+      {inline && actions.inStock && (
+        <Button variant="outline" size="md" className="w-full" onClick={actions.addToCart}>
+          <ShoppingCart aria-hidden="true" />
+          Thêm vào giỏ hàng
+        </Button>
+      )}
       <ShippingBanner shipping={product.shipping} />
       <ProductGuarantee guarantees={product.guarantees} />
     </Card>
