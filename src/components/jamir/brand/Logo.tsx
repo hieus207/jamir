@@ -1,10 +1,14 @@
 import { useId } from 'react'
 import { Link } from 'react-router'
+import { useSettings } from '@/hooks/queries'
 import { cn } from '@/lib/utils'
 
+/** Square brand mark: the icon from settings (Admin → Cài đặt → Logo), else the built-in mark. */
 export function LogoMark({ className }: { className?: string }) {
   // unique per instance: a hidden duplicate (display:none) would otherwise own the gradient
   const id = useId()
+  const icon = useSettings().data?.logo?.icon
+  if (icon) return <img src={icon} alt="" className={cn('size-8 rounded-[9px] object-contain', className)} />
   return (
     <svg viewBox="0 0 64 64" className={cn('size-8', className)} aria-hidden="true">
       <defs>
@@ -20,13 +24,20 @@ export function LogoMark({ className }: { className?: string }) {
   )
 }
 
+/** Header logo: full logo image if set, else mark + name. */
 export function Logo({ className }: { className?: string }) {
+  const logo = useSettings().data?.logo
+  const name = logo?.text || 'Jamir'
   return (
-    <Link to="/" aria-label="JAMIR — Trang chủ" className={cn('flex shrink-0 items-center gap-2', className)}>
-      <LogoMark />
-      <span className="text-[22px] font-extrabold tracking-tight text-ink">
-        Jamir
-      </span>
+    <Link to="/" aria-label={`${name} — Trang chủ`} className={cn('flex shrink-0 items-center gap-2', className)}>
+      {logo?.image ? (
+        <img src={logo.image} alt={name} className="w-auto max-w-[180px] object-contain" style={{ height: logo.height || 32 }} />
+      ) : (
+        <>
+          <LogoMark />
+          <span className="text-[22px] font-extrabold tracking-tight text-ink">{name}</span>
+        </>
+      )}
     </Link>
   )
 }

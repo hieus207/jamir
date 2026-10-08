@@ -24,13 +24,16 @@ export function ProductFaq({ productId, total, className }: { productId: string;
   const signedIn = useSession((s) => !!s.token)
   const showAuth = useAuthDialog((s) => s.show)
   const [asking, setAsking] = useState(false)
+  const [shown, setShown] = useState(5)
+  // newest first: dated customer questions, then the seeded ones (newest seed last in file)
+  const latest = [...(faqs ?? [])].reverse().sort((a, b) => (b.createdAt ?? '').localeCompare(a.createdAt ?? ''))
   const zalo = settings?.zalo ?? 'https://zalo.me'
 
   return (
     <Card id="faq" className={cn('scroll-mt-24', className)}>
       <CardHeader className="flex-wrap">
         <CardTitle>
-          Hỏi đáp khách hàng <span className="text-brand-600">({faqs?.length ?? total})</span>
+          Hỏi đáp mới nhất <span className="text-brand-600">({faqs?.length ?? total})</span>
         </CardTitle>
         <div className="flex gap-1.5">
           {signedIn && (
@@ -63,11 +66,11 @@ export function ProductFaq({ productId, total, className }: { productId: string;
               <Skeleton key={i} className="h-10" />
             ))}
           </div>
-        ) : !faqs?.length ? (
+        ) : !latest.length ? (
           <p className="py-4 text-center text-sm text-muted">Chưa có câu hỏi nào. Hãy là người đầu tiên đặt câu hỏi!</p>
         ) : (
           <Accordion>
-            {faqs.map((f, i) => (
+            {latest.slice(0, shown).map((f, i) => (
               <AccordionItem key={f.id} value={f.id}>
                 <AccordionTrigger>
                   <span className="flex items-start gap-3">
@@ -79,6 +82,11 @@ export function ProductFaq({ productId, total, className }: { productId: string;
               </AccordionItem>
             ))}
           </Accordion>
+        )}
+        {latest.length > shown && (
+          <Button variant="ghost" size="sm" className="mt-1 w-full text-brand-700" onClick={() => setShown((n) => n + 5)}>
+            Xem thêm {Math.min(5, latest.length - shown)} câu hỏi
+          </Button>
         )}
       </CardContent>
       <AskDialog productId={productId} open={asking} onClose={() => setAsking(false)} />

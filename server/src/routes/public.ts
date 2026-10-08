@@ -72,14 +72,16 @@ export function publicRoutes(r: Router, db: Store) {
     const product = await db.products.get(page.productId)
     if (!product) throw new HttpError(404, 'Sản phẩm của trang này không còn')
     const kols = await db.kols.list()
-    const reviews = (await db.reviews.list())
-      .filter((x) => x.productId === product.id && !x.hidden)
-      .sort((a, b) => Number(b.featured) - Number(a.featured) || b.media.length - a.media.length || b.helpfulCount - a.helpfulCount)
-      .slice(0, 6)
-      .map((x) => toReview(x))
+    const all = (await db.reviews.list()).filter((x) => x.productId === product.id && !x.hidden)
+    const picked = (page.reviewIds ?? []).map((id) => all.find((x) => x.id === id)).filter((x) => !!x)
+    const best = all
+      .filter((x) => !picked.includes(x))
+      .sort((a, b) => b.rating - a.rating || Number(b.featured) - Number(a.featured) || b.media.length - a.media.length || b.helpfulCount - a.helpfulCount)
+    const reviews = [...picked, ...best].slice(0, 3).map((x) => toReview(x))
+    // featured video first (admin pick, else most viewed)
     const kol = (await db.kolVideos.list())
-      .filter((v) => v.productId === product.id)
-      .sort((a, b) => b.views - a.views)
+      .filter((v) => v.productId === product.id || v.id === page.kolReviewId)
+      .sort((a, b) => Number(b.id === page.kolReviewId) - Number(a.id === page.kolReviewId) || b.views - a.views)
       .slice(0, 4)
       .map((v) => withKol(v, kols))
     return { page, product: toPublicProduct(product), reviews, kol }
@@ -140,12 +142,14 @@ export function publicRoutes(r: Router, db: Store) {
 
   r.get('/community/feed', async () => {
     const products = await db.products.list()
+    // newest first; the page groups by week
     return (await db.reviews.list())
-      .filter((x) => x.media.length > 0)
+      .filter((x) => !x.hidden && x.content.trim().length >= 10)
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      .slice(0, 120)
       .map((x) => {
         const p = products.find((pp) => pp.id === x.productId)
-        return { ...toReview(x), productSlug: p?.slug ?? '', productName: p?.name ?? '' }
+        return { ...toReview(x), productSlug: p?.slug ?? '', productName: p?.name ?? '', productThumb: p?.thumbnail ?? '', productPrice: p?.price ?? 0 }
       })
   })
 

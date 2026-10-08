@@ -54,7 +54,7 @@ interface StoryModeState {
 
 /**
  * "Xem tất cả" story mode: each story is a product page. The controller
- * (StoryModeController) runs the timer and opens /product/:slug for each step.
+ * (StoryModeController) runs the timer and opens /san-pham/:slug for each step.
  */
 export const useStoryMode = create<StoryModeState>()((set, get) => {
   const arrange = (slugs: string[]) => (get().order === 'priority' ? slugs : shuffle(slugs))

@@ -1,6 +1,5 @@
+import { SectionHeading } from '@/components/jamir/layout/SectionHeading'
 import Autoplay from 'embla-carousel-autoplay'
-import { ArrowRight } from 'lucide-react'
-import { Link } from 'react-router'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
@@ -9,20 +8,26 @@ import { RecommendationCard } from './RecommendationCard'
 
 export function RecommendationSection({
   title,
+  accent,
   products,
   loading,
   moreHref = '/shop',
   autoplayMs,
   description,
   columns,
+  labelLimit,
   className,
 }: {
+  /** at most this many cards show their label (undefined = all) */
+  labelLimit?: number
   /** grid of up to N large cards (full width) instead of a carousel */
   columns?: number
   /** auto-advance one slide every N ms (loops) */
   autoplayMs?: number
   description?: string
   title: string
+  /** gradient word after the title */
+  accent?: string
   products?: ProductSummary[]
   loading?: boolean
   moreHref?: string
@@ -30,16 +35,8 @@ export function RecommendationSection({
 }) {
   if (!loading && !products?.length) return null
   return (
-    <section aria-label={title} className={cn('flex flex-col gap-3', className)}>
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className={cn('font-bold tracking-tight', columns ? 'text-xl md:text-2xl' : 'text-lg md:text-xl')}>{title}</h2>
-          {description && <p className="mt-0.5 text-sm text-muted">{description}</p>}
-        </div>
-        <Link to={moreHref} className="flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800">
-          Xem thêm <ArrowRight className="size-4" aria-hidden="true" />
-        </Link>
-      </div>
+    <section aria-label={accent ? `${title} ${accent}` : title} className={cn('flex flex-col gap-3', className)}>
+      <SectionHeading title={title} accent={accent} description={description} action={{ to: moreHref, label: 'Xem thêm' }} />
       {loading ? (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           {Array.from({ length: 5 }, (_, i) => (
@@ -48,9 +45,11 @@ export function RecommendationSection({
         </div>
       ) : columns ? (
         <div className="grid grid-cols-2 gap-3 md:gap-5 lg:grid-cols-4">
-          {products!.slice(0, columns).map((p) => (
-            <RecommendationCard key={p.id} product={p} size="lg" />
-          ))}
+          {(() => {
+            const shown = products!.slice(0, columns)
+            const labelled = new Set(shown.filter((p) => p.highlight).slice(0, labelLimit ?? Infinity).map((p) => p.id))
+            return shown.map((p) => <RecommendationCard key={p.id} product={p} size="lg" showLabel={labelled.has(p.id)} />)
+          })()}
         </div>
       ) : (
         <Carousel
@@ -58,9 +57,12 @@ export function RecommendationSection({
           plugins={autoplayMs ? [Autoplay({ delay: autoplayMs, stopOnInteraction: false, stopOnMouseEnter: true })] : undefined}
         >
           <CarouselContent className="py-1">
-            {products!.map((p) => (
+            {products!.map((p, _i, all) => (
               <CarouselItem key={p.id} className="basis-[46%] sm:basis-1/3 lg:basis-1/5">
-                <RecommendationCard product={p} />
+                <RecommendationCard
+                  product={p}
+                  showLabel={labelLimit === undefined || all.filter((x) => x.highlight).slice(0, labelLimit).some((x) => x.id === p.id)}
+                />
               </CarouselItem>
             ))}
           </CarouselContent>

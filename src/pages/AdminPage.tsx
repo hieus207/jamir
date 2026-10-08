@@ -1,5 +1,6 @@
 import {
   Clapperboard,
+  FlaskConical,
   FolderTree,
   Images,
   CalendarHeart,
@@ -20,7 +21,7 @@ import {
 } from 'lucide-react'
 import { type ReactNode, useEffect } from 'react'
 import { NavLink, useParams } from 'react-router'
-import { OverviewPanel, CustomersPanel, SettingsPanel, STORY_SAMPLE, StoriesConfigCard, StoryImportButton } from '@/components/admin/panels'
+import { FeederPanel, OverviewPanel, CustomersPanel, SettingsPanel, STORY_SAMPLE, StoriesConfigCard, StoryImportButton } from '@/components/admin/panels'
 import { ResourcePanel } from '@/components/admin/ResourcePanel'
 import * as R from '@/components/admin/resources'
 import { useAuthDialog, useSession } from '@/components/jamir/auth/authStore'
@@ -61,6 +62,7 @@ const SECTIONS: Section[] = [
   { id: 'kol-reviews', label: 'Video KOL', icon: Clapperboard, render: () => <ResourcePanel config={R.kolReviews} /> },
   { id: 'kols', label: 'KOL / KOC', icon: UserRoundCheck, render: () => <ResourcePanel config={R.kols} /> },
   { id: 'reviews', label: 'Đánh giá', icon: MessageSquareText, render: () => <ResourcePanel config={R.reviews} /> },
+  { id: 'feeder', label: 'Đánh giá demo', icon: FlaskConical, render: () => <FeederPanel /> },
   { id: 'faqs', label: 'Hỏi đáp', icon: MessagesSquare, render: () => <ResourcePanel config={R.faqs} /> },
   { id: 'news', label: 'Tin tức', icon: Newspaper, render: () => <ResourcePanel config={R.news} /> },
   { id: 'promotions', label: 'Khuyến mại', icon: TicketPercent, render: () => <ResourcePanel config={R.promotions} /> },

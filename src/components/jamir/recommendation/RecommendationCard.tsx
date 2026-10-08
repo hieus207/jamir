@@ -9,7 +9,18 @@ import { useCartStore } from '@/stores/cartStore'
 import type { ProductSummary } from '@/types/domain'
 
 /** Product card: image, badge, name, rating, price, discount, quick add-to-cart. */
-export function RecommendationCard({ product, size = 'md', className }: { product: ProductSummary; size?: 'md' | 'lg'; className?: string }) {
+export function RecommendationCard({
+  product,
+  size = 'md',
+  showLabel = true,
+  className,
+}: {
+  /** hot / highlight label on the image */
+  showLabel?: boolean
+  product: ProductSummary
+  size?: 'md' | 'lg'
+  className?: string
+}) {
   const add = useCartStore((s) => s.add)
   const prefetch = usePrefetchProduct()
   const [added, setAdded] = useState(false)
@@ -50,23 +61,14 @@ export function RecommendationCard({ product, size = 'md', className }: { produc
           src={product.thumbnail}
           alt=""
           loading="lazy"
-          className={cn('size-full object-cover transition-transform duration-500 group-hover:scale-105', soldOut && 'opacity-60 grayscale')}
+          className={cn('absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105', soldOut && 'opacity-60 grayscale')}
         />
-        {product.discount > 0 && (
+        {showLabel && product.highlight && (
           <span
             className={cn(
-              'badge-shine absolute top-2.5 left-2.5 animate-[badge-pulse_1.6s_ease-in-out_infinite] rounded-[10px] bg-gradient-to-br from-red-600 to-pink-500 font-extrabold text-white shadow-[0_6px_18px_-4px_rgb(220_38_38/0.75)] motion-reduce:animate-none',
-              size === 'lg' ? 'px-3 py-1.5 text-base md:text-lg' : 'px-2 py-1 text-sm',
-            )}
-          >
-            -{product.discount}%
-          </span>
-        )}
-        {product.highlight && (
-          <span
-            className={cn(
-              'badge-shine absolute top-2.5 right-2.5 inline-flex items-center gap-1 rounded-[10px] bg-gradient-to-r from-orange-500 to-amber-400 font-extrabold text-white shadow-[0_6px_18px_-4px_rgb(249_115_22/0.75)]',
+              'badge-shine absolute top-2.5 inline-flex items-center gap-1 rounded-[10px] bg-gradient-to-r from-orange-500 to-amber-400 font-extrabold text-white shadow-[0_6px_18px_-4px_rgb(249_115_22/0.75)]',
               size === 'lg' ? 'px-2.5 py-1.5 text-sm md:text-base' : 'px-2 py-1 text-xs',
+              'left-2.5',
             )}
           >
             <Flame className="size-4 animate-pulse fill-yellow-200 motion-reduce:animate-none" aria-hidden="true" />
@@ -79,7 +81,7 @@ export function RecommendationCard({ product, size = 'md', className }: { produc
       </div>
       <div className={cn('flex flex-1 flex-col gap-1', size === 'lg' ? 'p-4' : 'p-3')}>
         <h3 className={cn('line-clamp-2 leading-snug font-semibold text-ink', size === 'lg' ? 'text-base md:text-lg' : 'text-sm')}>
-          <Link to={`/product/${product.slug}`} className="after:absolute after:inset-0 hover:text-brand-700">
+          <Link to={`/san-pham/${product.slug}`} className="after:absolute after:inset-0 hover:text-brand-700">
             {product.name}
           </Link>
         </h3>
@@ -93,7 +95,10 @@ export function RecommendationCard({ product, size = 'md', className }: { produc
           <div className="min-w-0">
             <p className={cn('font-bold text-brand-700 tabular-nums', size === 'lg' ? 'text-lg md:text-xl' : 'text-[15px]')}>{formatPrice(product.price)}</p>
             {product.originalPrice > product.price && (
-              <p className="text-xs text-subtle line-through tabular-nums">{formatPrice(product.originalPrice)}</p>
+              <p className="flex items-center gap-1.5 text-xs">
+                <span className="text-subtle line-through tabular-nums">{formatPrice(product.originalPrice)}</span>
+                {product.discount > 0 && <span className="rounded bg-danger-50 px-1 font-bold text-danger">-{product.discount}%</span>}
+              </p>
             )}
           </div>
           <button

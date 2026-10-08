@@ -2,6 +2,8 @@ import { randomBytes } from 'node:crypto'
 import { createServer } from 'node:http'
 import { hashPassword } from './auth'
 import { config } from './config'
+import { startFeeder } from './feeder'
+import { seoRoutes } from './seo'
 import { Router } from './http'
 import { newId } from './logic'
 import { accountRoutes } from './routes/account'
@@ -30,6 +32,8 @@ router.get('/health', () => ({ ok: true }))
 publicRoutes(router, db)
 accountRoutes(router, db)
 adminRoutes(router, db)
+seoRoutes(router, db)
+startFeeder(db)
 
 const server = createServer((req, res) => router.handle(req, res))
 server.listen(config.port, config.host, () => {

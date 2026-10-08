@@ -36,7 +36,7 @@ export function ProductSwipeNavigator({ slug, children }: { slug: string; childr
       const target = dir === 1 ? nb?.next : nb?.prev
       if (!target) return
       setDirection(dir)
-      navigate(`/product/${target.slug}`)
+      navigate(`/san-pham/${target.slug}`)
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
     },
     [nb, navigate, setDirection],

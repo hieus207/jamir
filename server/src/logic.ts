@@ -58,7 +58,7 @@ export function reviewerName(a: ReviewRecord['author']) {
 }
 
 export function toReview(r: ReviewRecord, viewerId?: string): CustomerReview {
-  const { author, userId, likedBy, hidden: _h, ...rest } = r
+  const { author, userId, likedBy, hidden: _h, seeded: _s, ...rest } = r
   const anonymous = author.display === 'anonymous'
   return {
     ...rest,

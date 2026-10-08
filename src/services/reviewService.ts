@@ -7,7 +7,8 @@ export const getProductReviews = (productId: string, sort: ReviewSort = 'feature
 export const getRatingSummary = (productId: string) => get<RatingSummary>(`/products/${productId}/rating-summary`)
 
 /** Community feed: latest customer reviews with photos/videos, across products. */
-export const getCommunityFeed = () => get<(CustomerReview & { productSlug: string; productName: string })[]>('/community/feed')
+export type CommunityPost = CustomerReview & { productSlug: string; productName: string; productThumb: string; productPrice: number }
+export const getCommunityFeed = () => get<CommunityPost[]>('/community/feed')
 
 export const getProductFaqs = (productId: string) => get<Faq[]>(`/products/${productId}/faqs`)
 

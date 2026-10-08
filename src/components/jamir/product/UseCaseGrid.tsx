@@ -25,7 +25,7 @@ export function UseCaseGrid({
         </CardHeader>
         <CardContent className="pt-3">
           <ul className="grid grid-cols-4 gap-2">
-            {useCases.slice(0, 8).map((u) => (
+            {useCases.slice(0, 4).map((u) => (
               <li key={u.id} className="group flex flex-col items-center gap-1.5 rounded-[12px] px-1 py-2 text-center transition-colors hover:bg-brand-50" title={u.description}>
                 <span className="flex size-11 items-center justify-center rounded-[12px] bg-brand-50 text-brand-600 transition-transform group-hover:-translate-y-0.5">
                   <Icon name={u.icon} className="size-6" strokeWidth={1.8} />

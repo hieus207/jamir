@@ -12,5 +12,45 @@
   "orderLimit": {
     "max": 5,
     "windowHours": 8
-  }
+  },
+  "relatedLabels": {
+    "enabled": true,
+    "max": 2
+  },
+  "reviewLimit": {
+    "scope": "account",
+    "max": 1,
+    "windowDays": 0
+  },
+  "forYouLabels": {
+    "enabled": false,
+    "max": 2
+  },
+  "usps": [
+    {
+      "icon": "truck",
+      "title": "Hỏa tốc 4h",
+      "text": "Nội thành HN & HCM"
+    },
+    {
+      "icon": "shield-check",
+      "title": "Bảo hành 12 tháng",
+      "text": "1 đổi 1 trong 30 ngày đầu",
+      "highlight": true
+    },
+    {
+      "icon": "refresh",
+      "title": "Đổi trả 30 ngày",
+      "text": "Miễn phí vận chuyển"
+    },
+    {
+      "icon": "play",
+      "title": "Review thật",
+      "text": "Video từ KOL & khách hàng"
+    }
+  ],
+  "logo": {
+    "text": "Jamir"
+  },
+  "searchPlaceholder": "AI tìm kiếm sản phẩm cho bạn…"
 }

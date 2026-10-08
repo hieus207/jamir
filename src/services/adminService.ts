@@ -1,4 +1,4 @@
-import type { AdminCustomer, AdminOverview, Customer } from '@/types/domain'
+import type { AdminCustomer, AdminOverview, Customer, FeederStatus } from '@/types/domain'
 import { del, get, post, put, request } from './client'
 
 /** Collections editable from the admin panel (server: /admin/c/:name). */
@@ -16,6 +16,7 @@ export type AdminCollection =
   | 'landing-pages'
   | 'events'
   | 'banners'
+  | 'review-pool'
 
 export type AdminDoc = 'settings' | 'stories-config' | 'recommendations'
 
@@ -36,6 +37,11 @@ export const adminApi = {
   writeDoc: <T>(d: AdminDoc, value: T) => put<T>(`/admin/doc/${d}`, value),
 
   importStories: (json: unknown) => post<Rec[]>('/admin/stories/import', json),
+
+  feeder: () => get<FeederStatus>('/admin/feeder'),
+  runFeeder: () => post<FeederStatus>('/admin/feeder/run', {}),
+  importPool: (json: unknown) => post<{ added: number; skipped: number }>('/admin/review-pool/import', json),
+  purgeSeeded: () => request<{ removed: number }>('DELETE', '/admin/reviews/seeded'),
 
   /** Streams the file as the raw request body. */
   upload: (file: File) =>

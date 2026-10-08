@@ -99,4 +99,4 @@ Hạ tầng cho V2: chuyển store sang MariaDB, thêm hàng đợi xử lý vid
 
 ## 8. Deploy
 
-Code chính nằm trên VPS tại `/home/jamir/src`. Chạy `bash scripts/deploy-vps.sh` để build bằng Node 22 (`/opt/node22`), publish web vào `/home/jamir/site` và API vào `/home/jamir/api` (systemd `jamir-api`). Thêm `--web-only` nếu chỉ đổi giao diện. Dữ liệu (`/home/jamir/data`), file upload (`/home/jamir/uploads`) và `api.env` không bao giờ bị ghi đè.
+Xem `docs/DEPLOY.md` (cập nhật VPS đang chạy, cài VPS mới bằng `scripts/setup-new-vps.sh`, chuyển dữ liệu). Phong cách và cấu trúc giao diện V1: `docs/DESIGN-V1.md`.

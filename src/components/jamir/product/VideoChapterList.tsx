@@ -33,7 +33,7 @@ export function VideoChapterList({
 
   return (
     <nav aria-label="Chương video" className={className}>
-      <ol ref={listRef} className="scrollbar-none -mx-4 flex snap-x gap-2.5 overflow-x-auto scroll-px-4 px-4 md:mx-0 md:px-0">
+      <ol ref={listRef} className="scrollbar-none relative -mx-4 flex snap-x gap-2.5 overflow-x-auto scroll-px-4 px-4 md:mx-0 md:px-0">
         {chapters.map((c, i) => {
           const active = i === activeIndex
           const progress = active ? clamp((currentTime - c.start) / (c.end - c.start), 0, 1) : 0

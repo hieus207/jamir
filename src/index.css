@@ -17,6 +17,7 @@
   --color-brand-800: #3730a3;
   --color-accent-500: #8b5cf6;
   --color-accent-600: #7c3aed;
+  --color-accent-200: #ddd6fe;
   --color-accent-50: #f5f3ff;
 
   --color-ink: #111827;
@@ -96,6 +97,18 @@
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
+@keyframes buy-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(255 45 61 / 0.75), 0 0 18px 2px rgb(255 229 46 / 0.35); }
+  50% { box-shadow: 0 0 0 10px rgb(255 45 61 / 0), 0 0 34px 8px rgb(255 229 46 / 0.6); }
+}
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
+@keyframes marquee {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
 @keyframes shine-sweep {
   0%, 55% { transform: translateX(-130%); }
   100% { transform: translateX(130%); }
@@ -143,6 +156,9 @@
 }
 
 @layer base {
+  html {
+    overflow-x: clip;
+  }
   html {
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;

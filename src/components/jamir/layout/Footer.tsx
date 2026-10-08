@@ -1,4 +1,4 @@
-import { Globe, Handshake, Heart, LayoutGrid, Mail, MessageCircle, Newspaper, Phone, UsersRound } from 'lucide-react'
+import { Handshake, Heart, LayoutGrid, Mail, MessageCircle, Newspaper, Phone } from 'lucide-react'
 import { Link } from 'react-router'
 import type { ReactNode } from 'react'
 import { useSettings } from '@/hooks/queries'
@@ -35,8 +35,8 @@ export function Footer({ className }: { className?: string }) {
   const tel = s?.hotline.replace(/\s/g, '')
   const wishCount = useWishlistStore((x) => x.ids.length)
   return (
-    <footer className={cn('mt-8 border-t border-line bg-surface', className)}>
-      <div className="container-page grid gap-6 py-8 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-[1.3fr_1fr_1fr_1fr_1fr]">
+    <footer className={cn('mt-6 border-t border-line bg-surface', className)}>
+      <div className="container-page grid gap-6 py-8 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <LogoMark className="size-7" />
@@ -47,7 +47,7 @@ export function Footer({ className }: { className?: string }) {
         </div>
         <nav aria-label="Khám phá" className="flex flex-col gap-2.5">
           <p className="text-sm font-bold">Khám phá</p>
-          <FooterNav to="/news" icon={<Newspaper className="size-4" />}>
+          <FooterNav to="/tin-tuc" icon={<Newspaper className="size-4" />}>
             Tin tức
           </FooterNav>
           <FooterNav to="/wishlist" icon={<Heart className="size-4" />}>
@@ -80,19 +80,6 @@ export function Footer({ className }: { className?: string }) {
             <FooterLink href={s.kolContact} icon={<Handshake className="size-4" />}>
               Đăng ký hợp tác qua Zalo
             </FooterLink>
-          )}
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <p className="text-sm font-bold">Cộng đồng</p>
-          {s && (
-            <>
-              <FooterLink href={s.community.zaloGroup} icon={<UsersRound className="size-4" />}>
-                Nhóm Zalo JAMIR
-              </FooterLink>
-              <FooterLink href={s.community.facebook} icon={<Globe className="size-4" />}>
-                Facebook Group
-              </FooterLink>
-            </>
           )}
         </div>
       </div>

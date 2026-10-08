@@ -17,8 +17,11 @@ export function StateBlock({
   description,
   action,
   tone = 'neutral',
+  titleAs: TitleTag = 'p',
   className,
 }: {
+  /** page-level states (404) use h1 */
+  titleAs?: 'p' | 'h1' | 'h2'
   icon?: LucideIcon
   title: string
   description?: string
@@ -37,7 +40,7 @@ export function StateBlock({
         <Icon className="size-7" aria-hidden="true" />
       </span>
       <div className="flex max-w-sm flex-col gap-1">
-        <p className="text-base font-bold text-ink">{title}</p>
+        <TitleTag className="text-base font-bold text-ink">{title}</TitleTag>
         {description && <p className="text-sm text-muted">{description}</p>}
       </div>
       {action}

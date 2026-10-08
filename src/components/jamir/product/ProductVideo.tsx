@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { toast } from '@/components/ui/toast'
 import { useVideoController } from '@/hooks/useVideoController'
+import { paths } from '@/lib/paths'
 import { cn } from '@/lib/utils'
 import { useIsWishlisted, useWishlistStore } from '@/stores/wishlistStore'
 import type { Product } from '@/types/domain'
@@ -12,17 +13,16 @@ import { VideoPlayer } from './VideoPlayer'
 export const scrollToSection = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
-export async function shareProduct(name: string) {
-  const url = window.location.href
+/** Copies the canonical product URL; true when copied. */
+export async function shareProduct(name: string, slug?: string) {
+  const url = slug ? `${window.location.origin}${paths.product(slug)}` : window.location.href
   try {
-    if (navigator.share) {
-      await navigator.share({ title: `${name} — JAMIR`, url })
-      return
-    }
     await navigator.clipboard.writeText(url)
-    toast.success('Đã sao chép liên kết', 'Gửi cho bạn bè ngay nhé!')
+    toast.success('Đã sao chép link sản phẩm', name)
+    return true
   } catch {
     /* user cancelled share sheet */
+    return false
   }
 }
 
@@ -37,7 +37,6 @@ export function ProductVideo({
   className?: string
 }) {
   const controller = useVideoController(product.video.duration)
-  const [liked, setLiked] = useState(false)
   const saved = useIsWishlisted(product.id)
   const toggleWishlist = useWishlistStore((s) => s.toggle)
 
@@ -86,15 +85,15 @@ export function ProductVideo({
         fallbackImage={product.gallery[0] ?? product.thumbnail}
         className="-mx-4 w-[calc(100%+2rem)] md:mx-0 md:w-full md:rounded-card"
         actions={{
-          liked,
-          saved,
-          onLike: () => setLiked((v) => !v),
-          onComment: () => scrollToSection('reviews'),
-          onShare: () => shareProduct(product.name),
-          onSave: () => {
+          liked: saved,
+          onLike: () => {
             const added = toggleWishlist(product.id)
-            toast.success(added ? 'Đã lưu vào Yêu thích' : 'Đã bỏ khỏi Yêu thích')
+            toast.success(added ? 'Đã thêm vào Yêu thích' : 'Đã bỏ khỏi Yêu thích')
           },
+          rating: product.rating,
+          commentCount: product.reviewCount,
+          onComment: () => scrollToSection('reviews'),
+          onShare: () => void shareProduct(product.name, product.slug),
         }}
       />
       <VideoChapterList

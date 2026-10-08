@@ -14,7 +14,7 @@ import { SearchBox } from './SearchBox'
 
 const NAV = [
   { to: '/explore', label: 'Khám phá', icon: Compass },
-  { to: '/community', label: 'Cộng đồng', icon: UsersRound },
+  { to: '/cong-dong', label: 'Cộng đồng', icon: UsersRound },
 ]
 
 /** Desktop / tablet header (≥ md). */

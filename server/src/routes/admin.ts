@@ -2,9 +2,10 @@ import { createWriteStream, mkdirSync } from 'node:fs'
 import { unlink } from 'node:fs/promises'
 import { extname, join } from 'node:path'
 import { pipeline } from 'node:stream/promises'
-import type { AdminCustomer, AdminOverview, Story } from '../../../src/types/domain'
+import type { AdminCustomer, AdminOverview, FeederStatus, Story } from '../../../src/types/domain'
 import { hashPassword, toCustomer } from '../auth'
 import { config } from '../config'
+import { importPool, runFeeder } from '../feeder'
 import { HttpError, requireAdmin, type Router } from '../http'
 import { newId, slugify } from '../logic'
 import type { Collection, Store } from '../store'
@@ -31,8 +32,8 @@ const uniqueSlug = (doc: Rec, all: Rec[], from: string) => {
 
 function storyDefaults(doc: Rec, all: Rec[]): Rec {
   required(doc, 'label', 'thumbnail')
-  const media = (doc.media ?? {}) as Story['media']
-  if (!media.src) throw new HttpError(400, 'Story cần media.src (video hoặc ảnh)')
+  // story mode opens the product page; media is optional (defaults to the thumbnail)
+  const media = { src: String(doc.thumbnail), type: 'image', ...((doc.media ?? {}) as Partial<Story['media']>) } as Story['media']
   return {
     active: true,
     createdAt: new Date().toISOString(),
@@ -105,6 +106,16 @@ export function adminRoutes(r: Router, db: Store) {
         required(d, 'productId', 'headline'),
         { active: true, bullets: [], ctaText: 'Mua ngay', showKol: true, showReviews: true, ...d, slug: uniqueSlug(d, all, 'headline') }
       ),
+    },
+    'review-pool': {
+      collection: db.reviewPool as unknown as Collection<Rec>,
+      prefix: 'pool',
+      prepare: (d) => {
+        required(d, 'content', 'name')
+        const rating = Math.round(Number(d.rating ?? 5))
+        if (String(d.content).trim().length < 10) throw new HttpError(400, 'Nội dung tối thiểu 10 ký tự')
+        return { ...d, rating: Math.min(5, Math.max(1, rating)), productId: d.productId || undefined }
+      },
     },
     banners: {
       collection: db.banners as unknown as Collection<Rec>,
@@ -233,6 +244,34 @@ export function adminRoutes(r: Router, db: Store) {
     if (!d) throw new HttpError(404, 'Không tìm thấy')
     if (!ctx.body || typeof ctx.body !== 'object') throw new HttpError(400, 'Dữ liệu không hợp lệ')
     return d.write(ctx.body)
+  })
+
+  /* ---- demo review feeder ---- */
+
+  const feederStatus = async (): Promise<FeederStatus> => ({
+    config: { enabled: false, everyHours: 36, perRun: 2, sourceUrl: '', ...(await db.settings.read()).reviewFeeder },
+    state: await db.feederState.read(),
+    poolCount: (await db.reviewPool.list()).length,
+    seededCount: (await db.reviews.list()).filter((x) => x.seeded).length,
+  })
+  r.get('/admin/feeder', (ctx) => (requireAdmin(ctx), feederStatus()))
+  r.post('/admin/feeder/run', async (ctx) => {
+    requireAdmin(ctx)
+    await runFeeder(db, true)
+    return feederStatus()
+  })
+  r.post('/admin/review-pool/import', async (ctx) => {
+    requireAdmin(ctx)
+    const b = ctx.body as unknown
+    const items = Array.isArray(b) ? b : b && typeof b === 'object' && Array.isArray((b as { items?: unknown }).items) ? (b as { items: unknown[] }).items : [b]
+    return importPool(db, items)
+  })
+  /** Remove every review the feeder posted. */
+  r.delete('/admin/reviews/seeded', async (ctx) => {
+    requireAdmin(ctx)
+    const seeded = (await db.reviews.list()).filter((x) => x.seeded)
+    for (const x of seeded) await db.reviews.remove(x.id)
+    return { removed: seeded.length }
   })
 
   /* ---- story import: a story object, an array, or { items: [...] } ---- */

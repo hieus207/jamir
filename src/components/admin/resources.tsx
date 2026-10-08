@@ -6,6 +6,8 @@ import { NEWS_LABEL_OPTIONS, NEWS_LABELS } from '@/lib/newsLabels'
 import type { AdminCollection } from '@/services'
 import type { NewsLabel, OrderStatus, ProductGift, Promotion } from '@/types/domain'
 import { type FieldDef, useAdminList } from './fields'
+import { EventPreview } from './EventPreview'
+import { LandingPreview } from './LandingPreview'
 import type { Rec, ResourceConfig } from './ResourcePanel'
 
 const s = (v: unknown) => (v == null ? '' : String(v))
@@ -61,6 +63,14 @@ const productFields: FieldDef[] = [
   { key: 'highlight', label: 'Nhãn nổi bật', type: 'text', placeholder: 'Bán chạy, Mới…' },
   { key: 'thumbnail', label: 'Ảnh đại diện', type: 'media', wide: true },
   { key: 'shortDescription', label: 'Mô tả ngắn', type: 'textarea', wide: true },
+  {
+    key: 'aiSummary',
+    label: 'Tóm tắt nhanh',
+    type: 'textarea',
+    wide: true,
+    placeholder: 'Để trống: web tự ghép tóm tắt từ thông số',
+    help: 'Hiện cạnh điểm đánh giá trong khối "Cảm nhận khách hàng". 2 câu ngắn là đẹp nhất.',
+  },
   { key: 'featureTags', label: 'Tag tính năng', type: 'tags', wide: true },
   { key: 'gallery', label: 'Thư viện ảnh (URL)', type: 'tags', wide: true },
   {
@@ -147,42 +157,21 @@ export const stories: ResourceConfig = {
   collection: 'stories',
   title: 'Jamir Stories',
   noun: 'story',
-  search: (r) => `${s(r.label)} ${s(r.productSlug)} ${s(r.caption)}`,
+  search: (r) => `${s(r.label)} ${s(r.productSlug)}`,
   sort: byPriority,
   toggle: { key: 'active', label: 'Hiển thị' },
-  defaults: { active: true, hot: false, media: { type: 'video', src: '', aspectRatio: '9:16' } },
+  defaults: { active: true, hot: false },
   columns: [
-    { label: 'Story', render: (r) => <Thumb src={r.thumbnail} title={r.label} sub={r.caption} /> },
+    { label: 'Story', render: (r) => <Thumb src={r.thumbnail} title={r.label} /> },
     { label: 'Sản phẩm', render: (r) => (r.productSlug ? <RefName collection="products" value={r.productSlug} by="slug" /> : s(r.link) || '—') },
-    {
-      label: 'Media',
-      render: (r) => {
-        const m = (r.media ?? {}) as Rec
-        return <Badge variant="neutral">{m.type === 'image' ? 'Ảnh' : 'Video'} · {s(m.aspectRatio)}</Badge>
-      },
-    },
     { label: 'Ưu tiên', render: (r) => <span className="font-semibold">{s(r.priority)}</span> },
     { label: 'Hot', render: (r) => (r.hot ? <Badge variant="danger-soft">HOT</Badge> : '') },
   ],
   fields: [
     { key: 'label', label: 'Tiêu đề', type: 'text', required: true },
-    { key: 'productSlug', label: 'Sản phẩm liên kết', type: 'ref', ref: productSlugRef },
-    { key: 'link', label: 'Hoặc link khác', type: 'text', placeholder: '/news/..., /explore', help: 'Dùng khi story không gắn sản phẩm' },
+    { key: 'productSlug', label: 'Sản phẩm (story mở trang sản phẩm này)', type: 'ref', ref: productSlugRef, required: true },
     { key: 'priority', label: 'Độ ưu tiên', type: 'number', help: 'Số lớn hiện trước. Để trống thì xếp lên đầu' },
     { key: 'thumbnail', label: 'Ảnh thumbnail', type: 'media', required: true, wide: true },
-    { key: 'media.src', label: 'Video / ảnh story', type: 'media', accept: 'any', required: true, wide: true },
-    { key: 'media.poster', label: 'Ảnh bìa video', type: 'media', wide: true },
-    { key: 'media.aspectRatio', label: 'Khung hình', type: 'select', options: ASPECTS },
-    {
-      key: 'media.type',
-      label: 'Loại media',
-      type: 'select',
-      options: [
-        { value: 'video', label: 'Video' },
-        { value: 'image', label: 'Ảnh' },
-      ],
-    },
-    { key: 'caption', label: 'Chú thích', type: 'textarea', wide: true },
     { key: 'gift.enabled', label: 'Hiện quà tặng kèm khi phát story', type: 'switch' },
     { key: 'gift.text', label: 'Nội dung quà tặng', type: 'text', placeholder: 'Tặng túi chống sốc trị giá 150K' },
     { key: 'gift.image', label: 'Ảnh quà tặng (không bắt buộc)', type: 'media', wide: true },
@@ -263,6 +252,7 @@ export const reviews: ResourceConfig = {
             {s((r.author as Rec | undefined)?.name)} <span className="text-amber-500">{'★'.repeat(Number(r.rating) || 0)}</span>
             {(r.author as Rec | undefined)?.display === 'anonymous' && <Badge size="sm" variant="neutral" className="ml-1">Ẩn danh</Badge>}
             {!!r.userId && <Badge size="sm" variant="success" className="ml-1">Khách viết</Badge>}
+            {!!r.seeded && <Badge size="sm" variant="warning" className="ml-1">Demo</Badge>}
             {!!r.hidden && <Badge size="sm" variant="danger-soft" className="ml-1">Đang ẩn</Badge>}
           </p>
           <p className="line-clamp-2 text-xs text-muted">{s(r.content)}</p>
@@ -554,9 +544,10 @@ export const landingPages: ResourceConfig = {
   collection: 'landing-pages',
   title: 'Landing page quảng cáo',
   noun: 'landing page',
+  preview: (draft) => <LandingPreview draft={draft} />,
   search: (r) => `${s(r.headline)} ${s(r.slug)}`,
   toggle: { key: 'active', label: 'Đang chạy' },
-  defaults: { active: true, showKol: true, showReviews: true, ctaText: 'Mua ngay', bullets: [] },
+  defaults: { active: true, theme: 'collage', showReviews: true, ctaText: 'Mua ngay' },
   columns: [
     {
       label: 'Trang',
@@ -564,8 +555,8 @@ export const landingPages: ResourceConfig = {
       render: (r) => (
         <div>
           <p className="font-semibold">{s(r.headline)}</p>
-          <a href={`/lp/${s(r.slug)}`} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="font-mono text-xs text-brand-700 hover:underline">
-            /lp/{s(r.slug)} ↗
+          <a href={`/uu-dai/${s(r.slug)}`} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="font-mono text-xs text-brand-700 hover:underline">
+            /uu-dai/{s(r.slug)} ↗
           </a>
         </div>
       ),
@@ -575,26 +566,40 @@ export const landingPages: ResourceConfig = {
   ],
   fields: [
     { key: 'productId', label: 'Sản phẩm', type: 'ref', ref: productRef, required: true },
-    { key: 'slug', label: 'Đường dẫn (/lp/...)', type: 'text', help: 'Để trống để tự tạo từ tiêu đề. Dùng link này cho quảng cáo Facebook/TikTok' },
-    { key: 'headline', label: 'Tiêu đề lớn', type: 'text', required: true, wide: true },
-    { key: 'subheadline', label: 'Mô tả ngắn', type: 'textarea', wide: true },
-    { key: 'badge', label: 'Nhãn nổi bật', type: 'text', placeholder: 'Giảm sốc hôm nay' },
-    { key: 'ctaText', label: 'Chữ trên nút mua', type: 'text', placeholder: 'Mua ngay với giá ưu đãi' },
-    { key: 'bullets', label: 'Lý do nên mua', type: 'lines', wide: true, help: 'Mỗi dòng một lý do (hiện 2–4 ý là đẹp nhất)' },
+    { key: 'slug', label: 'Đường dẫn (/uu-dai/...)', type: 'text', help: 'Để trống để tự tạo từ tiêu đề. Dùng link này cho quảng cáo Facebook/TikTok' },
     {
-      key: 'heroMedia.type',
-      label: 'Ảnh/video đầu trang',
+      key: 'theme',
+      label: 'Giao diện',
       type: 'select',
       options: [
-        { value: 'video', label: 'Video' },
-        { value: 'image', label: 'Ảnh' },
+        { value: 'collage', label: 'Collage street (giống poster quảng cáo, cuộn dọc)' },
+        { value: 'poster', label: 'Poster một màn hình (không cần cuộn)' },
+        { value: 'feed', label: 'Lướt kiểu TikTok (mỗi phần một màn hình, neon)' },
+        { value: 'design', label: 'Ảnh thiết kế (up nguyên ảnh, giống 100%, có vùng bấm)' },
       ],
-      help: 'Để trống media thì dùng video của sản phẩm',
     },
-    { key: 'heroMedia.src', label: 'File ảnh/video đầu trang', type: 'media', accept: 'any' },
-    { key: 'countdownEndsAt', label: 'Đếm ngược tới', type: 'datetime', help: 'Để trống nếu không cần đồng hồ đếm ngược' },
-    { key: 'showKol', label: 'Hiện video KOL', type: 'switch' },
-    { key: 'showReviews', label: 'Hiện đánh giá khách hàng', type: 'switch' },
+    {
+      key: 'headline',
+      label: 'Tiêu đề lớn',
+      type: 'textarea',
+      required: true,
+      wide: true,
+      help: 'Giao diện street: *chữ* thành chữ đỏ to, [chữ] thành băng dính vàng. Ví dụ: Nhỏ vậy thôi\nnhưng *chất* [không nhỏ]',
+    },
+    { showIf: (r) => ['design'].includes(String(r.theme ?? 'collage')), key: 'designImage', label: 'Ảnh thiết kế (giao diện "Ảnh thiết kế")', type: 'media', wide: true, help: 'Up nguyên ảnh landing đã thiết kế. Ảnh rộng 1200–1600px sẽ nét trên máy tính.' },
+    { showIf: (r) => ['design'].includes(String(r.theme ?? 'collage')), key: 'designWidth', label: 'Độ rộng tối đa của ảnh (px)', type: 'number', placeholder: '900' },
+    { showIf: (r) => ['design'].includes(String(r.theme ?? 'collage')), key: 'hotspots', label: 'Vùng bấm trên ảnh', type: 'hotspots', wide: true, help: 'Vẽ vùng video (hiện nút ▶, bấm mở popup video) và vùng mua hàng (nhấp nháy, mở checkout sản phẩm đã chọn).' },
+    { showIf: (r) => ['collage', 'poster'].includes(String(r.theme ?? 'collage')), key: 'tagline', label: 'Câu khẩu hiệu (street)', type: 'textarea', wide: true, placeholder: 'Đi đâu cũng có nhạc, cũng có bạn' },
+    { showIf: (r) => ['collage', 'poster', 'feed'].includes(String(r.theme ?? 'collage')), key: 'sideNote', label: 'Ghi chú viết tay ở hero', type: 'text', placeholder: 'Play anytime anywhere' },
+    { showIf: (r) => ['collage'].includes(String(r.theme ?? 'collage')), key: 'outroLine', label: 'Câu ở ảnh cuối (collage)', type: 'text', placeholder: 'Âm nhạc không giới hạn' },
+    { showIf: (r) => ['collage', 'poster', 'feed'].includes(String(r.theme ?? 'collage')), key: 'subheadline', label: 'Mô tả ngắn', type: 'textarea', wide: true },
+    { showIf: (r) => ['poster', 'feed'].includes(String(r.theme ?? 'collage')), key: 'badge', label: 'Nhãn nổi bật', type: 'text', placeholder: 'Giảm sốc hôm nay' },
+    { key: 'ctaText', label: 'Chữ trên nút mua', type: 'text', placeholder: 'Mua ngay với giá ưu đãi' },
+    { showIf: (r) => ['collage', 'poster', 'feed'].includes(String(r.theme ?? 'collage')), key: 'heroMedia.src', label: 'Ảnh hero / ảnh chia sẻ Facebook-Zalo', type: 'media', accept: 'any', help: 'Street: ảnh người cầm sản phẩm, ngang, càng tối càng hợp. Chọn loại "Ảnh" ở trên' },
+    { showIf: (r) => ['feed'].includes(String(r.theme ?? 'collage')), key: 'countdownEndsAt', label: 'Đếm ngược tới', type: 'datetime', help: 'Để trống nếu không cần đồng hồ đếm ngược' },
+    { showIf: (r) => ['collage', 'poster', 'feed', 'design'].includes(String(r.theme ?? 'collage')), key: 'kolReviewId', label: 'Video KOL nổi bật', type: 'ref', ref: { collection: 'kol-reviews', labelKey: 'title', where: { field: 'productId', sameAs: 'productId' } }, wide: true, help: 'Video KOL của sản phẩm đã chọn. Để trống: video nhiều lượt xem nhất' },
+    { showIf: (r) => ['collage', 'poster', 'feed'].includes(String(r.theme ?? 'collage')), key: 'reviewIds', label: 'Đánh giá nổi bật (chọn tối đa 3)', type: 'refs', ref: { collection: 'reviews', labelKey: 'content', where: { field: 'productId', sameAs: 'productId' } }, wide: true, help: 'Đánh giá của sản phẩm đã chọn. Để trống: tự chọn đánh giá điểm cao, có ảnh' },
+    { showIf: (r) => ['collage'].includes(String(r.theme ?? 'collage')), key: 'showReviews', label: 'Hiện đánh giá khách hàng', type: 'switch' },
     { key: 'active', label: 'Đang chạy', type: 'switch' },
   ],
 }
@@ -605,6 +610,7 @@ export const events: ResourceConfig = {
   collection: 'events',
   title: 'Sự kiện & popup',
   noun: 'sự kiện',
+  preview: (draft) => <EventPreview draft={draft} />,
   search: (r) => s(r.title),
   sort: (a, b) => Number(b.priority ?? 0) - Number(a.priority ?? 0),
   toggle: { key: 'active', label: 'Bật' },
@@ -633,11 +639,33 @@ export const events: ResourceConfig = {
     },
   ],
   fields: [
+    {
+      key: 'style',
+      label: 'Kiểu popup',
+      type: 'select',
+      options: [
+        { value: 'banner', label: 'Banner (ảnh + chữ)' },
+        { value: 'poster', label: 'Poster graffiti (giá, màu lấy từ sản phẩm)' },
+        { value: 'image', label: 'Ảnh tự thiết kế (chỉ hiện ảnh, bấm để mở)' },
+      ],
+    },
+    {
+      key: 'width',
+      label: 'Chiều rộng popup (px)',
+      type: 'number',
+      placeholder: 'tự động',
+      help: 'Để trống: banner 720, poster 500, ảnh 560. Điện thoại tự co theo màn hình.',
+    },
     { key: 'title', label: 'Tiêu đề', type: 'text', required: true, wide: true },
-    { key: 'image', label: 'Ảnh banner (tỉ lệ 4:3 đẹp nhất)', type: 'media', required: true, wide: true },
-    { key: 'description', label: 'Mô tả', type: 'textarea', wide: true },
+    { key: 'image', label: 'Ảnh banner / ảnh nền poster / ảnh tự thiết kế', type: 'media', required: true, wide: true, help: 'Kiểu "Ảnh tự thiết kế": up nguyên banner đã làm sẵn (Canva, Photoshop…), giữ nguyên tỉ lệ ảnh' },
+    { showIf: (r) => r.style === 'poster', key: 'kicker', label: 'Poster: băng dính đỏ', type: 'text', placeholder: 'Siêu deal' },
+    { showIf: (r) => r.style === 'poster', key: 'highlight', label: 'Poster: chữ cực lớn', type: 'text', placeholder: '10.10' },
+    { showIf: (r) => r.style === 'poster', key: 'discountText', label: 'Poster: ưu đãi', type: 'text', placeholder: 'Giảm ngay 25%' },
+    { showIf: (r) => r.style === 'poster', key: 'note', label: 'Poster: nhãn dán trắng', type: 'text', placeholder: 'Chỉ duy nhất 10.10' },
+    { showIf: (r) => r.style !== 'image', key: 'description', label: 'Mô tả (poster: câu khẩu hiệu dán giấy)', type: 'textarea', wide: true, placeholder: 'Nhỏ vậy thôi nhưng chất không nhỏ!' },
+    { showIf: (r) => r.style === 'poster', key: 'sideNote', label: 'Poster: ghi chú viết tay', type: 'text', placeholder: 'Play anytime anywhere' },
     { key: 'target', label: 'Khi bấm thì mở', type: 'target', wide: true },
-    { key: 'ctaText', label: 'Chữ trên nút', type: 'text', placeholder: 'Xem ngay' },
+    { showIf: (r) => r.style !== 'image', key: 'ctaText', label: 'Chữ trên nút', type: 'text', placeholder: 'Xem ngay' },
     {
       key: 'frequency',
       label: 'Hiện cho mỗi khách',
@@ -703,5 +731,51 @@ export const banners: ResourceConfig = {
     { key: 'startsAt', label: 'Bắt đầu hiện', type: 'datetime', help: 'Để trống = hiện ngay' },
     { key: 'endsAt', label: 'Ngừng hiện', type: 'datetime', help: 'Để trống = không hết hạn' },
     { key: 'active', label: 'Hiển thị', type: 'switch' },
+  ],
+}
+
+export const reviewPool: ResourceConfig = {
+  collection: 'review-pool',
+  title: 'Kho đánh giá mẫu',
+  noun: 'mẫu',
+  search: (r) => `${s(r.content)} ${s(r.name)}`,
+  defaults: { rating: 5, display: 'full' },
+  columns: [
+    {
+      label: 'Nội dung',
+      className: 'max-w-md',
+      render: (r) => (
+        <div>
+          <p className="font-semibold">
+            {s(r.name)} <span className="text-amber-500">{'★'.repeat(Number(r.rating) || 0)}</span>
+          </p>
+          <p className="line-clamp-2 text-xs text-muted">{s(r.content)}</p>
+        </div>
+      ),
+    },
+    { label: 'Sản phẩm', render: (r) => (r.productId ? <RefName collection="products" value={r.productId} /> : <span className="text-subtle">Ngẫu nhiên</span>) },
+    {
+      label: 'Hiển thị tên',
+      render: (r) => ({ full: 'Đầy đủ', nickname: 'Biệt danh', anonymous: 'Ẩn danh' })[s(r.display) as 'full'] ?? 'Ngẫu nhiên',
+    },
+  ],
+  fields: [
+    { key: 'productId', label: 'Sản phẩm', type: 'ref', ref: productRef, help: 'Không chọn = gắn vào sản phẩm ngẫu nhiên khi đăng' },
+    { key: 'rating', label: 'Số sao', type: 'select', numeric: true, options: [5, 4, 3, 2, 1].map((n) => ({ value: String(n), label: `${n} sao` })) },
+    { key: 'content', label: 'Nội dung', type: 'textarea', required: true, wide: true },
+    { key: 'name', label: 'Họ tên', type: 'text', required: true },
+    {
+      key: 'display',
+      label: 'Hiển thị tên',
+      type: 'select',
+      options: [
+        { value: 'full', label: 'Tên đầy đủ' },
+        { value: 'nickname', label: 'Biệt danh' },
+        { value: 'anonymous', label: 'Ẩn danh' },
+      ],
+    },
+    { key: 'nickname', label: 'Biệt danh', type: 'text' },
+    { key: 'avatar', label: 'Ảnh đại diện', type: 'media' },
+    { key: 'media', label: 'Ảnh / video đính kèm (JSON)', type: 'json', wide: true, help: '[{ "type": "image", "src": "/media/...", "thumbnail": "/media/..." }]' },
   ],
 }

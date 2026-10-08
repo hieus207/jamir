@@ -20,6 +20,8 @@ import type {
   LandingPage,
   SiteEvent,
   HomeBanner,
+  FeederState,
+  ReviewPoolItem,
 } from '../../src/types/domain'
 import type { CustomerRecord, RecommendationsRecord, ReviewRecord } from './types'
 
@@ -55,6 +57,8 @@ export interface Store {
   landingPages: Collection<LandingPage>
   events: Collection<SiteEvent>
   banners: Collection<HomeBanner>
+  reviewPool: Collection<ReviewPoolItem>
+  feederState: Doc<FeederState>
 }
 
 /* ------------------------------------------------------------------ */
@@ -173,6 +177,8 @@ export function createJsonStore(dataDir: string, seedDir: string): Store & { flu
     landingPages: jsonCollection(f('landing-pages.json')),
     events: jsonCollection(f('events.json')),
     banners: jsonCollection(f('banners.json')),
+    reviewPool: jsonCollection(f('review-pool.json')),
+    feederState: jsonDoc(f('feeder-state.json')),
     flush: () => files.forEach((file) => file.flush()),
   }
 }

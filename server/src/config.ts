@@ -14,6 +14,10 @@ export const config = {
   /** uploaded images/videos are written here and served by nginx at mediaUrl */
   mediaDir: resolve(env.MEDIA_DIR ?? resolve(here, '../../public/media/uploads')),
   mediaUrl: env.MEDIA_URL ?? '/media/uploads',
+  /** built web app (index.html is templated with SEO tags) */
+  siteDir: resolve(env.SITE_DIR ?? resolve(here, '../../site')),
+  /** canonical origin, e.g. https://jamir.vn (default: request host) */
+  publicUrl: env.PUBLIC_URL ?? '',
   authSecret: env.AUTH_SECRET ?? randomBytes(32).toString('hex'),
   tokenTtlDays: Number(env.TOKEN_TTL_DAYS ?? 30),
   adminEmail: env.ADMIN_EMAIL ?? 'admin@jamir.vn',

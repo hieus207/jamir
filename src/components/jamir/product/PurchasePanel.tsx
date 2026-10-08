@@ -46,7 +46,7 @@ export function PurchasePanel({
 
   return (
     <Card className={cn('flex flex-col gap-4 p-5 lg:p-6', className)}>
-      <ProductInfo product={product} />
+      <ProductInfo product={product} headingLevel={inline ? 'h1' : 'h2'} />
       <div className="flex flex-col gap-2">
         <ProductPrice price={product.price} originalPrice={product.originalPrice} discount={product.discount} />
         <StockStatus stock={product.stock} />

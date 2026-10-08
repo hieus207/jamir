@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query'
-import { FileJson, MapPin, Search, ShoppingBag } from 'lucide-react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { FileJson, MapPin, Play, Search, ShoppingBag, Trash2 } from 'lucide-react'
 import { useMemo, useRef, useState } from 'react'
 import { SectionError } from '@/components/jamir/layout/PageStates'
 import { Avatar } from '@/components/ui/avatar'
@@ -15,6 +15,8 @@ import { formatPrice, normalizeText } from '@/lib/utils'
 import { adminApi, type AdminDoc } from '@/services'
 import type { AdminCustomer, AuthProvider, SiteSettings, StoriesConfig } from '@/types/domain'
 import { FieldControl, type FieldDef } from './fields'
+import { ResourcePanel } from './ResourcePanel'
+import { reviewPool } from './resources'
 import { fmtDate, ORDER_STATUS } from './resources'
 import { useAdminMutation } from './ResourcePanel'
 
@@ -331,6 +333,7 @@ export function StoriesConfigCard() {
           placeholder: '10',
           help: 'Khách không click / cuộn trong khoảng này thì tự vào Xem tất cả. 0 = tắt.',
         },
+        { key: 'playAllImage', label: 'Ảnh ô "Xem tất cả"', type: 'media', wide: true, help: 'Để trống: dùng ảnh đồ hoạ mặc định của JAMIR (không trùng ảnh sản phẩm). Ảnh dọc 3:4.' },
         {
           key: 'order',
           label: 'Thứ tự chuyển',
@@ -394,6 +397,24 @@ export function SettingsPanel() {
       <h2 className="text-xl font-bold">Cài đặt</h2>
       <DocForm<SiteSettings>
         doc="settings"
+        title="Logo & ô tìm kiếm"
+        description="Có ảnh logo đầy đủ thì thay cả biểu tượng lẫn chữ ở đầu trang. Biểu tượng vuông dùng ở footer, hộp đăng nhập."
+        fields={[
+          { key: 'logo.image', label: 'Ảnh logo đầy đủ (ngang, nền trong suốt)', type: 'media', wide: true },
+          { key: 'logo.height', label: 'Chiều cao logo (px)', type: 'number', placeholder: '32' },
+          { key: 'logo.text', label: 'Tên hiển thị', type: 'text', placeholder: 'Jamir' },
+          { key: 'logo.icon', label: 'Biểu tượng vuông', type: 'media', wide: true },
+          { key: 'searchPlaceholder', label: 'Chữ gợi ý ô tìm kiếm', type: 'text', wide: true, placeholder: 'AI tìm kiếm sản phẩm cho bạn…' },
+        ]}
+      />
+      <DocForm<SiteSettings>
+        doc="settings"
+        title="Ô cam kết ở trang chủ"
+        description="Tối đa 4 ô. Bật Nổi bật để ô đó có nền màu thương hiệu."
+        fields={[{ key: 'usps', label: 'Các ô cam kết', type: 'usps', wide: true }]}
+      />
+      <DocForm<SiteSettings>
+        doc="settings"
         title="Thông tin liên hệ (footer)"
         fields={[
           { key: 'hotline', label: 'Hotline', type: 'text' },
@@ -404,6 +425,35 @@ export function SettingsPanel() {
           { key: 'community.facebook', label: 'Cộng đồng Facebook', type: 'text' },
           { key: 'community.tiktok', label: 'TikTok', type: 'text' },
           { key: 'address', label: 'Địa chỉ', type: 'text', wide: true },
+        ]}
+      />
+      <DocForm<SiteSettings>
+        doc="settings"
+        title="Giới hạn đánh giá"
+        description="Mặc định: mỗi tài khoản chỉ được đánh giá 1 lần, đánh giá rồi thì không viết thêm cho sản phẩm nào khác. Khoảng thời gian 0 = vĩnh viễn; ví dụ 30 = sau 30 ngày được viết tiếp."
+        fields={[
+          {
+            key: 'reviewLimit.scope',
+            label: 'Tính theo',
+            type: 'select',
+            options: [
+              { value: 'account', label: 'Cả tài khoản (mọi sản phẩm)' },
+              { value: 'product', label: 'Từng sản phẩm' },
+            ],
+          },
+          { key: 'reviewLimit.max', label: 'Số đánh giá tối đa', type: 'number', placeholder: '1' },
+          { key: 'reviewLimit.windowDays', label: 'Trong khoảng (ngày, 0 = vĩnh viễn)', type: 'number', placeholder: '0' },
+        ]}
+      />
+      <DocForm<SiteSettings>
+        doc="settings"
+        title="Nhãn trên thẻ sản phẩm"
+        description="Nhãn như Bán chạy, Mới ra mắt trên ảnh sản phẩm liên quan. Để ít nhãn cho đỡ rối mắt."
+        fields={[
+          { key: 'relatedLabels.enabled', label: 'Hiện nhãn', type: 'switch' },
+          { key: 'relatedLabels.max', label: 'Số thẻ tối đa có nhãn', type: 'number', placeholder: '2' },
+          { key: 'forYouLabels.enabled', label: 'Hiện nhãn ở "Gợi ý cho bạn" (trang chủ)', type: 'switch' },
+          { key: 'forYouLabels.max', label: 'Số thẻ tối đa có nhãn (trang chủ)', type: 'number', placeholder: '2' },
         ]}
       />
       <DocForm<SiteSettings>
@@ -427,5 +477,201 @@ export function SettingsPanel() {
         ]}
       />
     </div>
+  )
+}
+
+/* ---------------- demo review feeder ---------------- */
+
+const POOL_SAMPLE = `[
+  {
+    "productSlug": "tai-nghe-pro-x1",
+    "rating": 5,
+    "name": "Nguyễn Văn A",
+    "display": "anonymous",
+    "content": "Chống ồn tốt, đeo lâu không đau tai."
+  },
+  {
+    "productId": "airbuds-001",
+    "rating": 4,
+    "name": "Trần Thị B",
+    "nickname": "b.tran",
+    "display": "nickname",
+    "content": "Kết nối nhanh, pin ổn, nút cảm ứng hơi nhạy.",
+    "media": [{ "type": "image", "src": "/media/reviews/1.jpg", "thumbnail": "/media/reviews/1.jpg" }]
+  }
+]`
+
+/** Posts pool reviews on a schedule — for testing the review flow with demo data. */
+export function FeederPanel() {
+  const qc = useQueryClient()
+  const { data, isError, refetch } = useQuery({ queryKey: ['admin', 'feeder'], queryFn: adminApi.feeder, refetchInterval: 60_000 })
+  const run = useAdminMutation(() => adminApi.runFeeder(), 'Đã chạy một lượt')
+  const purge = useAdminMutation(() => adminApi.purgeSeeded())
+  const ref = useRef<HTMLInputElement>(null)
+  const imp = useAdminMutation((json: unknown) => adminApi.importPool(json))
+  if (isError) return <SectionError onRetry={() => void refetch()} />
+  const state = data?.state
+  return (
+    <div className="flex flex-col gap-5">
+      <div>
+        <h2 className="text-xl font-bold">Đánh giá demo (tự động)</h2>
+        <p className="mt-1 text-sm text-muted">
+          Dùng để test luồng đánh giá. Hệ thống lấy mẫu từ kho bên dưới và đăng vào sản phẩm theo lịch; mỗi đánh giá đăng ra được gắn nhãn
+          <Badge size="sm" variant="warning" className="mx-1">Demo</Badge> trong trang quản trị, không có nhãn "Đã mua hàng", và xoá được toàn bộ bằng một nút.
+        </p>
+      </div>
+
+      <PoolFormatGuide />
+
+      <DocForm<SiteSettings>
+        doc="settings"
+        title="Lịch chạy"
+        fields={[
+          { key: 'reviewFeeder.enabled', label: 'Bật tự động đăng', type: 'switch' },
+          { key: 'reviewFeeder.everyHours', label: 'Cách mỗi (giờ)', type: 'number', placeholder: '36', help: '24 = mỗi ngày, 48 = 2 ngày một lần' },
+          { key: 'reviewFeeder.perRun', label: 'Số đánh giá mỗi lượt', type: 'number', placeholder: '2', help: 'Rải đều cho các sản phẩm khác nhau' },
+          {
+            key: 'reviewFeeder.sourceUrl',
+            label: 'Nguồn ngoài (URL JSON, không bắt buộc)',
+            type: 'text',
+            wide: true,
+            placeholder: 'https://example.com/reviews.json',
+            help: 'Trước mỗi lượt, server tải JSON ở đây (mảng hoặc { items: [...] }, cùng định dạng file mẫu) và nạp thêm vào kho, bỏ qua mẫu trùng.',
+          },
+        ]}
+      />
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Trạng thái</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-3">
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Info label="Lần chạy gần nhất" value={state?.lastRunAt ? fmtDate(state.lastRunAt) : 'Chưa chạy'} />
+            <Info label="Mẫu còn trong kho" value={String(data?.poolCount ?? '…')} />
+            <Info label="Đánh giá demo đang hiện" value={String(data?.seededCount ?? '…')} />
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button loading={run.isPending} onClick={() => run.mutate(undefined)}>
+              <Play />
+              Chạy ngay một lượt
+            </Button>
+            <Button variant="outline" loading={imp.isPending} onClick={() => ref.current?.click()}>
+              <FileJson />
+              Nạp kho từ file JSON
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-danger"
+              loading={purge.isPending}
+              disabled={!data?.seededCount}
+              onClick={() =>
+                confirm(`Xóa ${data?.seededCount} đánh giá demo khỏi web?`) &&
+                purge.mutate(undefined, { onSuccess: (r) => toast.success(`Đã xóa ${(r as { removed: number }).removed} đánh giá demo`) })
+              }
+            >
+              <Trash2 />
+              Xóa tất cả đánh giá demo
+            </Button>
+            <input
+              ref={ref}
+              type="file"
+              accept="application/json,.json"
+              hidden
+              onChange={async (e) => {
+                const f = e.target.files?.[0]
+                e.target.value = ''
+                if (!f) return
+                try {
+                  const json = JSON.parse(await f.text()) as unknown
+                  imp.mutate(json, {
+                    onSuccess: (r) => {
+                      const x = r as { added: number; skipped: number }
+                      toast.success(`Đã nạp ${x.added} mẫu`, x.skipped ? `${x.skipped} mẫu trùng bị bỏ qua` : undefined)
+                      void qc.invalidateQueries({ queryKey: ['admin', 'feeder'] })
+                    },
+                  })
+                } catch {
+                  toast.error('File không phải JSON hợp lệ')
+                }
+              }}
+            />
+          </div>
+          {!!state?.log?.length && (
+            <ul className="max-h-48 overflow-y-auto rounded-[10px] bg-line-soft/60 p-3 font-mono text-xs text-ink-soft">
+              {state.log.map((l, i) => (
+                <li key={i}>{l}</li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
+
+      <ResourcePanel config={reviewPool} />
+
+    </div>
+  )
+}
+
+const AI_PROMPT = `Viết 20 đánh giá sản phẩm bằng tiếng Việt cho cửa hàng phụ kiện công nghệ, trả về đúng một mảng JSON, không giải thích.
+Mỗi phần tử có các trường: productSlug, rating (1-5), name (họ tên người Việt), display ("full" | "nickname" | "anonymous"), nickname (chỉ khi display là "nickname"), content (1-3 câu, 60-200 ký tự).
+Sản phẩm (productSlug): tai-nghe-pro-x1 (tai nghe chụp tai chống ồn), tai-nghe-airbuds (tai nghe không dây), loa-mini-s2 (loa bluetooth mini), sac-gan-65w (củ sạc nhanh), pin-du-phong-20000 (pin dự phòng), cap-usb-c-240w (cáp sạc), camera-home-c2 (camera an ninh).
+Yêu cầu: giọng văn tự nhiên, mỗi đánh giá nói về một tình huống dùng cụ thể; 70% 5 sao, 25% 4 sao, 5% 3 sao; khoảng 1/3 đánh giá có nêu một điểm chưa ưng; không lặp ý giữa các đánh giá.`
+
+function PoolFormatGuide() {
+  const copy = (text: string, what: string) =>
+    navigator.clipboard.writeText(text).then(
+      () => toast.success(`Đã sao chép ${what}`),
+      () => toast.error('Trình duyệt chặn sao chép, hãy bôi đen và copy tay'),
+    )
+  const download = () => {
+    const url = URL.createObjectURL(new Blob([POOL_SAMPLE], { type: 'application/json' }))
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'jamir-review-pool.json'
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+  return (
+    <Card>
+      <CardHeader className="flex-wrap">
+        <CardTitle>File JSON mẫu</CardTitle>
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" onClick={() => copy(POOL_SAMPLE, 'file mẫu')}>
+            Sao chép
+          </Button>
+          <Button variant="secondary" size="sm" onClick={download}>
+            Tải file mẫu
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-3 text-sm">
+        <pre className="overflow-x-auto rounded-[10px] bg-line-soft p-3 font-mono text-xs leading-relaxed">{POOL_SAMPLE}</pre>
+        <ul className="ml-4 list-disc space-y-1 text-muted">
+          <li>
+            Bắt buộc: <code>content</code> (tối thiểu 10 ký tự) và <code>rating</code> từ 1 đến 5.
+          </li>
+          <li>
+            Sản phẩm: <code>productSlug</code> (phần cuối URL, ví dụ <code>tai-nghe-pro-x1</code>) hoặc <code>productId</code>. Bỏ trống thì gắn sản phẩm ngẫu nhiên.
+          </li>
+          <li>
+            <code>display</code>: <code>full</code> tên đầy đủ, <code>nickname</code> biệt danh (kèm <code>nickname</code>), <code>anonymous</code> ẩn danh. Bỏ trống thì ngẫu nhiên.
+          </li>
+          <li>
+            Không bắt buộc: <code>name</code>, <code>avatar</code>, <code>media</code> (ảnh/video đính kèm). File có thể là một mảng hoặc <code>{'{ "items": [...] }'}</code>; mẫu trùng nội dung tự bị bỏ qua.
+          </li>
+        </ul>
+        <div className="rounded-[12px] bg-brand-50/60 p-3">
+          <div className="mb-1.5 flex items-center justify-between gap-2">
+            <p className="font-semibold text-brand-700">Nhờ AI viết nhanh 20 mẫu</p>
+            <Button variant="outline" size="sm" onClick={() => copy(AI_PROMPT, 'câu lệnh')}>
+              Sao chép câu lệnh
+            </Button>
+          </div>
+          <p className="text-xs text-muted">Dán câu lệnh này vào ChatGPT, Claude hoặc Gemini, lưu kết quả thành file .json rồi bấm "Nạp kho từ file JSON".</p>
+          <pre className="mt-2 max-h-40 overflow-y-auto rounded-[10px] bg-surface p-3 font-mono text-[11px] whitespace-pre-wrap text-ink-soft">{AI_PROMPT}</pre>
+        </div>
+      </CardContent>
+    </Card>
   )
 }

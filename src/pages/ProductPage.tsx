@@ -18,7 +18,9 @@ import { CustomerReviewSection } from '@/components/jamir/review/CustomerReviewS
 import { KolReviewSection } from '@/components/jamir/review/KolReviewSection'
 import { buttonVariants } from '@/components/ui/button'
 import { useKolReviews, useProduct } from '@/hooks/queries'
+import { useSeo } from '@/hooks/useSeo'
 import { useStickyTop } from '@/hooks/useStickyTop'
+import { paths } from '@/lib/paths'
 import { useSelectionStore } from '@/stores/selectionStore'
 import { useSwipeStore } from '@/stores/swipeStore'
 
@@ -32,8 +34,8 @@ const slide = {
  * Jamir V1 funnel — one layer per question, buy CTA always reachable:
  *   1 Cảm xúc  : video            "Có hấp dẫn không?"
  *   2 Niềm tin : KOL + khách hàng "Người khác dùng thế nào?"
- *   3 Lý trí   : thông số         "Có phù hợp không?"
- *   4 Cá nhân  : phù hợp với ai   "Có hợp với mình không?"
+ *   3 Lý trí   : thông số         "Có phù hợp không?" (before customer feelings)
+ *   4 Cá nhân  : phù hợp với ai   "Có hợp với mình không?" (desktop: icon tiles under the buy panel)
  *   5 Hành động: mua (sticky panel on desktop, sticky bar on mobile) + hỏi đáp
  * Mobile shows the compact purchase panel right after the video.
  */
@@ -50,9 +52,11 @@ export default function ProductPage() {
     if (product) resetSelection(product)
   }, [product, resetSelection])
 
-  useEffect(() => {
-    if (product) document.title = `${product.name} — JAMIR`
-  }, [product])
+  useSeo(
+    product
+      ? { title: `${product.name}, giá ${product.price.toLocaleString('vi-VN')}đ | JAMIR`, description: product.shortDescription, path: paths.product(product.slug), image: product.thumbnail }
+      : null,
+  )
 
   if (isPending) return <ProductPageSkeleton />
   if (isError || !product)
@@ -75,7 +79,7 @@ export default function ProductPage() {
     <>
       <StoryModeBar />
       <ProductSwipeNavigator slug={product.slug}>
-        <div className="container-page pt-3 pb-28 md:pt-5 lg:pb-14">
+        <div className="container-page pt-3 pb-4 md:pt-5">
           <ProductStories activeSlug={product.slug} className="mb-4 md:mb-5" />
           <AnimatePresence mode="wait" custom={direction} initial={false}>
             <motion.div
@@ -92,16 +96,17 @@ export default function ProductPage() {
                   <ProductVideo key={product.id} product={product} kolCount={kol?.length} className="order-1" />
                   <PurchasePanel product={product} inline className="order-2 lg:hidden" />
                   <KolReviewSection productId={product.id} className="order-3" />
-                  <CustomerReviewSection product={product} className="order-4" />
-                  <ProductSpecs specs={product.specs} className="order-5" />
-                  <UseCaseGrid useCases={product.useCases} className="order-6" />
+                  <ProductSpecs specs={product.specs} className="order-4" />
+                  <CustomerReviewSection product={product} className="order-5" />
+                  <UseCaseGrid useCases={product.useCases} variant="compact" className="order-6 lg:hidden" />
                   <ProductFaq productId={product.id} total={product.faqCount} className="order-7" />
                 </div>
                 <aside ref={asideRef} style={{ top: asideTop }} className="sticky hidden flex-col gap-4 lg:flex" aria-label="Mua hàng">
                   <PurchasePanel product={product} />
+                  <UseCaseGrid useCases={product.useCases} variant="compact" />
                 </aside>
               </div>
-              <RelatedProducts productId={product.id} className="mt-8" />
+              <RelatedProducts productId={product.id} className="mt-6" />
             </motion.div>
           </AnimatePresence>
         </div>

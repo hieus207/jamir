@@ -1,5 +1,4 @@
 import {
-  Bookmark,
   Eye,
   Heart,
   LoaderCircle,
@@ -11,6 +10,7 @@ import {
   RotateCcw,
   Settings,
   Share2,
+  Star,
   Volume2,
   VolumeX,
 } from 'lucide-react'
@@ -22,12 +22,15 @@ import { clamp, cn, formatCompact, formatDuration } from '@/lib/utils'
 import type { ProductVideo, VideoChapter } from '@/types/domain'
 
 export interface VideoActions {
+  /** in the wishlist (same state as the heart on the buy panel) */
   liked: boolean
-  saved: boolean
   onLike: () => void
+  /** average rating and review count (both open the reviews) */
+  rating: number
+  commentCount: number
   onComment: () => void
+  /** copies the product link */
   onShare: () => void
-  onSave: () => void
 }
 
 const RATES = [0.5, 0.75, 1, 1.25, 1.5, 2]
@@ -154,19 +157,19 @@ export function VideoPlayer({
 
       {/* side action rail */}
       <div className="absolute top-2.5 right-2 flex flex-col gap-0.5 rounded-2xl bg-black/25 p-0.5 backdrop-blur-md md:top-1/2 md:right-3 md:-translate-y-1/2 md:gap-2 md:p-1.5">
-        <RailButton label={actions.liked ? 'Bỏ thích' : 'Thích'} count={formatCompact(video.likes + (actions.liked ? 1 : 0))} onClick={actions.onLike} pressed={actions.liked}>
+        <RailButton label={actions.liked ? 'Bỏ khỏi Yêu thích' : 'Thêm vào Yêu thích'} count={formatCompact(video.likes + (actions.liked ? 1 : 0))} onClick={actions.onLike} pressed={actions.liked}>
           <motion.span key={String(actions.liked)} initial={{ scale: 0.6 }} animate={{ scale: 1 }} transition={{ type: 'spring', stiffness: 600, damping: 15 }}>
-            <Heart className={cn('size-5 md:size-6', actions.liked ? 'fill-danger text-danger' : 'fill-danger/90 text-danger/90')} />
+            <Heart className={cn('size-5 md:size-6', actions.liked ? 'fill-danger text-danger' : 'fill-white text-white')} />
           </motion.span>
         </RailButton>
-        <RailButton label="Bình luận" count={formatCompact(video.comments)} onClick={actions.onComment}>
+        <RailButton label={`Đánh giá ${actions.rating.toFixed(1)} trên 5`} count={actions.rating.toFixed(1)} onClick={actions.onComment}>
+          <Star className="size-5 fill-star text-star md:size-6" />
+        </RailButton>
+        <RailButton label="Xem cảm nhận khách hàng" count={formatCompact(actions.commentCount)} onClick={actions.onComment}>
           <MessageCircle className="size-5 fill-white/90 text-white/90 md:size-6" />
         </RailButton>
-        <RailButton label="Chia sẻ" count="Chia sẻ" onClick={actions.onShare}>
+        <RailButton label="Sao chép link sản phẩm" count="Chia sẻ" onClick={actions.onShare}>
           <Share2 className="size-5 md:size-6" />
-        </RailButton>
-        <RailButton className="hidden md:flex" label={actions.saved ? 'Bỏ lưu' : 'Lưu'} count={actions.saved ? 'Đã lưu' : 'Lưu'} onClick={actions.onSave} pressed={actions.saved}>
-          <Bookmark className={cn('size-5 md:size-6', actions.saved && 'fill-white')} />
         </RailButton>
       </div>
 

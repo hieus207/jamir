@@ -46,13 +46,13 @@ export function CartSheet() {
                     transition={{ duration: 0.22 }}
                     className="flex gap-3"
                   >
-                    <Link to={`/product/${l.product.slug}`} onClick={() => setOpen(false)} className="shrink-0">
+                    <Link to={`/san-pham/${l.product.slug}`} onClick={() => setOpen(false)} className="shrink-0">
                       <img src={l.product.thumbnail} alt="" className="size-20 rounded-[12px] bg-canvas object-cover" />
                     </Link>
                     <div className="flex min-w-0 flex-1 flex-col gap-1.5">
                       <div className="flex items-start gap-2">
                         <Link
-                          to={`/product/${l.product.slug}`}
+                          to={`/san-pham/${l.product.slug}`}
                           onClick={() => setOpen(false)}
                           className="line-clamp-2 flex-1 text-sm font-semibold text-ink hover:text-brand-700"
                         >

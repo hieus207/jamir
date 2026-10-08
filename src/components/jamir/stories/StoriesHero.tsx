@@ -1,3 +1,4 @@
+import { SectionHeading } from '@/components/jamir/layout/SectionHeading'
 import { Sparkles } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { usePrefetchProduct, useStories } from '@/hooks/queries'
@@ -57,17 +58,18 @@ export function StoriesHero({ className }: { className?: string }) {
 
   return (
     <section aria-labelledby="stories-hero-title" className={cn('flex flex-col gap-3 md:gap-4', className)}>
-      <div>
-        <h2 id="stories-hero-title" className="flex items-center gap-2 text-xl font-extrabold tracking-tight md:text-2xl">
-          <span className="text-brand-gradient">Jamir Stories</span>
-          <Sparkles className="size-5 text-accent-500" aria-hidden="true" />
-        </h2>
-        <p className="text-xs text-muted md:text-sm">Bấm "Xem tất cả" để lướt qua từng sản phẩm như xem story</p>
-      </div>
+      <SectionHeading
+        id="stories-hero-title"
+        title="Jamir"
+        accent="Stories"
+        description='Bấm "Xem tất cả" để lướt qua từng sản phẩm như xem story'
+        icon={<Sparkles className="size-5 text-accent-500" aria-hidden="true" />}
+      />
       <StoriesStrip
         items={items}
         loading={isPending}
         countdown={countdown}
+        cover={data?.config.playAllImage}
         onSelect={(s) => start(s.productSlug)}
         onPlayAll={() => start()}
         onPreload={(s) => s.productSlug && void prefetch(s.productSlug)}

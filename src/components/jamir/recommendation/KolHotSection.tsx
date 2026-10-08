@@ -1,4 +1,5 @@
-import { ArrowRight, BadgeCheck, Eye, Play, ShoppingBag } from 'lucide-react'
+import { SectionHeading } from '@/components/jamir/layout/SectionHeading'
+import { BadgeCheck, Eye, Play, ShoppingBag } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { Avatar } from '@/components/ui/avatar'
@@ -10,7 +11,7 @@ import { isVertical, SourceBadge } from '../review/KolMedia'
 import { KolVideoViewer } from '../review/KolVideoViewer'
 
 /**
- * Home "Video hot từ KOL": dark band, top videos in one row of equal 9:16 frames.
+ * Home "Video khám phá": dark band, top videos in one row of equal 9:16 frames.
  * Hover previews the clip; each card links straight to its product (video → product → buy).
  */
 export function KolHotSection({ count = 5, className }: { count?: number; className?: string }) {
@@ -24,20 +25,15 @@ export function KolHotSection({ count = 5, className }: { count?: number; classN
       <span aria-hidden="true" className="pointer-events-none absolute -top-24 -left-16 size-72 rounded-full bg-brand-600/40 blur-3xl" />
       <span aria-hidden="true" className="pointer-events-none absolute -right-10 -bottom-28 size-80 rounded-full bg-pink-600/30 blur-3xl" />
 
-      <div className="relative mb-5 flex items-end justify-between gap-3">
-        <div>
-          <h2 id="kol-hot-title" className="text-2xl font-extrabold tracking-tight md:text-3xl">
-            Video hot từ <span className="bg-gradient-to-r from-pink-400 via-fuchsia-400 to-indigo-300 bg-clip-text text-transparent">KOL</span>
-          </h2>
-          <p className="mt-1 text-sm text-white/60">Review thật, xem trước rồi mua ngay trong video</p>
-        </div>
-        <Link
-          to="/explore"
-          className="flex shrink-0 items-center gap-1 rounded-full bg-white/10 px-3.5 py-2 text-sm font-semibold backdrop-blur transition-colors hover:bg-white/20"
-        >
-          Xem tất cả <ArrowRight className="size-4" aria-hidden="true" />
-        </Link>
-      </div>
+      <SectionHeading
+        id="kol-hot-title"
+        tone="dark"
+        title="Video"
+        accent="khám phá"
+        description="Review thật, xem trước rồi mua ngay trong video"
+        action={{ to: '/explore' }}
+        className="relative mb-5"
+      />
 
       <ul className="scrollbar-none relative -mx-4 flex snap-x gap-3 overflow-x-auto scroll-px-4 px-4 md:mx-0 md:grid md:grid-cols-5 md:gap-4 md:overflow-visible md:px-0">
         {isPending
@@ -129,7 +125,7 @@ function HotCard({ video: v, rank, product, onOpen }: { video: KolReview; rank: 
         </p>
         {product && (
           <Link
-            to={`/product/${product.slug}`}
+            to={`/san-pham/${product.slug}`}
             className="pointer-events-auto flex items-center gap-2 rounded-[12px] bg-white/95 p-1.5 pr-2 text-ink shadow-lg transition-colors hover:bg-white"
           >
             <img src={product.thumbnail} alt="" className="size-8 shrink-0 rounded-[8px] object-cover" />

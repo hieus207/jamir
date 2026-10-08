@@ -38,6 +38,8 @@ export interface ResourceConfig {
   toolbar?: ReactNode
   /** hide "Thêm mới" (e.g. orders come from checkout) */
   readonlyCreate?: boolean
+  /** live preview next to the form (desktop) */
+  preview?: (draft: Rec) => ReactNode
 }
 
 /** Invalidate admin lists and every public query (shop pages must reflect edits). */
@@ -184,6 +186,7 @@ export function ResourcePanel({ config }: { config: ResourceConfig }) {
           title={isNew ? `Thêm ${config.noun}` : `Sửa ${config.noun}`}
           record={editing}
           fields={config.fields}
+          preview={config.preview}
           saving={save.isPending}
           onClose={() => setEditing(null)}
           onSave={(r) => {
@@ -204,10 +207,12 @@ export function RecordDialog({
   saving,
   onSave,
   onClose,
+  preview,
 }: {
   title: string
   record: Rec
   fields: FieldDef[]
+  preview?: (draft: Rec) => ReactNode
   saving: boolean
   onSave: (r: Rec) => void
   onClose: () => void
@@ -222,11 +227,15 @@ export function RecordDialog({
     if (t === 'form' && jsonError) return
     setTab(t)
   }
-  const missing = fields.filter((f) => f.required && [undefined, null, ''].includes(getPath(draft, f.key) as never))
+  const visible = fields.filter((f) => !f.showIf || f.showIf(draft))
+  const missing = visible.filter((f) => f.required && [undefined, null, ''].includes(getPath(draft, f.key) as never))
 
   return (
     <Dialog open onOpenChange={(o) => !o && onClose()}>
-      <DialogContent className="flex max-w-3xl flex-col" closeClassName="bg-line-soft text-ink-soft hover:bg-line">
+      <DialogContent
+        className={cn('flex flex-col', preview ? 'h-[calc(100dvh-2rem)] max-w-[min(1600px,100%)] md:h-[calc(100dvh-4rem)]' : 'max-w-3xl')}
+        closeClassName="bg-line-soft text-ink-soft hover:bg-line"
+      >
         <div className="flex items-center gap-3 border-b border-line px-5 pt-5 pb-3 pr-14">
           <DialogTitle>{title}</DialogTitle>
           <Tabs value={tab} onValueChange={(v) => switchTab(v as 'form' | 'json')} className="ml-auto">
@@ -236,10 +245,11 @@ export function RecordDialog({
             </TabsList>
           </Tabs>
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto px-5 py-4">
+        <div className={cn('min-h-0 flex-1', preview ? 'overflow-hidden lg:grid lg:grid-cols-[minmax(420px,1fr)_minmax(0,1.35fr)]' : 'overflow-y-auto overscroll-contain')}>
+        <div className={cn('min-h-0 px-5 py-4', preview && 'h-full overflow-y-auto overscroll-contain')}>
           {tab === 'form' ? (
-            <div className="grid gap-3.5 md:grid-cols-2">
-              {fields.map((f) => (
+            <div className={cn('grid gap-3.5', preview ? 'xl:grid-cols-2' : 'md:grid-cols-2')}>
+              {visible.map((f) => (
                 <FieldControl key={f.key} field={f} record={draft} onChange={(r) => setDraft(r as Rec)} />
               ))}
             </div>
@@ -264,7 +274,9 @@ export function RecordDialog({
             </>
           )}
         </div>
-        <div className="flex items-center justify-end gap-2 border-t border-line px-5 py-3">
+        {preview && <div className="hidden min-h-0 border-l border-line p-4 lg:block">{preview(draft)}</div>}
+        </div>
+        <div className="flex shrink-0 items-center justify-end gap-2 border-t border-line bg-surface px-5 py-3">
           {missing.length > 0 && <p className="mr-auto text-xs text-danger">Thiếu: {missing.map((f) => f.label).join(', ')}</p>}
           <Button variant="ghost" onClick={onClose}>
             Hủy

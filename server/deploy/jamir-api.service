@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 EnvironmentFile=@ROOT@/api.env
-ExecStart=/usr/bin/node @ROOT@/api/dist/index.mjs
+ExecStart=/opt/node22/bin/node @ROOT@/api/dist/index.mjs
 WorkingDirectory=@ROOT@/api
 Restart=always
 RestartSec=3

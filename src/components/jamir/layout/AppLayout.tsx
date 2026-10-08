@@ -8,6 +8,7 @@ import { BottomNavigation } from '../navigation/BottomNavigation'
 import { Header } from '../navigation/Header'
 import { MobileHeader } from '../navigation/MobileHeader'
 import { StoryModeController } from '../stories/StoryModeController'
+import { CommunityBar } from './CommunityBar'
 import { EventPopup } from './EventPopup'
 import { Footer } from './Footer'
 import { PageFallback } from './PageStates'
@@ -28,10 +29,10 @@ export function AppLayout() {
   const checkoutOpen = useCheckoutStore((s) => s.open)
   const { pathname } = useLocation()
   // product → product uses the swipe slide instead
-  const onProduct = useMatch('/product/:slug')
+  const onProduct = useMatch('/san-pham/:slug')
   const pageKey = onProduct ? 'product' : pathname
   // ad landing pages: no site navigation
-  const bare = !!useMatch('/lp/:slug')
+  const bare = !!useMatch('/uu-dai/:slug')
   return (
     <div className="flex min-h-dvh flex-col">
       <a
@@ -54,6 +55,7 @@ export function AppLayout() {
           </motion.div>
         </Suspense>
       </main>
+      {!bare && !pathname.startsWith('/admin') && <CommunityBar className="mt-4" />}
       {!bare && <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
       {!onProduct && !bare && <BottomNavigation />}
       <EventPopup />

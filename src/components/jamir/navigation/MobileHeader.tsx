@@ -14,7 +14,7 @@ export function MobileHeader() {
       <div className="flex h-14 items-center gap-2 px-4">
         <Logo className="[&_span]:text-xl [&_svg]:size-7" />
         <div className="ml-auto flex items-center">
-          <Link to="/news" aria-label="Tin tức" className="inline-flex size-11 items-center justify-center rounded-btn text-ink-soft hover:bg-line-soft">
+          <Link to="/tin-tuc" aria-label="Tin tức" className="inline-flex size-11 items-center justify-center rounded-btn text-ink-soft hover:bg-line-soft">
             <Newspaper className="size-[22px]" />
           </Link>
           <button

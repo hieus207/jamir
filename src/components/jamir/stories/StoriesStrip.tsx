@@ -18,6 +18,7 @@ export function StoriesStrip({
   progressFill,
   autoplay,
   countdown,
+  cover,
   onSelect,
   onPlayAll,
   onPreload,
@@ -34,6 +35,8 @@ export function StoriesStrip({
   autoplay?: boolean
   /** seconds until "Xem tất cả" starts by itself (home idle) */
   countdown?: number | null
+  /** cover image for the "Xem tất cả" tile (stories config) */
+  cover?: string
   onSelect: (story: Story) => void
   onPlayAll: () => void
   className?: string
@@ -57,7 +60,7 @@ export function StoriesStrip({
 
   return (
     <div className={cn('group/strip relative', className)}>
-      <div ref={scroller} className="scrollbar-none -mx-4 flex snap-x gap-3 overflow-x-auto scroll-px-4 px-4 py-1.5 md:mx-0 md:gap-3.5 md:px-0.5">
+      <div ref={scroller} className="scrollbar-none relative -mx-4 flex snap-x gap-3 overflow-x-auto scroll-px-4 px-4 py-1.5 md:mx-0 md:gap-3.5 md:px-0.5">
         <button
           type="button"
           onClick={onPlayAll}
@@ -74,7 +77,11 @@ export function StoriesStrip({
               <span className="block size-full animate-ring bg-[conic-gradient(from_0deg,#ec4899,#8b5cf6,#4f46e5,#f59e0b,#ec4899)]" />
             </span>
             <span className="relative flex size-full items-center justify-center overflow-hidden rounded-[13px] bg-ink">
-              <img src={items[0]?.thumbnail} alt="" className="absolute inset-0 size-full object-cover opacity-45 transition-transform duration-500 group-hover:scale-110" />
+              {cover ? (
+                <img src={cover} alt="" className="absolute inset-0 size-full object-cover opacity-70 transition-transform duration-500 group-hover:scale-110" />
+              ) : (
+                <PlayAllArt />
+              )}
               <span className="absolute inset-0 bg-gradient-to-b from-brand-600/30 via-transparent to-pink-600/40" />
               <span className="relative flex size-12 items-center justify-center rounded-full bg-white text-brand-700 shadow-lg ring-4 ring-white/30 transition-transform duration-200 group-hover:scale-110 md:size-14">
                 <span className="absolute inset-0 animate-ping rounded-full bg-white/50 motion-reduce:hidden" aria-hidden="true" />
@@ -161,5 +168,25 @@ export function StoriesStrip({
         <ChevronRight className="size-5" />
       </button>
     </div>
+  )
+}
+
+/** Default "Xem tất cả" artwork: brand gradient + equalizer, so it never looks like a product. */
+function PlayAllArt() {
+  const bars = [38, 64, 46, 80, 52, 70, 34, 58, 44]
+  return (
+    <span aria-hidden="true" className="absolute inset-0 overflow-hidden bg-[radial-gradient(circle_at_30%_20%,#a855f7,transparent_55%),radial-gradient(circle_at_80%_90%,#ec4899,transparent_50%),linear-gradient(160deg,#312e81,#1e1b4b)]">
+      <span className="absolute inset-x-[10%] bottom-[22%] flex h-[34%] items-end justify-between">
+        {bars.map((h, i) => (
+          <span
+            key={i}
+            className="w-[7%] origin-bottom animate-[eq_1.1s_ease-in-out_infinite] rounded-full bg-white/45 motion-reduce:animate-none"
+            style={{ height: `${h}%`, animationDelay: `${i * 0.12}s` }}
+          />
+        ))}
+      </span>
+      <span className="absolute top-[10%] left-[10%] size-[28%] rounded-full border-2 border-white/25" />
+      <span className="absolute top-[18%] right-[12%] size-[16%] rounded-full bg-white/15" />
+    </span>
   )
 }

@@ -1,5 +1,5 @@
-import { lazy } from 'react'
-import { createBrowserRouter } from 'react-router'
+import { lazy, Suspense } from 'react'
+import { createBrowserRouter, Navigate, useLocation, useParams } from 'react-router'
 import { AppLayout } from '@/components/jamir/layout/AppLayout'
 import { RouteError } from '@/components/jamir/layout/RouteError'
 
@@ -16,25 +16,47 @@ const NewsPage = lazy(() => import('@/pages/NewsPage'))
 const NewsArticlePage = lazy(() => import('@/pages/NewsArticlePage'))
 const AdminPage = lazy(() => import('@/pages/AdminPage'))
 const LandingPage = lazy(() => import('@/pages/LandingPage'))
+const LandingPreviewPage = lazy(() => import('@/pages/LandingPreviewPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
+/** Old URL → new SEO URL, keeping the slug and query. */
+function Legacy({ to }: { to: (slug: string) => string }) {
+  const { slug = '' } = useParams()
+  const { search } = useLocation()
+  return <Navigate to={`${to(slug)}${search}`} replace />
+}
+
 export const router = createBrowserRouter([
+  // admin live preview (rendered in an iframe)
+  {
+    path: 'preview/landing',
+    element: (
+      <Suspense>
+        <LandingPreviewPage />
+      </Suspense>
+    ),
+  },
   {
     element: <AppLayout />,
     errorElement: <RouteError />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: 'product/:slug', element: <ProductPage /> },
+      { path: 'san-pham/:slug', element: <ProductPage /> },
+      { path: 'product/:slug', element: <Legacy to={(s) => `/san-pham/${s}`} /> },
       { path: 'shop', element: <ShopPage /> },
       { path: 'search', element: <SearchPage /> },
       { path: 'explore', element: <ExplorePage /> },
-      { path: 'community', element: <CommunityPage /> },
+      { path: 'cong-dong', element: <CommunityPage /> },
+      { path: 'community', element: <Navigate to="/cong-dong" replace /> },
       { path: 'wishlist', element: <WishlistPage /> },
       { path: 'account', element: <AccountPage /> },
-      { path: 'news', element: <NewsPage /> },
-      { path: 'news/:slug', element: <NewsArticlePage /> },
+      { path: 'tin-tuc', element: <NewsPage /> },
+      { path: 'tin-tuc/:slug', element: <NewsArticlePage /> },
+      { path: 'news', element: <Navigate to="/tin-tuc" replace /> },
+      { path: 'news/:slug', element: <Legacy to={(s) => `/tin-tuc/${s}`} /> },
       { path: 'admin/:section?', element: <AdminPage /> },
-      { path: 'lp/:slug', element: <LandingPage /> },
+      { path: 'uu-dai/:slug', element: <LandingPage /> },
+      { path: 'lp/:slug', element: <Legacy to={(s) => `/uu-dai/${s}`} /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },

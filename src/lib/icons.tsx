@@ -3,6 +3,19 @@
  * Only icons listed here end up in the bundle.
  */
 import {
+  Truck,
+  Play,
+  Headset,
+  Star,
+  Heart,
+  Clock,
+  Award,
+  ThumbsUp,
+  PackageCheck,
+  BadgePercent,
+  Gem,
+  Flame,
+  Rocket,
   AudioLines,
   BadgeCheck,
   Banknote,
@@ -50,6 +63,20 @@ import {
 } from 'lucide-react'
 
 const ICONS: Record<string, LucideIcon> = {
+  'truck': Truck,
+  'play': Play,
+  'headset': Headset,
+  'star': Star,
+  'heart': Heart,
+  'clock': Clock,
+  'award': Award,
+  'sparkles': Sparkles,
+  'thumbs-up': ThumbsUp,
+  'package-check': PackageCheck,
+  'badge-percent': BadgePercent,
+  'gem': Gem,
+  'flame': Flame,
+  'rocket': Rocket,
   'audio-lines': AudioLines,
   'badge-check': BadgeCheck,
   banknote: Banknote,
@@ -102,3 +129,6 @@ export function Icon({ name, ...props }: LucideProps & { name: string }) {
   const Cmp = getIcon(name)
   return <Cmp aria-hidden="true" {...props} />
 }
+
+/** Icon names for admin pickers. */
+export const ICON_NAMES = Object.keys(ICONS).sort()

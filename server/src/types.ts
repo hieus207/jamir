@@ -14,6 +14,8 @@ export interface ReviewRecord extends Omit<CustomerReview, 'user' | 'anonymous' 
   likedBy?: string[]
   /** hidden reviews stay in the admin only */
   hidden?: boolean
+  /** posted by the demo feeder — purgeable in one go */
+  seeded?: boolean
 }
 
 export interface RecommendationsRecord {

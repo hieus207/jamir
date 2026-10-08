@@ -17,7 +17,7 @@ export default function NewsArticlePage() {
   const { data: product } = useProduct(a?.productSlug ?? '', { enabled: !!a?.productSlug })
 
   useEffect(() => {
-    if (a) document.title = `${a.title} — JAMIR`
+    if (a) document.title = `${a.title} | Tin tức JAMIR`
   }, [a])
 
   if (isPending)
@@ -35,7 +35,7 @@ export default function NewsArticlePage() {
         title="Không tìm thấy bài viết"
         className="min-h-[50vh] justify-center"
         action={
-          <Link to="/news" className={buttonVariants({ variant: 'secondary' })}>
+          <Link to="/tin-tuc" className={buttonVariants({ variant: 'secondary' })}>
             Xem tin tức khác
           </Link>
         }
@@ -45,7 +45,7 @@ export default function NewsArticlePage() {
   return (
     <article className="container-page grid max-w-5xl gap-8 pt-4 pb-12 md:pt-6 lg:grid-cols-[minmax(0,1fr)_260px]">
       <div className="flex min-w-0 flex-col gap-5">
-        <Link to="/news" className="flex w-fit items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
+        <Link to="/tin-tuc" className="flex w-fit items-center gap-1.5 text-sm font-semibold text-brand-700 hover:underline">
           <ArrowLeft className="size-4" aria-hidden="true" />
           Tin tức
         </Link>

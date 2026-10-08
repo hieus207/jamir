@@ -13,8 +13,8 @@ import { KolVideoViewer } from '../review/KolVideoViewer'
 /** Where a banner's button goes (same targets as event popups). */
 const href = (b: HomeBanner) => {
   const { type, value } = b.target
-  if (type === 'product') return `/product/${value}`
-  if (type === 'news') return `/news/${value}`
+  if (type === 'product') return `/san-pham/${value}`
+  if (type === 'news') return `/tin-tuc/${value}`
   return value
 }
 
@@ -80,7 +80,7 @@ export function HomeBanners({ className }: { className?: string }) {
                 {b.overlay !== false && <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />}
                 <div className="relative flex h-full max-w-xl flex-col justify-end gap-3 p-5 text-white sm:justify-center sm:p-10">
                   {b.eyebrow && <span className="w-fit rounded-full bg-white/15 px-3 py-1 text-xs font-semibold backdrop-blur">{b.eyebrow}</span>}
-                  {b.title && <h2 className="text-2xl leading-tight font-extrabold whitespace-pre-line sm:text-4xl lg:text-5xl">{b.title}</h2>}
+                  {b.title && <p className="text-2xl leading-tight font-extrabold tracking-tight whitespace-pre-line sm:text-[34px] lg:text-[42px]">{b.title}</p>}
                   {b.subtitle && <p className="max-w-md text-sm text-white/85 sm:text-base">{b.subtitle}</p>}
                   {b.target.value && cta(b)}
                 </div>

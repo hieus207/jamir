@@ -28,6 +28,7 @@ export function ProductStories({ activeSlug, className }: { activeSlug?: string;
       <StoriesStrip
         items={items}
         loading={isPending}
+        cover={data?.config.playAllImage}
         activeId={active?.id}
         progressFill={mode ? <StoryProgressFill key={storyKey} className="bg-white" /> : undefined}
         autoplay={running}

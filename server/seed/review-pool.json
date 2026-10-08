@@ -1,0 +1,18 @@
+[
+  { "id": "pool-1", "productSlug": "tai-nghe-pro-x1", "rating": 5, "name": "Phạm Quốc Bảo", "display": "full", "content": "Đi tàu Cát Linh mỗi ngày, bật ANC là gần như không nghe tiếng ray. Đeo 3 tiếng liền chưa thấy nóng tai." },
+  { "id": "pool-2", "productSlug": "tai-nghe-pro-x1", "rating": 4, "name": "Lê Minh Hằng", "nickname": "hang.review", "display": "nickname", "content": "Âm bass hơi dày so với gu mình, chỉnh EQ trong app thì ổn. Pin đúng là trâu, 5 ngày mới sạc một lần." },
+  { "id": "pool-3", "productSlug": "tai-nghe-pro-x1", "rating": 5, "name": "Nguyễn Văn Đạt", "display": "anonymous", "content": "Mua để họp online, mic lọc tiếng quạt tốt, đồng nghiệp bảo nghe rõ hơn tai nghe cũ. Gập gọn bỏ balo rất tiện." },
+  { "id": "pool-4", "productSlug": "tai-nghe-airbuds", "rating": 5, "name": "Trần Thu Hà", "display": "full", "content": "Tầm giá này mà có chống ồn là bất ngờ. Chạy bộ không bị rơi, hộp sạc nhỏ bỏ túi quần được." },
+  { "id": "pool-5", "productSlug": "tai-nghe-airbuds", "rating": 4, "name": "Đỗ Hoàng Nam", "nickname": "namdo", "display": "nickname", "content": "Kết nối nhanh, mở nắp là bắt máy. Trừ 1 sao vì nút cảm ứng hơi nhạy, chạm nhầm lúc chỉnh tai." },
+  { "id": "pool-6", "productSlug": "loa-mini-s2", "rating": 5, "name": "Vũ Thị Lan", "display": "anonymous", "content": "Mang đi cắm trại, loa nhỏ mà âm lớn hơn mình nghĩ. Ghép đôi 2 cái thành stereo nghe rất đã." },
+  { "id": "pool-7", "productSlug": "loa-mini-s2", "rating": 4, "name": "Bùi Anh Tuấn", "display": "full", "content": "Chống nước thật, mình để cạnh bể bơi bị văng nước vẫn chạy bình thường. Bass vừa phải, không ù." },
+  { "id": "pool-8", "productSlug": "sac-gan-65w", "rating": 5, "name": "Hoàng Thị Mai", "nickname": "mai.hoang", "display": "nickname", "content": "Một củ sạc cho cả MacBook Air lẫn điện thoại, đi công tác đỡ hẳn một đống cục sạc. Sạc laptop ấm nhẹ chứ không nóng." },
+  { "id": "pool-9", "productSlug": "sac-gan-65w", "rating": 5, "name": "Ngô Đức Thành", "display": "anonymous", "content": "Chân cắm gập được, bỏ túi áo khoác vừa. Sạc iPhone từ 20% lên 80% khoảng 40 phút." },
+  { "id": "pool-10", "productSlug": "pin-du-phong-20000", "rating": 4, "name": "Lý Thanh Trúc", "display": "full", "content": "Sạc đầy được điện thoại khoảng 4 lần. Hơi nặng nếu bỏ túi áo nhưng để balo thì không vấn đề. Lên máy bay bình thường." },
+  { "id": "pool-11", "productSlug": "pin-du-phong-20000", "rating": 5, "name": "Phan Văn Khoa", "nickname": "khoapv", "display": "nickname", "content": "Màn hình hiện % pin còn lại rất tiện, không phải đoán. Sạc được cả 2 máy cùng lúc, tốc độ vẫn ổn." },
+  { "id": "pool-12", "productSlug": "cap-usb-c-240w", "rating": 5, "name": "Đặng Minh Châu", "display": "anonymous", "content": "Dây bện dù chắc, gập nhiều lần không bị gãy đầu như dây cũ. Sạc laptop 65W nhận đủ công suất." },
+  { "id": "pool-13", "productSlug": "cap-usb-c-240w", "rating": 4, "name": "Trịnh Quang Huy", "display": "full", "content": "Dài 2m rất tiện khi nằm giường. Đầu cắm hơi to, ốp lưng dày có thể vướng một chút." },
+  { "id": "pool-14", "productSlug": "camera-home-c2", "rating": 5, "name": "Nguyễn Thị Hồng", "display": "full", "content": "Lắp trông nhà khi về quê, xem qua app mượt, ban đêm vẫn rõ mặt người. Báo chuyển động không bị nhầm với mèo." },
+  { "id": "pool-15", "productSlug": "camera-home-c2", "rating": 4, "name": "Lương Văn Sơn", "nickname": "son.luong", "display": "nickname", "content": "Hình 2K nét, đàm thoại 2 chiều hơi trễ nửa giây. Cài đặt wifi dễ, 5 phút là xong." },
+  { "id": "pool-16", "rating": 5, "name": "Cao Thị Yến", "display": "anonymous", "content": "Giao hỏa tốc trong buổi sáng, đóng gói kỹ. Sản phẩm đúng như video giới thiệu, không khác gì." }
+]

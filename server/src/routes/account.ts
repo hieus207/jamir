@@ -26,6 +26,21 @@ export function accountRoutes(r: Router, db: Store) {
     return { token: issueToken(updated), user: toCustomer(updated) }
   }
 
+  /**
+   * Review quota (settings.json → reviewLimit). Default: one review per account,
+   * ever — after reviewing any product the customer can't review another.
+   * Returns true when the customer has used it up.
+   */
+  const reviewQuotaUsed = async (userId: string, productId: string) => {
+    const lim = { scope: 'account', max: 1, windowDays: 0, ...(await db.settings.read()).reviewLimit }
+    if (!(lim.max > 0)) return false
+    const since = lim.windowDays > 0 ? Date.now() - lim.windowDays * 86400_000 : 0
+    const mine = (await db.reviews.list()).filter(
+      (x) => x.userId === userId && (lim.scope === 'account' || x.productId === productId) && new Date(x.createdAt).getTime() >= since,
+    )
+    return mine.length >= lim.max
+  }
+
   /** bought it in a non-cancelled order */
   const hasBought = async (userId: string, productId: string) =>
     (await db.orders.list()).some((o) => o.userId === userId && o.status !== 'cancelled' && o.items.some((i) => i.productId === productId))
@@ -38,7 +53,7 @@ export function accountRoutes(r: Router, db: Store) {
     if (!ctx.auth) return { signedIn: false, canReview: false, canLike: false, alreadyReviewed: false }
     const admin = ctx.auth.role === 'admin'
     const bought = admin || (await hasBought(ctx.auth.sub, ctx.params.id!))
-    const alreadyReviewed = !admin && !!(await db.reviews.find((x) => x.productId === ctx.params.id && x.userId === ctx.auth!.sub))
+    const alreadyReviewed = !admin && (await reviewQuotaUsed(ctx.auth.sub, ctx.params.id!))
     return { signedIn: true, canReview: bought && !alreadyReviewed, canLike: bought, alreadyReviewed }
   })
 
@@ -47,8 +62,7 @@ export function accountRoutes(r: Router, db: Store) {
     const productId = ctx.params.id!
     if (!(await db.products.get(productId))) throw new HttpError(404, 'Không tìm thấy sản phẩm')
     if (role !== 'admin' && !(await hasBought(sub, productId))) throw new HttpError(403, 'Chỉ khách đã mua sản phẩm này mới có thể đánh giá')
-    if (role !== 'admin' && (await db.reviews.find((x) => x.productId === productId && x.userId === sub)))
-      throw new HttpError(409, 'Bạn đã đánh giá sản phẩm này rồi')
+    if (role !== 'admin' && (await reviewQuotaUsed(sub, productId))) throw new HttpError(409, 'Bạn đã dùng hết lượt đánh giá của tài khoản')
     const b = (ctx.body ?? {}) as Record<string, unknown>
     const rating = Math.round(Number(b.rating))
     const content = str(b.content)

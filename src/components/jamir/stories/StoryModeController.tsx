@@ -18,7 +18,7 @@ export function useStoryNav() {
       if (!slug) return
       setDirection(dir)
       // story steps always start at the top of the page (see ScrollRestoration in AppLayout)
-      navigate(`/product/${slug}`, { state: { story: true } })
+      navigate(`/san-pham/${slug}`, { state: { story: true } })
     },
     [navigate, setDirection],
   )
@@ -58,7 +58,7 @@ const SCROLL_PAUSE = 0.45 // × viewport height
  * has a dialog open or the tab is hidden, and exits when leaving product pages.
  */
 export function StoryModeController() {
-  const match = useMatch('/product/:slug')
+  const match = useMatch('/san-pham/:slug')
   const slug = match?.params.slug
   const active = useStoryMode((s) => s.active)
   const userPaused = useStoryMode((s) => s.userPaused)

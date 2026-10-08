@@ -7,9 +7,12 @@ import { Select } from '@/components/ui/select'
 import { toast } from '@/components/ui/toast'
 import { cn } from '@/lib/utils'
 import { adminApi, ApiError, type AdminCollection } from '@/services'
-import type { ProductGift } from '@/types/domain'
+import type { ProductGift, UspItem } from '@/types/domain'
+import { DEFAULT_USPS } from '@/lib/brand'
+import { Icon, ICON_NAMES } from '@/lib/icons'
 import { type VideoKeys, VideoSourceField } from './VideoSourceField'
 import { ChaptersEditor } from './ChaptersEditor'
+import { HotspotField } from './HotspotEditor'
 
 type Rec = Record<string, unknown>
 
@@ -31,6 +34,9 @@ export type FieldType =
   | 'chapters'
   | 'lines'
   | 'target'
+  | 'usps'
+  | 'hotspots'
+  | 'icon'
 
 export interface FieldDef {
   /** dot path into the record, e.g. "media.src" */
@@ -45,13 +51,21 @@ export interface FieldDef {
   /** select: store the chosen value as a number */
   numeric?: boolean
   /** ref/refs: collection to pick from, and which field identifies an item */
-  ref?: { collection: AdminCollection; valueKey?: string; labelKey?: string }
+  ref?: {
+    collection: AdminCollection
+    valueKey?: string
+    labelKey?: string
+    /** only items whose `field` equals the record's value at `sameAs` (e.g. reviews of the chosen product) */
+    where?: { field: string; sameAs: string }
+  }
   /** video: record paths for source / file / embed / pasted link / frame */
   video?: VideoKeys
   /** media: what can be uploaded */
   accept?: 'image' | 'video' | 'any'
   /** span both columns */
   wide?: boolean
+  /** hide the field unless this returns true for the record being edited */
+  showIf?: (record: Rec) => boolean
 }
 
 /* ---- dot-path helpers ---- */
@@ -170,8 +184,17 @@ export function MediaInput({
   )
 }
 
-function RefSelect({ field, value, onChange }: { field: FieldDef; value: string; onChange: (v: string) => void }) {
+/** List for a ref field, narrowed by `where` when set. */
+function useRefItems(field: FieldDef, record?: Rec) {
   const { data } = useAdminList(field.ref!.collection)
+  const w = field.ref!.where
+  if (!w || !record) return data
+  const want = getPath(record, w.sameAs)
+  return want ? data?.filter((x) => (x as Rec)[w.field] === want) : []
+}
+
+function RefSelect({ field, value, onChange, record }: { field: FieldDef; value: string; onChange: (v: string) => void; record?: Rec }) {
+  const data = useRefItems(field, record)
   const vk = field.ref!.valueKey ?? 'id'
   const lk = field.ref!.labelKey ?? 'name'
   const options = [
@@ -181,8 +204,8 @@ function RefSelect({ field, value, onChange }: { field: FieldDef; value: string;
   return <Select value={value || (field.required ? null : '')} onValueChange={onChange} options={options} placeholder="Chọn…" />
 }
 
-function RefMulti({ field, value, onChange }: { field: FieldDef; value: string[]; onChange: (v: string[]) => void }) {
-  const { data } = useAdminList(field.ref!.collection)
+function RefMulti({ field, value, onChange, record }: { field: FieldDef; value: string[]; onChange: (v: string[]) => void; record?: Rec }) {
+  const data = useRefItems(field, record)
   const vk = field.ref!.valueKey ?? 'id'
   const lk = field.ref!.labelKey ?? 'name'
   return (
@@ -330,10 +353,10 @@ export function FieldControl({ field, record, onChange }: { field: FieldDef; rec
       )
       break
     case 'ref':
-      control = <RefSelect field={field} value={String(value ?? '')} onChange={(v) => set(v || undefined)} />
+      control = <RefSelect field={field} record={record} value={String(value ?? '')} onChange={(v) => set(v || undefined)} />
       break
     case 'refs':
-      control = <RefMulti field={field} value={Array.isArray(value) ? (value as string[]) : []} onChange={set} />
+      control = <RefMulti field={field} record={record} value={Array.isArray(value) ? (value as string[]) : []} onChange={set} />
       break
     case 'gifts':
       control = <GiftsEditor value={Array.isArray(value) ? (value as ProductGift[]) : []} onChange={set} />
@@ -358,6 +381,15 @@ export function FieldControl({ field, record, onChange }: { field: FieldDef; rec
           className={textareaClass}
         />
       )
+      break
+    case 'hotspots':
+      control = <HotspotField record={record} onChange={onChange} />
+      break
+    case 'usps':
+      control = <UspEditor value={Array.isArray(value) ? (value as UspItem[]) : DEFAULT_USPS} onChange={set} />
+      break
+    case 'icon':
+      control = <IconPicker value={String(value ?? '')} onChange={set} />
       break
     case 'target':
       control = <TargetPicker value={(value as { type?: string; value?: string } | undefined) ?? {}} onChange={set} />
@@ -426,6 +458,58 @@ function TargetPicker({ value, onChange }: { value: { type?: string; value?: str
         />
       ) : (
         <Input value={value.value ?? ''} onChange={(e) => onChange({ type, value: e.target.value })} placeholder="https://... hoặc /explore" />
+      )}
+    </div>
+  )
+}
+
+/** Grid of icons to pick from. */
+function IconPicker({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  return (
+    <div className="flex max-h-40 flex-wrap gap-1 overflow-y-auto rounded-[12px] border border-line p-1.5">
+      {ICON_NAMES.map((n) => (
+        <button
+          key={n}
+          type="button"
+          title={n}
+          aria-pressed={value === n}
+          onClick={() => onChange(n)}
+          className={cn('flex size-9 cursor-pointer items-center justify-center rounded-[8px]', value === n ? 'bg-brand-600 text-white' : 'text-ink-soft hover:bg-line-soft')}
+        >
+          <Icon name={n} className="size-5" />
+        </button>
+      ))}
+    </div>
+  )
+}
+
+/** Home "cam kết" tiles: icon, title, text, highlight; reorder by adding/removing. */
+function UspEditor({ value, onChange }: { value: UspItem[]; onChange: (v: UspItem[]) => void }) {
+  const set = (i: number, p: Partial<UspItem>) => onChange(value.map((u, j) => (j === i ? { ...u, ...p } : u)))
+  return (
+    <div className="flex flex-col gap-2">
+      {value.map((u, i) => (
+        <div key={i} className={cn('flex flex-col gap-2 rounded-[12px] border p-2.5', u.highlight ? 'border-brand-300 bg-brand-50/50' : 'border-line')}>
+          <div className="flex items-center gap-2">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-[10px] bg-brand-50 text-brand-600">
+              <Icon name={u.icon} className="size-5" />
+            </span>
+            <Input value={u.title} onChange={(e) => set(i, { title: e.target.value })} placeholder="Tiêu đề" className="min-w-0 flex-1" />
+            <Switch checked={!!u.highlight} onChange={(v) => set(i, { highlight: v })} label="Nổi bật" />
+            <span className="text-xs text-muted">Nổi bật</span>
+            <Button variant="ghost" size="icon-sm" aria-label="Xóa" onClick={() => onChange(value.filter((_, j) => j !== i))}>
+              <Trash2 className="text-danger" />
+            </Button>
+          </div>
+          <Input value={u.text} onChange={(e) => set(i, { text: e.target.value })} placeholder="Mô tả ngắn" />
+          <IconPicker value={u.icon} onChange={(icon) => set(i, { icon })} />
+        </div>
+      ))}
+      {value.length < 4 && (
+        <Button variant="outline" size="sm" className="self-start" onClick={() => onChange([...value, { icon: 'star', title: '', text: '' }])}>
+          <Plus />
+          Thêm ô cam kết
+        </Button>
       )}
     </div>
   )

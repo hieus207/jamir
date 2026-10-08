@@ -1,8 +1,8 @@
-import { ArrowUpRight, Flame, LoaderCircle, Search, SearchX, X } from 'lucide-react'
+import { ArrowUpRight, Flame, LoaderCircle, Search, SearchX, Sparkles, X } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { useCategories, usePrefetchProduct, useSearch, useTrendingSearches } from '@/hooks/queries'
+import { useCategories, usePrefetchProduct, useSearch, useTrendingSearches, useSettings } from '@/hooks/queries'
 import { useDebouncedValue } from '@/hooks/useDebouncedValue'
 import { cn, formatPrice } from '@/lib/utils'
 import type { ProductSummary } from '@/types/domain'
@@ -74,7 +74,7 @@ export function SearchBox({
     const t = text.trim()
     if (t) go(`/search?q=${encodeURIComponent(t)}`)
   }
-  const choose = (o: Option) => (o.kind === 'product' ? go(`/product/${o.product.slug}`) : submit(o.text))
+  const choose = (o: Option) => (o.kind === 'product' ? go(`/san-pham/${o.product.slug}`) : submit(o.text))
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'ArrowDown') {
@@ -179,10 +179,11 @@ export function SearchBox({
     </div>
   )
 
+  const placeholder = useSettings().data?.searchPlaceholder || 'AI tìm kiếm sản phẩm cho bạn…'
   return (
     <div ref={rootRef} className={cn('relative', className)}>
       <div className="relative">
-        <Search className="pointer-events-none absolute top-1/2 left-3.5 size-[18px] -translate-y-1/2 text-muted" aria-hidden="true" />
+        <Sparkles className="pointer-events-none absolute top-1/2 left-3.5 size-[18px] -translate-y-1/2 text-accent-600" aria-hidden="true" />
         <input
           ref={inputRef}
           type="search"
@@ -198,8 +199,8 @@ export function SearchBox({
           onChange={(e) => setValue(e.target.value)}
           onFocus={() => setFocused(true)}
           onKeyDown={onKeyDown}
-          placeholder="Tìm kiếm sản phẩm, thương hiệu, video..."
-          className="h-11 w-full rounded-btn border border-transparent bg-line-soft pr-10 pl-10 text-sm text-ink transition-[background-color,border-color,box-shadow] placeholder:text-subtle hover:bg-[#eef2f7] focus:border-brand-400 focus:bg-surface focus:ring-4 focus:ring-brand-100 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+          placeholder={placeholder}
+          className="h-11 w-full rounded-btn border border-brand-100 bg-gradient-to-r from-brand-50 to-pink-50/60 pr-10 pl-10 text-sm text-ink transition-[background-color,border-color,box-shadow] placeholder:font-medium placeholder:text-brand-600/80 hover:border-brand-200 focus:border-brand-400 focus:bg-surface focus:ring-4 focus:ring-brand-100 focus:outline-none [&::-webkit-search-cancel-button]:hidden"
         />
         {value && (
           <button

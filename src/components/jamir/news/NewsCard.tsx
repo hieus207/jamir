@@ -43,7 +43,7 @@ export function NewsCard({ article, featured, className }: { article: NewsArticl
           {dateFmt.format(new Date(article.publishedAt))}
         </time>
         <h3 className="line-clamp-2 text-sm leading-snug font-bold text-ink md:text-[15px]">
-          <Link to={`/news/${article.slug}`} className="after:absolute after:inset-0 hover:text-brand-700">
+          <Link to={`/tin-tuc/${article.slug}`} className="after:absolute after:inset-0 hover:text-brand-700">
             {article.title}
           </Link>
         </h3>
@@ -58,7 +58,7 @@ function FeaturedNewsCard({ article, className }: { article: NewsArticle; classN
   return (
     <article
       className={cn(
-        'group relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden rounded-[20px] bg-ink text-white shadow-lift ring-2 ring-transparent transition-[box-shadow] duration-300 hover:ring-brand-400 md:row-span-2 md:min-h-[460px]',
+        'group relative isolate flex min-h-[360px] flex-col justify-end overflow-hidden rounded-[20px] bg-ink text-white shadow-lift ring-2 ring-transparent transition-[box-shadow] duration-300 hover:ring-brand-400 md:row-span-2 md:min-h-0',
         className,
       )}
     >
@@ -76,7 +76,7 @@ function FeaturedNewsCard({ article, className }: { article: NewsArticle; classN
           {dateFmt.format(new Date(article.publishedAt))}
         </time>
         <h3 className="line-clamp-3 text-xl leading-tight font-extrabold md:text-3xl">
-          <Link to={`/news/${article.slug}`} className="after:absolute after:inset-0">
+          <Link to={`/tin-tuc/${article.slug}`} className="after:absolute after:inset-0">
             {article.title}
           </Link>
         </h3>

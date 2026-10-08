@@ -109,6 +109,8 @@ export interface Product {
   guarantees: Guarantee[]
   /** hidden when empty */
   gifts?: ProductGift[]
+  /** "Tóm tắt nhanh" box next to the rating (written in the admin) */
+  aiSummary?: string
 }
 
 /** Lightweight shape used by cards, stories and search results. */
@@ -175,6 +177,8 @@ export interface StoriesConfig {
   autoplay: boolean
   /** home: start "Xem tất cả" after this many idle seconds (0 = off, default 10) */
   idleSeconds?: number
+  /** cover of the "Xem tất cả" tile (default: brand artwork, never a product photo) */
+  playAllImage?: string
 }
 
 export interface StoriesFeed {
@@ -298,6 +302,86 @@ export interface SiteSettings {
   address: string
   /** anti-spam: at most `max` orders per phone / account / IP in `windowHours` (then blocked for windowHours) */
   orderLimit?: { max: number; windowHours: number }
+  /**
+   * Review quota: at most `max` reviews within `windowDays` (0 = forever),
+   * counted per account (all products) or per product.
+   */
+  reviewLimit?: { scope: 'account' | 'product'; max: number; windowDays: number }
+  /** search box hint (header) */
+  searchPlaceholder?: string
+  /** brand: full logo image (replaces mark + name), square icon, name text */
+  logo?: { image?: string; icon?: string; text?: string; height?: number }
+  /** home "cam kết" tiles (icon = name from the icon list) */
+  usps?: UspItem[]
+  /** labels ("Bán chạy", "Mới ra mắt"…) on related products: on/off and how many cards may show one */
+  relatedLabels?: { enabled: boolean; max: number }
+  /** same for "Gợi ý cho bạn" on the home page (default off) */
+  forYouLabels?: { enabled: boolean; max: number }
+  /** demo review feeder (testing): posts pool reviews on a schedule */
+  reviewFeeder?: ReviewFeederConfig
+}
+
+export interface UspItem {
+  icon: string
+  title: string
+  text: string
+  /** highlighted tile (gradient) */
+  highlight?: boolean
+}
+
+export interface ReviewFeederConfig {
+  enabled: boolean
+  everyHours: number
+  perRun: number
+  /** optional JSON feed (array or { items }) merged into the pool before each run */
+  sourceUrl?: string
+}
+
+/** One template waiting in the demo review pool. */
+export interface ReviewPoolItem {
+  id: ID
+  /** empty = any product */
+  productId?: ID
+  rating: number
+  content: string
+  name: string
+  nickname?: string
+  display?: ReviewerDisplay
+  avatar?: string
+  colorId?: string
+  media?: ReviewMedia[]
+}
+
+export interface FeederState {
+  lastRunAt?: string
+  log: string[]
+}
+
+export interface FeederStatus {
+  config: ReviewFeederConfig
+  state: FeederState
+  poolCount: number
+  seededCount: number
+}
+
+export interface LandingHotspot {
+  /** left / top / width / height, in % of the image */
+  x: number
+  y: number
+  w: number
+  h: number
+  action: 'buy' | 'cart' | 'video' | 'color' | 'reviews' | 'product' | 'link'
+  /** video: KOL video id (or index) · color: colour id · link: URL or path */
+  value?: string
+  label?: string
+  /** video: YouTube / TikTok / Facebook link or uploaded file (instead of a KOL video) */
+  videoUrl?: string
+  /** video: show the ▶ button (default on) */
+  play?: boolean
+  /** buy / product: which product (default: the landing's product) */
+  productSlug?: string
+  /** buy: glowing pulse (default on) */
+  pulse?: boolean
 }
 
 /** Ad landing page for one product (/lp/:slug). */
@@ -317,6 +401,24 @@ export interface LandingPage {
   countdownEndsAt?: string
   showKol: boolean
   showReviews: boolean
+  /** featured KOL video (default: most viewed for the product) */
+  kolReviewId?: ID
+  /** featured reviews in this order (default: best rated with photos) */
+  reviewIds?: ID[]
+  /** look: collage (street poster, default), poster (one screen) or feed (TikTok-style scroll) */
+  theme?: 'collage' | 'poster' | 'feed' | 'design'
+  /** street theme: line over the lifestyle strip (supports *red* and [tape]) */
+  tagline?: string
+  /** street theme: scribbled side note in the hero, e.g. "Play anytime anywhere" */
+  sideNote?: string
+  /** collage theme: line on the last photo, e.g. "Âm nhạc không giới hạn" */
+  outroLine?: string
+  /** design theme: the finished ad image, shown as-is */
+  designImage?: string
+  /** design theme: max width in px (default 900) */
+  designWidth?: number
+  /** design theme: clickable areas, in % of the image */
+  hotspots?: LandingHotspot[]
 }
 
 export interface LandingPayload {
@@ -364,6 +466,20 @@ export interface SiteEvent {
   ctaText?: string
   /** how often the same visitor sees it */
   frequency: 'once' | 'daily' | 'session'
+  /** banner (image + text), graffiti poster, or a finished image designed elsewhere */
+  style?: 'banner' | 'poster' | 'image'
+  /** popup width in px (phones shrink to fit); default banner 720, poster 500, image 560 */
+  width?: number
+  /** poster: red tape above the highlight, e.g. "Siêu deal" */
+  kicker?: string
+  /** poster: huge text, e.g. "10.10" */
+  highlight?: string
+  /** poster: e.g. "Giảm ngay 25%" (the number is drawn big) */
+  discountText?: string
+  /** poster: white sticker, e.g. "Chỉ duy nhất 10.10" */
+  note?: string
+  /** poster: scribbled side note, e.g. "Play anytime anywhere" */
+  sideNote?: string
 }
 
 export interface AdminOverview {
