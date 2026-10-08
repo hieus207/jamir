@@ -1,5 +1,30 @@
 # Deploy JAMIR
 
+## Production: jamir.vn
+
+| | |
+|---|---|
+| Máy chủ | Ubuntu 22.04, user `tuantd` (sudo), SSH qua Cloudflare Access: `ssh -o 'ProxyCommand=cloudflared access ssh --hostname %h' tuantd@ssh.jamir.vn` |
+| Đường đi traffic | Cloudflare Tunnel (`cloudflared.service`) → nginx :80 → `/var/www/jamir-v1/site` + API `127.0.0.1:3001` |
+| Code / dữ liệu | `/var/www/jamir-v1/{src,site,api,data,uploads,api.env}` |
+| Dịch vụ | `jamir-api` (systemd, Node 20 hệ thống `/usr/bin/node`) |
+| nginx | `/etc/nginx/sites-enabled/jamir.vn` (cùng file với `demo.jamir.vn`, `test.jamir.vn`, đừng xoá) |
+| Bản cũ (Next.js) | `/var/www/html/jamir`, PM2 của root, app `jamir` đã **dừng**; backup `~/backups/jamir-old-20261009/` |
+
+Cập nhật code trên jamir.vn:
+
+```bash
+cd /var/www/jamir-v1/src && sudo git pull && sudo DEPLOY_ROOT=/var/www/jamir-v1 bash scripts/deploy-vps.sh
+```
+
+Quay lại bản cũ (khẩn cấp):
+
+```bash
+sudo cp ~/backups/jamir-old-20261009/nginx-jamir.vn.conf /etc/nginx/sites-enabled/jamir.vn
+sudo nginx -t && sudo systemctl reload nginx
+sudo env PM2_HOME=/root/.pm2 pm2 start jamir
+```
+
 ## VPS đang chạy (cập nhật code)
 
 ```bash
