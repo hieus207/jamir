@@ -26,6 +26,7 @@ import { useSeo } from '@/hooks/useSeo'
 import { useStickyTop } from '@/hooks/useStickyTop'
 import { paths } from '@/lib/paths'
 import { useSelectionStore } from '@/stores/selectionStore'
+import { useUiStore } from '@/stores/uiStore'
 import { useSwipeStore } from '@/stores/swipeStore'
 
 const slide = {
@@ -57,6 +58,13 @@ export default function ProductPage() {
     if (product) resetSelection(product)
   }, [product, resetSelection])
 
+  // title for the mobile "‹ name" header
+  const setProductTitle = useUiStore((s) => s.setProductTitle)
+  useEffect(() => {
+    setProductTitle(product?.name ?? '')
+    return () => setProductTitle('')
+  }, [product?.name, setProductTitle])
+
   useSeo(
     product
       ? { title: `${product.name}, giá ${product.price.toLocaleString('vi-VN')}đ | JAMIR`, description: product.shortDescription, path: paths.product(product.slug), image: product.thumbnail }
@@ -85,7 +93,7 @@ export default function ProductPage() {
       <StoryModeBar />
       <ProductSwipeNavigator slug={product.slug}>
         <div className="container-page pt-3 pb-4 md:pt-5">
-          <ProductStories activeSlug={product.slug} className="mb-3 md:mb-5" />
+          <ProductStories activeSlug={product.slug} className="mb-3 max-md:hidden md:mb-5" />
           <AnimatePresence mode="wait" custom={direction} initial={false}>
             <motion.div
               key={product.id}
@@ -96,7 +104,7 @@ export default function ProductPage() {
               exit="exit"
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             >
-              <ProductStepNav productId={product.id} className="mb-3" />
+              <ProductStepNav productId={product.id} className="mb-3 max-md:-mt-3" />
               <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_372px] xl:grid-cols-[minmax(0,1fr)_420px] 2xl:grid-cols-[minmax(0,1fr)_460px]">
                 <div className="flex min-w-0 flex-col gap-4 md:gap-5">
                   <section id="tong-quan" aria-label="Tổng quan" className="order-1 flex scroll-mt-32 flex-col gap-3">

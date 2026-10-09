@@ -1,14 +1,16 @@
 import { Dialog as BaseDialog } from '@base-ui/react/dialog'
-import { ArrowLeft, Newspaper, Search } from 'lucide-react'
-import { Link } from 'react-router'
+import { ArrowLeft, ChevronLeft, Newspaper, Search } from 'lucide-react'
+import { Link, useMatch, useNavigate } from 'react-router'
 import { Logo } from '../brand/Logo'
 import { useUiStore } from '@/stores/uiStore'
 import { CartButton } from './Header'
 import { SearchBox } from './SearchBox'
 
-/** Mobile header (< md): logo, search, cart. */
+/** Mobile header (< md): logo, search, cart. Product pages: ‹ back · product name · cart. */
 export function MobileHeader() {
   const setSearchOpen = useUiStore((s) => s.setSearchOpen)
+  const productMatch = useMatch('/san-pham/:slug')
+  if (productMatch) return <ProductBar />
   return (
     <header className="sticky top-0 z-40 border-b border-line/70 bg-surface/90 backdrop-blur-xl md:hidden">
       <div className="flex h-14 items-center gap-2 px-4">
@@ -33,7 +35,24 @@ export function MobileHeader() {
   )
 }
 
-function MobileSearch() {
+function ProductBar() {
+  const navigate = useNavigate()
+  const title = useUiStore((s) => s.productTitle)
+  const back = () => ((window.history.state as { idx?: number } | null)?.idx ? navigate(-1) : navigate('/'))
+  return (
+    <header className="sticky top-0 z-40 bg-surface md:hidden">
+      <div className="flex h-14 items-center gap-1 px-2">
+        <button type="button" aria-label="Quay lại" onClick={back} className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-btn text-ink hover:bg-line-soft">
+          <ChevronLeft className="size-6" />
+        </button>
+        <p className="min-w-0 flex-1 truncate text-center text-[16px] font-bold text-ink">{title}</p>
+        <CartButton />
+      </div>
+    </header>
+  )
+}
+
+export function MobileSearch() {
   const open = useUiStore((s) => s.searchOpen)
   const setOpen = useUiStore((s) => s.setSearchOpen)
   return (

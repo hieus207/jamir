@@ -25,7 +25,7 @@ export function StickyPurchaseBar({ product }: { product: Product }) {
             {quantity > 1 ? `${quantity} × ${formatPrice(product.price)}` : <span className="line-through">{formatPrice(product.originalPrice)}</span>}
           </p>
         </div>
-        <WishlistButton productId={product.id} onToggle={actions.toggleWishlist} className="size-12" />
+        <WishlistButton productId={product.id} onToggle={actions.toggleWishlist} className="size-12 max-[359px]:hidden" />
         {actions.inStock ? (
           <Button size="lg" className="h-12 px-5" onClick={actions.buyNow}>
             <ShoppingCart aria-hidden="true" />

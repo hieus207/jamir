@@ -13,12 +13,12 @@ const ITEMS = [
 ]
 
 /** Mobile tab bar (< md). Hidden on product pages, where the purchase CTA takes its place. */
-export function BottomNavigation() {
+export function BottomNavigation({ dark }: { dark?: boolean }) {
   const wishCount = useWishlistStore((s) => s.ids.length)
   return (
     <nav
       aria-label="Điều hướng"
-      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line/70 bg-surface/92 backdrop-blur-xl md:hidden"
+      className={cn('pb-safe fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden', dark ? 'border-white/10 bg-black' : 'border-line/70 bg-surface/92')}
     >
       <ul className="grid h-16 grid-cols-5">
         {ITEMS.map(({ to, label, icon: Icon, end }) => (
@@ -29,7 +29,7 @@ export function BottomNavigation() {
               className={({ isActive }) =>
                 cn(
                   'relative flex h-full flex-col items-center justify-center gap-1 text-[11px] font-semibold transition-colors',
-                  isActive ? 'text-brand-600' : 'text-muted',
+                  isActive ? (dark ? 'text-white' : 'text-brand-600') : dark ? 'text-white/55' : 'text-muted',
                 )
               }
             >

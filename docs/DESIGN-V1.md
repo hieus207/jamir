@@ -49,6 +49,8 @@ Nguyên tắc: **ngang = khám phá, dọc = tìm hiểu, nút mua luôn trong t
 4. Cảm nhận khách hàng ([điểm + biểu đồ sao | Tóm tắt nhanh] rồi danh sách) và Hỏi đáp mới nhất
 5. Cột phải dính: khung mua + 4 icon "Phù hợp với bạn nếu"
 
+**Trang chủ trên điện thoại (< 768px) = bước 1:** feed video sản phẩm toàn màn hình, nền tối. Trên cùng có Jamir, "Đang follow / Khám phá" và tìm kiếm. Cột nút bên phải gồm tim (Yêu thích), bình luận, chia sẻ, Mua. Tên, giá và % giảm đè lên video, phía dưới là dải sản phẩm. Vuốt ←→ hoặc chạm dải để đổi sản phẩm. Vuốt ↑ hoặc chạm "Vuốt lên xem chi tiết" để mở trang sản phẩm ở tab KOL Review; chạm bình luận mở tab Đánh giá, chạm Mua mở tab Đặt hàng. Trang sản phẩm trên điện thoại dùng header "‹ Tên sản phẩm · giỏ" và tab gạch chân, không có dải Stories. Desktop vẫn giữ trang chủ V1.
+
 **Mobile và tablet (< 1024px), luồng 7 bước:** 1 Video + tổng quan (tên, giá) → 2 KOL Review → 3 Đánh giá → 4 Thông số → 5 Phù hợp với ai (icon kèm mô tả) → 6 Thông tin đặt hàng → 7 Checkout dạng bottom sheet. Vuốt ↑↓ để đi sâu vào sản phẩm đang xem. Thanh bước dính dưới header, tự sáng theo vị trí cuộn, chạm để nhảy tới bước. Vuốt ←→, hoặc chạm dải ‹ ● › phía trên CTA, để đổi sang sản phẩm trước/sau. CTA "Đặt hàng ngay" luôn dính đáy và có tính vùng an toàn iOS. Desktop giữ thứ tự V1.
 
 Cuối trang là sản phẩm liên quan (tối đa 4).

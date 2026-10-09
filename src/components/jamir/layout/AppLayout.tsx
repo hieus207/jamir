@@ -1,6 +1,7 @@
 import { lazy, type ReactNode, Suspense, useState } from 'react'
 import { motion } from 'motion/react'
 import { Outlet, ScrollRestoration, useLocation, useMatch } from 'react-router'
+import { useIsDesktop } from '@/hooks/useMediaQuery'
 import { useCheckoutStore } from '@/stores/checkoutStore'
 import { useAuthDialog } from '../auth/authStore'
 import { CartSheet } from '../checkout/CartSheet'
@@ -33,6 +34,9 @@ export function AppLayout() {
   const pageKey = onProduct ? 'product' : pathname
   // ad landing pages: no site navigation
   const bare = !!useMatch('/uu-dai/:slug')
+  // mobile home is the full-screen video feed (step 1): no header / footer around it
+  const wide = useIsDesktop()
+  const feedHome = pathname === '/' && !wide
   return (
     <div className="flex min-h-dvh flex-col">
       <a
@@ -42,7 +46,7 @@ export function AppLayout() {
         Bỏ qua đến nội dung chính
       </a>
       {!bare && <Header />}
-      {!bare && <MobileHeader />}
+      {!bare && !feedHome && <MobileHeader />}
       <main id="main" className="flex-1">
         <Suspense fallback={<PageFallback />}>
           <motion.div
@@ -55,9 +59,9 @@ export function AppLayout() {
           </motion.div>
         </Suspense>
       </main>
-      {!bare && !pathname.startsWith('/admin') && <CommunityBar className="mt-4" />}
-      {!bare && <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
-      {!onProduct && !bare && <BottomNavigation />}
+      {!bare && !feedHome && !pathname.startsWith('/admin') && <CommunityBar className="mt-4" />}
+      {!bare && !feedHome && <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
+      {!onProduct && !bare && <BottomNavigation dark={feedHome} />}
       <EventPopup />
       <MountOnce when={authOpen}>
         <AuthDialog />

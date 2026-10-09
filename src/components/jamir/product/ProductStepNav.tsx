@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router'
 import { cn } from '@/lib/utils'
 import { useStoryMode } from '../stories/storyMode'
 
@@ -23,6 +24,8 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
   const stripRef = useRef<HTMLDivElement>(null)
   const lockUntil = useRef(0)
   const [active, setActive] = useState(0)
+  const location = useLocation()
+  const step = (location.state as { step?: string } | null)?.step
 
   // scroll-spy
   useEffect(() => {
@@ -72,14 +75,42 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
     window.scrollTo({ top, behavior: 'smooth' })
   }
 
+  // arriving from the home feed: swipe ↑ = KOL Review, comment = Đánh giá, Mua = Đặt hàng
+  useEffect(() => {
+    const n = PRODUCT_STEPS.findIndex((s) => s.id === step)
+    if (n <= 0) return
+    // slow devices may still be laying out: jump, then re-check and settle instantly
+    const target = () => document.getElementById(PRODUCT_STEPS[n]?.id ?? '')
+    const off = () => {
+      const nav = navRef.current
+      const el = target()
+      return nav && el ? el.getBoundingClientRect().top - ((parseFloat(getComputedStyle(nav).top) || 0) + nav.offsetHeight + 12) : 0
+    }
+    const ids = [
+      setTimeout(() => goTo(n), 380),
+      ...[1100, 1800].map((ms) =>
+        setTimeout(() => {
+          const d = off()
+          if (Math.abs(d) > 24) {
+            lockUntil.current = Date.now() + 300
+            setActive(n)
+            window.scrollBy({ top: d, behavior: 'instant' as ScrollBehavior })
+          }
+        }, ms),
+      ),
+    ]
+    return () => ids.forEach(clearTimeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId, step])
+
   if (storyActive) return null
   return (
     <nav
       ref={navRef}
       aria-label="Các bước xem sản phẩm"
-      className={cn('sticky top-14 z-30 -mx-4 border-b border-line/70 bg-surface/92 backdrop-blur-xl md:top-[68px] md:-mx-6 lg:hidden', className)}
+      className={cn('sticky top-14 z-30 -mx-4 border-b border-line/70 bg-surface md:top-[68px] md:-mx-6 lg:hidden', className)}
     >
-      <div ref={stripRef} className="scrollbar-none relative flex gap-1 overflow-x-auto px-3 py-2 md:px-5">
+      <div ref={stripRef} className="scrollbar-none relative flex overflow-x-auto px-2 md:px-4">
         {PRODUCT_STEPS.map((s, i) => (
           <button
             key={s.id}
@@ -87,17 +118,14 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
             onClick={() => goTo(i)}
             aria-current={i === active ? 'step' : undefined}
             className={cn(
-              'flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-full px-3.5 text-[13px] font-semibold whitespace-nowrap transition-colors',
-              i === active ? 'bg-ink text-white shadow-card' : 'text-ink-soft active:bg-canvas',
+              'relative flex h-11 shrink-0 cursor-pointer items-center px-3 text-[14px] font-semibold whitespace-nowrap transition-colors',
+              i === active ? 'text-brand-600' : 'text-muted active:text-ink',
             )}
           >
-            <span className={cn('text-[11px] tabular-nums', i === active ? 'text-white/60' : 'text-subtle')}>{i + 1}</span>
             {s.label}
+            <span className={cn('absolute inset-x-3 bottom-0 h-[3px] rounded-t-full bg-brand-gradient transition-opacity', i === active ? 'opacity-100' : 'opacity-0')} aria-hidden="true" />
           </button>
         ))}
-      </div>
-      <div className="h-0.5 bg-line/60" aria-hidden="true">
-        <div className="h-full bg-gradient-to-r from-brand-600 to-accent-600 transition-[width] duration-300" style={{ width: `${((active + 1) / PRODUCT_STEPS.length) * 100}%` }} />
       </div>
     </nav>
   )

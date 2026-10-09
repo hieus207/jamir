@@ -1,4 +1,6 @@
 import { useSeo } from '@/hooks/useSeo'
+import { useIsDesktop } from '@/hooks/useMediaQuery'
+import { MobileFeed } from '@/components/jamir/feed/MobileFeed'
 import { HomeBanners } from '@/components/jamir/layout/HomeBanners'
 import { NewsSection } from '@/components/jamir/news/NewsSection'
 import { RecommendationSection } from '@/components/jamir/recommendation/RecommendationSection'
@@ -17,6 +19,15 @@ export default function HomePage() {
   const labels = { enabled: false, max: 2, ...settings?.forYouLabels }
   const usps = settings?.usps?.length ? settings.usps : DEFAULT_USPS
   useSeo({ title: 'JAMIR | Mua sắm công nghệ qua video', description: 'Xem video thật từ KOL và khách hàng, chọn đúng phụ kiện công nghệ và mua ngay.', path: '/' })
+  // mobile (< md): step 1 of the 7-step flow, a full-screen product video feed
+  const wide = useIsDesktop()
+  if (!wide)
+    return (
+      <>
+        <h1 className="sr-only">JAMIR: mua sắm phụ kiện công nghệ qua video review thật</h1>
+        <MobileFeed />
+      </>
+    )
 
   return (
     <div className="container-page flex flex-col gap-8 pt-3 pb-3 md:gap-10 md:pt-5">

@@ -213,7 +213,7 @@ function SwipeHint({ index, total, prev, next, onGo }: {
               <motion.span animate={{ x: [0, -10, 10, 0] }} transition={{ duration: 1.4, repeat: 2 }}>
                 <Hand className="size-4" aria-hidden="true" />
               </motion.span>
-              Vuốt ↑ xem chi tiết · Vuốt ← → đổi sản phẩm
+              ↑ Xem chi tiết · ← → Đổi sản phẩm
             </p>
           </motion.div>
         )}
