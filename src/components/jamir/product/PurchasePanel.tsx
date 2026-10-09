@@ -34,11 +34,13 @@ export function StockStatus({ stock, className }: { stock: number; className?: s
 export function PurchasePanel({
   product,
   inline,
+  headingLevel = 'h2',
   className,
 }: {
   product: Product
   /** inline (< lg): CTA row lives in the sticky bottom bar instead. */
   inline?: boolean
+  headingLevel?: 'h1' | 'h2'
   className?: string
 }) {
   const { colorId, quantity, setColor, setQuantity } = useSelectionStore()
@@ -46,7 +48,17 @@ export function PurchasePanel({
 
   return (
     <Card className={cn('flex flex-col gap-4 p-5 lg:p-6', className)}>
-      <ProductInfo product={product} headingLevel={inline ? 'h1' : 'h2'} />
+      {inline ? (
+        <div className="flex flex-col gap-3">
+          <h2 className="text-lg font-extrabold tracking-tight text-ink">Thông tin đặt hàng</h2>
+          <div className="flex items-center gap-3">
+            <img src={product.thumbnail} alt="" className="size-16 shrink-0 rounded-[12px] bg-canvas object-cover" />
+            <p className="line-clamp-2 text-[15px] leading-snug font-semibold text-ink">{product.name}</p>
+          </div>
+        </div>
+      ) : (
+        <ProductInfo product={product} headingLevel={headingLevel} />
+      )}
       <div className="flex flex-col gap-2">
         <ProductPrice price={product.price} originalPrice={product.originalPrice} discount={product.discount} />
         <StockStatus stock={product.stock} />

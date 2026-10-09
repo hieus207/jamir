@@ -7,6 +7,7 @@ import type { UseCase } from '@/types/domain'
  * "Phù hợp với bạn nếu"
  * - `full`   : image cards (mobile scroll / tablet 2 cols / desktop 3 cols)
  * - `compact`: icon tiles for the desktop right column (as in the reference design)
+ * - `list`   : icon + title + description rows (mobile step 5 "Phù hợp với ai?")
  */
 export function UseCaseGrid({
   useCases,
@@ -14,9 +15,32 @@ export function UseCaseGrid({
   className,
 }: {
   useCases: UseCase[]
-  variant?: 'full' | 'compact'
+  variant?: 'full' | 'compact' | 'list'
   className?: string
 }) {
+  if (variant === 'list')
+    return (
+      <Card className={className}>
+        <CardHeader>
+          <CardTitle>Phù hợp với ai?</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="flex flex-col divide-y divide-line/70">
+            {useCases.map((u) => (
+              <li key={u.id} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-[12px] bg-brand-50 text-brand-600">
+                  <Icon name={u.icon} className="size-6" strokeWidth={1.8} />
+                </span>
+                <div className="min-w-0 pt-0.5">
+                  <p className="text-[15px] font-semibold text-ink">{u.title}</p>
+                  {u.description && <p className="mt-0.5 text-sm leading-relaxed text-muted">{u.description}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+    )
   if (variant === 'compact')
     return (
       <Card className={className}>

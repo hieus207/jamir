@@ -49,6 +49,8 @@ Nguyên tắc: **ngang = khám phá, dọc = tìm hiểu, nút mua luôn trong t
 4. Cảm nhận khách hàng ([điểm + biểu đồ sao | Tóm tắt nhanh] rồi danh sách) và Hỏi đáp mới nhất
 5. Cột phải dính: khung mua + 4 icon "Phù hợp với bạn nếu"
 
+**Mobile và tablet (< 1024px), luồng 7 bước:** 1 Video + tổng quan (tên, giá) → 2 KOL Review → 3 Đánh giá → 4 Thông số → 5 Phù hợp với ai (icon kèm mô tả) → 6 Thông tin đặt hàng → 7 Checkout dạng bottom sheet. Vuốt ↑↓ để đi sâu vào sản phẩm đang xem. Thanh bước dính dưới header, tự sáng theo vị trí cuộn, chạm để nhảy tới bước. Vuốt ←→, hoặc chạm dải ‹ ● › phía trên CTA, để đổi sang sản phẩm trước/sau. CTA "Đặt hàng ngay" luôn dính đáy và có tính vùng an toàn iOS. Desktop giữ thứ tự V1.
+
 Cuối trang là sản phẩm liên quan (tối đa 4).
 
 **Story mode**: "Xem tất cả" chạy qua từng trang sản phẩm theo thời gian cấu hình; thanh story kiểu Facebook; tự dừng khi cuộn hoặc mở hộp thoại.

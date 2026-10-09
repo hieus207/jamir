@@ -101,7 +101,7 @@ export function ProductSwipeNavigator({ slug, children }: { slug: string; childr
           <SideArrow product={nb.next} side="right" onClick={() => go(1)} />
         </>
       )}
-      {nb && <SwipeHint index={nb.index} total={nb.total} />}
+      {nb && <SwipeHint index={nb.index} total={nb.total} prev={nb.prev} next={nb.next} onGo={go} />}
     </div>
   )
 }
@@ -161,8 +161,14 @@ function SideArrow({ product, side, onClick }: { product: ProductSummary | null;
 
 const HINT_KEY = 'jamir-swipe-hint'
 
-/** One-time mobile hint + position dots. */
-function SwipeHint({ index, total }: { index: number; total: number }) {
+/** Bottom carousel (prev · position · next, tappable) + one-time gesture hint. Sits above the sticky CTA. */
+function SwipeHint({ index, total, prev, next, onGo }: {
+  index: number
+  total: number
+  prev: ProductSummary | null
+  next: ProductSummary | null
+  onGo: (dir: 1 | -1) => void
+}) {
   const [show, setShow] = useState(false)
   useEffect(() => {
     try {
@@ -178,11 +184,21 @@ function SwipeHint({ index, total }: { index: number; total: number }) {
   }, [])
   return (
     <>
-      <div className="pointer-events-none fixed inset-x-0 bottom-[84px] z-30 flex justify-center lg:hidden" aria-hidden="true">
-        <div className="flex items-center gap-1 rounded-full bg-ink/60 px-2 py-1.5 backdrop-blur">
-          {Array.from({ length: total }, (_, i) => (
-            <span key={i} className={cn('h-1.5 rounded-full transition-all', i === index ? 'w-4 bg-white' : 'w-1.5 bg-white/45')} />
-          ))}
+      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(80px+env(safe-area-inset-bottom,0px))] z-30 flex justify-center lg:hidden">
+        <div data-swipe-ignore className="pointer-events-auto flex items-center gap-1 rounded-full bg-ink/75 p-1 shadow-lift backdrop-blur">
+          <StripButton product={prev} side="left" onClick={() => onGo(-1)} />
+          <div className="flex items-center gap-1 px-1.5" aria-label={`Sản phẩm ${index + 1} trên ${total}`} role="img">
+            {total <= 7 ? (
+              Array.from({ length: total }, (_, i) => (
+                <span key={i} className={cn('h-1.5 rounded-full transition-all', i === index ? 'w-4 bg-white' : 'w-1.5 bg-white/45')} />
+              ))
+            ) : (
+              <span className="text-[11px] font-semibold text-white tabular-nums">
+                {index + 1}/{total}
+              </span>
+            )}
+          </div>
+          <StripButton product={next} side="right" onClick={() => onGo(1)} />
         </div>
       </div>
       <AnimatePresence>
@@ -191,17 +207,35 @@ function SwipeHint({ index, total }: { index: number; total: number }) {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="pointer-events-none fixed inset-x-0 bottom-[118px] z-30 flex justify-center lg:hidden"
+            className="pointer-events-none fixed inset-x-0 bottom-[calc(128px+env(safe-area-inset-bottom,0px))] z-30 flex justify-center px-4 lg:hidden"
           >
             <p className="flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-xs font-semibold text-white shadow-lift">
               <motion.span animate={{ x: [0, -10, 10, 0] }} transition={{ duration: 1.4, repeat: 2 }}>
                 <Hand className="size-4" aria-hidden="true" />
               </motion.span>
-              Vuốt ngang để xem sản phẩm khác
+              Vuốt ↑ xem chi tiết · Vuốt ← → đổi sản phẩm
             </p>
           </motion.div>
         )}
       </AnimatePresence>
     </>
+  )
+}
+
+function StripButton({ product, side, onClick }: { product: ProductSummary | null; side: 'left' | 'right'; onClick: () => void }) {
+  const Icon = side === 'left' ? ChevronLeft : ChevronRight
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={!product}
+      aria-label={product ? `${side === 'left' ? 'Sản phẩm trước' : 'Sản phẩm tiếp theo'}: ${product.name}` : side === 'left' ? 'Không có sản phẩm trước' : 'Không có sản phẩm tiếp theo'}
+      className="relative size-9 shrink-0 cursor-pointer overflow-hidden rounded-full bg-white/10 transition-transform active:scale-90 disabled:cursor-default disabled:opacity-35"
+    >
+      {product && <img src={product.thumbnail} alt="" className="absolute inset-0 size-full object-cover" />}
+      <span className="absolute inset-0 flex items-center justify-center bg-ink/45 text-white">
+        <Icon className="size-5" aria-hidden="true" />
+      </span>
+    </button>
   )
 }
