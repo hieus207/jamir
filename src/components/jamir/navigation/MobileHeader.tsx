@@ -46,10 +46,10 @@ export function HeaderIcons({ onSearch, dark }: { onSearch?: () => void; dark?: 
           </span>
         )}
       </Link>
+      <CartButton className={cn('size-10', dark && 'text-white hover:bg-white/10 hover:text-white [&>span]:ring-black')} />
       <Link to="/account" aria-label="Tài khoản" className={btn}>
         <UserRound className="size-[22px]" />
       </Link>
-      <CartButton className={cn('size-10', dark && 'text-white hover:bg-white/10 hover:text-white [&>span]:ring-black')} />
     </div>
   )
 }
