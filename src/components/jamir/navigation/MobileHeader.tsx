@@ -25,7 +25,7 @@ export function MobileHeader() {
 }
 
 /** Right-hand icons of the mobile header (also used over the dark home feed). */
-export function HeaderIcons({ onSearch, dark }: { onSearch: () => void; dark?: boolean }) {
+export function HeaderIcons({ onSearch, dark }: { onSearch?: () => void; dark?: boolean }) {
   const wishCount = useWishlistStore((s) => s.ids.length)
   const btn = cn(
     'relative inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-btn transition-colors',
@@ -33,9 +33,11 @@ export function HeaderIcons({ onSearch, dark }: { onSearch: () => void; dark?: b
   )
   return (
     <div className="ml-auto flex items-center">
-      <button type="button" aria-label="Tìm kiếm" onClick={onSearch} className={btn}>
-        <Search className="size-[22px]" />
-      </button>
+      {onSearch && (
+        <button type="button" aria-label="Tìm kiếm" onClick={onSearch} className={btn}>
+          <Search className="size-[22px]" />
+        </button>
+      )}
       <Link to="/wishlist" aria-label={`Yêu thích, ${wishCount} sản phẩm`} className={btn}>
         <Heart className="size-[22px]" />
         {wishCount > 0 && (
@@ -62,8 +64,8 @@ function ProductBar() {
         <button type="button" aria-label="Quay lại" onClick={back} className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-btn text-ink hover:bg-line-soft">
           <ChevronLeft className="size-6" />
         </button>
-        <p className="min-w-0 flex-1 truncate text-center text-[16px] font-bold text-ink">{title}</p>
-        <CartButton />
+        <p className="min-w-0 flex-1 truncate pl-1 text-[16px] font-bold text-ink">{title}</p>
+        <HeaderIcons />
       </div>
     </header>
   )
