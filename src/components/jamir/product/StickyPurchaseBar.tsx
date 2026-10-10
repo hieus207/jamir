@@ -16,9 +16,9 @@ export function StickyPurchaseBar({ product }: { product: Product }) {
       initial={{ y: '100%' }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 380, damping: 36, delay: 0.15 }}
-      className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line/70 bg-surface/95 shadow-[0_-8px_24px_-12px_rgb(17_24_39/0.18)] backdrop-blur-xl lg:hidden"
+      className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom,0px))] z-40 border-t md:bottom-0 md:pb-[env(safe-area-inset-bottom,0px)] border-line/70 bg-surface shadow-[0_-8px_24px_-12px_rgb(17_24_39/0.18)] lg:hidden"
     >
-      <div className="mx-auto flex max-w-3xl items-center gap-2.5 px-4 py-2.5">
+      <div className="mx-auto flex max-w-3xl items-center gap-2.5 px-4 py-2 md:py-2.5">
         <div className="min-w-0 flex-1">
           <p className="text-xl leading-tight font-extrabold text-brand-700 tabular-nums">{formatPrice(product.price * quantity)}</p>
           <p className="truncate text-xs text-subtle">

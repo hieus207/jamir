@@ -69,6 +69,9 @@ function render(html: string, base: string, m: Meta) {
     .replace('</head>', `    ${tags}\n  </head>`)
 }
 
+export const HOME_TITLE = 'JAMIR | Mua sắm phụ kiện công nghệ qua video'
+export const HOME_DESCRIPTION = 'Khám phá phụ kiện công nghệ tại JAMIR qua video thực tế từ KOL, nhà sáng tạo nội dung và khách hàng.'
+
 export function seoRoutes(r: Router, db: Store) {
   const productMeta = async (slug: string, base: string): Promise<Meta | null> => {
     const p = await db.products.find((x) => x.slug === slug)
@@ -156,11 +159,12 @@ export function seoRoutes(r: Router, db: Store) {
     if (path === '/') {
       const banner = (await db.banners.list()).filter((b) => b.active).sort((a, b) => (b.priority ?? 0) - (a.priority ?? 0))[0]
       const st = await db.settings.read()
+      // Admin → Cài đặt → Chia sẻ link
       return {
-        title: 'JAMIR | Mua sắm công nghệ qua video',
-        description: 'Xem video thật từ KOL và khách hàng, chọn đúng phụ kiện công nghệ và mua ngay. Giao hỏa tốc, bảo hành 12 tháng.',
+        title: st.share?.title?.trim() || HOME_TITLE,
+        description: st.share?.description?.trim() || HOME_DESCRIPTION,
         path: '/',
-        image: banner?.image,
+        image: st.share?.image || banner?.image,
         jsonLd: [
           {
             '@context': 'https://schema.org',
@@ -181,7 +185,8 @@ export function seoRoutes(r: Router, db: Store) {
         ],
       }
     }
-    return { title: 'JAMIR | Mua sắm công nghệ qua video', description: 'Xem video thật từ KOL và khách hàng, chọn đúng phụ kiện công nghệ và mua ngay.', path, noindex: section !== '' }
+    const st = await db.settings.read()
+    return { title: st.share?.title?.trim() || HOME_TITLE, description: st.share?.description?.trim() || HOME_DESCRIPTION, path, image: st.share?.image, noindex: section !== '' }
   }
 
   // nginx: proxy_pass .../api/seo/page?path=$uri

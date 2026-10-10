@@ -18,7 +18,12 @@ export default function HomePage() {
   const settings = useSettings().data
   const labels = { enabled: false, max: 2, ...settings?.forYouLabels }
   const usps = settings?.usps?.length ? settings.usps : DEFAULT_USPS
-  useSeo({ title: 'JAMIR | Mua sắm công nghệ qua video', description: 'Xem video thật từ KOL và khách hàng, chọn đúng phụ kiện công nghệ và mua ngay.', path: '/' })
+  useSeo({
+    title: settings?.share?.title?.trim() || 'JAMIR | Mua sắm phụ kiện công nghệ qua video',
+    description: settings?.share?.description?.trim() || 'Khám phá phụ kiện công nghệ tại JAMIR qua video thực tế từ KOL, nhà sáng tạo nội dung và khách hàng.',
+    path: '/',
+    image: settings?.share?.image,
+  })
   // mobile (< md): step 1 of the 7-step flow, a full-screen product video feed
   const wide = useIsDesktop()
   if (!wide)

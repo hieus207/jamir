@@ -409,6 +409,16 @@ export function SettingsPanel() {
       />
       <DocForm<SiteSettings>
         doc="settings"
+        title="Chia sẻ link (Facebook, Zalo, Messenger…)"
+        description="Tiêu đề, mô tả và ảnh hiện ra khi gửi link trang chủ jamir.vn. Ảnh nên ngang 1200×630. Facebook và Zalo lưu bản xem trước cũ một thời gian: sau khi đổi, dùng Facebook Sharing Debugger (Scrape Again) để làm mới."
+        fields={[
+          { key: 'share.title', label: 'Tiêu đề', type: 'text', wide: true, placeholder: 'JAMIR | Mua sắm phụ kiện công nghệ qua video' },
+          { key: 'share.description', label: 'Mô tả', type: 'textarea', wide: true, placeholder: 'Khám phá phụ kiện công nghệ tại JAMIR qua video thực tế từ KOL, nhà sáng tạo nội dung và khách hàng.' },
+          { key: 'share.image', label: 'Ảnh xem trước', type: 'media', wide: true },
+        ]}
+      />
+      <DocForm<SiteSettings>
+        doc="settings"
         title="Ô cam kết ở trang chủ"
         description="Tối đa 4 ô. Bật Nổi bật để ô đó có nền màu thương hiệu."
         fields={[{ key: 'usps', label: 'Các ô cam kết', type: 'usps', wide: true }]}

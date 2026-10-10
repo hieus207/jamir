@@ -10,7 +10,8 @@ import { CITIES, type CheckoutForm } from './checkoutSchema'
 
 /** Saved addresses as radio cards + an inline "new address" form. */
 export function AddressSelector() {
-  const { data: me, isPending } = useCurrentUser()
+  // isLoading (not isPending): for guests the query is disabled and would stay pending forever
+  const { data: me, isLoading } = useCurrentUser()
   const {
     control,
     register,
@@ -23,7 +24,7 @@ export function AddressSelector() {
   const value = mode === 'new' ? 'new' : (addressId ?? '')
   const e = errors.newAddress
 
-  if (isPending) return <Skeleton className="h-36 rounded-btn" />
+  if (isLoading) return <Skeleton className="h-36 rounded-btn" />
 
   return (
     <div className="flex flex-col gap-2">

@@ -28,7 +28,8 @@ function MountOnce({ when, children }: { when: boolean; children: ReactNode }) {
 export function AppLayout() {
   const authOpen = useAuthDialog((s) => s.mode !== null)
   const checkoutOpen = useCheckoutStore((s) => s.open)
-  const { pathname } = useLocation()
+  const { pathname, state } = useLocation()
+  const fromFeed = (state as { from?: string } | null)?.from === 'feed'
   // product → product uses the swipe slide instead
   const onProduct = useMatch('/san-pham/:slug')
   const pageKey = onProduct ? 'product' : pathname
@@ -51,17 +52,17 @@ export function AppLayout() {
         <Suspense fallback={<PageFallback />}>
           <motion.div
             key={pageKey}
-            initial={{ opacity: 0, y: 8 }}
+            initial={{ opacity: 0, y: fromFeed ? 96 : 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.24, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: fromFeed ? 0.34 : 0.24, ease: [0.16, 1, 0.3, 1] }}
           >
             <Outlet />
           </motion.div>
         </Suspense>
       </main>
       {!bare && !feedHome && !pathname.startsWith('/admin') && <CommunityBar className="mt-4" />}
-      {!bare && !feedHome && <Footer className={onProduct ? 'pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
-      {!onProduct && !bare && <BottomNavigation dark={feedHome} />}
+      {!bare && !feedHome && <Footer className={onProduct ? 'pb-[176px] md:pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
+      {!bare && <BottomNavigation dark={feedHome} />}
       <EventPopup />
       <MountOnce when={authOpen}>
         <AuthDialog />

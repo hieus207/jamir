@@ -1,26 +1,23 @@
-import { Compass, Heart, House, Store, UserRound } from 'lucide-react'
+import { Compass, House, Store, UsersRound } from 'lucide-react'
 import { motion } from 'motion/react'
 import { NavLink } from 'react-router'
 import { cn } from '@/lib/utils'
-import { useWishlistStore } from '@/stores/wishlistStore'
 
 const ITEMS = [
   { to: '/', label: 'Trang chủ', icon: House, end: true },
   { to: '/shop', label: 'Cửa hàng', icon: Store },
   { to: '/explore', label: 'Khám phá', icon: Compass },
-  { to: '/wishlist', label: 'Yêu thích', icon: Heart },
-  { to: '/account', label: 'Tôi', icon: UserRound },
+  { to: '/cong-dong', label: 'Cộng đồng', icon: UsersRound },
 ]
 
-/** Mobile tab bar (< md). Hidden on product pages, where the purchase CTA takes its place. */
+/** Mobile tab bar (< md), fixed on every page (product pages stack the buy bar above it). Yêu thích / Tôi live in the header. */
 export function BottomNavigation({ dark }: { dark?: boolean }) {
-  const wishCount = useWishlistStore((s) => s.ids.length)
   return (
     <nav
       aria-label="Điều hướng"
-      className={cn('pb-safe fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden', dark ? 'border-white/10 bg-black' : 'border-line/70 bg-surface/92')}
+      className={cn('pb-safe fixed inset-x-0 bottom-0 z-40 border-t backdrop-blur-xl md:hidden', dark ? 'border-white/10 bg-black' : 'border-line/70 bg-surface')}
     >
-      <ul className="grid h-16 grid-cols-5">
+      <ul className="grid h-16 grid-cols-4">
         {ITEMS.map(({ to, label, icon: Icon, end }) => (
           <li key={to}>
             <NavLink
@@ -44,11 +41,6 @@ export function BottomNavigation({ dark }: { dark?: boolean }) {
                   )}
                   <span className="relative">
                     <Icon className="size-[22px]" strokeWidth={isActive ? 2.4 : 2} aria-hidden="true" />
-                    {to === '/wishlist' && wishCount > 0 && (
-                      <span className="absolute -top-1 -right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-danger-strong px-1 text-[10px] font-bold text-white">
-                        {wishCount}
-                      </span>
-                    )}
                   </span>
                   {label}
                 </>

@@ -309,6 +309,8 @@ export interface SiteSettings {
   reviewLimit?: { scope: 'account' | 'product'; max: number; windowDays: number }
   /** search box hint (header) */
   searchPlaceholder?: string
+  /** link preview when the home page is shared (Facebook, Zalo, Messenger…) */
+  share?: { title?: string; description?: string; image?: string }
   /** brand: full logo image (replaces mark + name), square icon, name text */
   logo?: { image?: string; icon?: string; text?: string; height?: number }
   /** home "cam kết" tiles (icon = name from the icon list) */

@@ -1,8 +1,10 @@
 import { Dialog as BaseDialog } from '@base-ui/react/dialog'
-import { ArrowLeft, ChevronLeft, Newspaper, Search } from 'lucide-react'
+import { ArrowLeft, ChevronLeft, Heart, Search, UserRound } from 'lucide-react'
 import { Link, useMatch, useNavigate } from 'react-router'
 import { Logo } from '../brand/Logo'
+import { cn } from '@/lib/utils'
 import { useUiStore } from '@/stores/uiStore'
+import { useWishlistStore } from '@/stores/wishlistStore'
 import { CartButton } from './Header'
 import { SearchBox } from './SearchBox'
 
@@ -15,23 +17,38 @@ export function MobileHeader() {
     <header className="sticky top-0 z-40 border-b border-line/70 bg-surface/90 backdrop-blur-xl md:hidden">
       <div className="flex h-14 items-center gap-2 px-4">
         <Logo className="[&_span]:text-xl [&_svg]:size-7" />
-        <div className="ml-auto flex items-center">
-          <Link to="/tin-tuc" aria-label="Tin tức" className="inline-flex size-11 items-center justify-center rounded-btn text-ink-soft hover:bg-line-soft">
-            <Newspaper className="size-[22px]" />
-          </Link>
-          <button
-            type="button"
-            aria-label="Tìm kiếm"
-            onClick={() => setSearchOpen(true)}
-            className="inline-flex size-11 cursor-pointer items-center justify-center rounded-btn text-ink-soft hover:bg-line-soft"
-          >
-            <Search className="size-[22px]" />
-          </button>
-          <CartButton />
-        </div>
+        <HeaderIcons onSearch={() => setSearchOpen(true)} />
       </div>
       <MobileSearch />
     </header>
+  )
+}
+
+/** Right-hand icons of the mobile header (also used over the dark home feed). */
+export function HeaderIcons({ onSearch, dark }: { onSearch: () => void; dark?: boolean }) {
+  const wishCount = useWishlistStore((s) => s.ids.length)
+  const btn = cn(
+    'relative inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-btn transition-colors',
+    dark ? 'text-white hover:bg-white/10' : 'text-ink-soft hover:bg-line-soft hover:text-ink',
+  )
+  return (
+    <div className="ml-auto flex items-center">
+      <button type="button" aria-label="Tìm kiếm" onClick={onSearch} className={btn}>
+        <Search className="size-[22px]" />
+      </button>
+      <Link to="/wishlist" aria-label={`Yêu thích, ${wishCount} sản phẩm`} className={btn}>
+        <Heart className="size-[22px]" />
+        {wishCount > 0 && (
+          <span className="absolute top-0.5 right-0 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-danger-strong px-1 text-[11px] font-bold text-white">
+            {wishCount > 99 ? '99+' : wishCount}
+          </span>
+        )}
+      </Link>
+      <Link to="/account" aria-label="Tài khoản" className={btn}>
+        <UserRound className="size-[22px]" />
+      </Link>
+      <CartButton className={cn('size-10', dark && 'text-white hover:bg-white/10 hover:text-white [&>span]:ring-black')} />
+    </div>
   )
 }
 

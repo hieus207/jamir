@@ -184,7 +184,7 @@ function SwipeHint({ index, total, prev, next, onGo }: {
   }, [])
   return (
     <>
-      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(80px+env(safe-area-inset-bottom,0px))] z-30 flex justify-center lg:hidden">
+      <div className="pointer-events-none fixed inset-x-0 bottom-[calc(140px+env(safe-area-inset-bottom,0px))] z-30 md:bottom-[calc(80px+env(safe-area-inset-bottom,0px))] flex justify-center lg:hidden">
         <div data-swipe-ignore className="pointer-events-auto flex items-center gap-1 rounded-full bg-ink/75 p-1 shadow-lift backdrop-blur">
           <StripButton product={prev} side="left" onClick={() => onGo(-1)} />
           <div className="flex items-center gap-1 px-1.5" aria-label={`Sản phẩm ${index + 1} trên ${total}`} role="img">
@@ -207,7 +207,7 @@ function SwipeHint({ index, total, prev, next, onGo }: {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className="pointer-events-none fixed inset-x-0 bottom-[calc(128px+env(safe-area-inset-bottom,0px))] z-30 flex justify-center px-4 lg:hidden"
+            className="pointer-events-none fixed inset-x-0 bottom-[calc(188px+env(safe-area-inset-bottom,0px))] z-30 md:bottom-[calc(128px+env(safe-area-inset-bottom,0px))] flex justify-center px-4 lg:hidden"
           >
             <p className="flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-xs font-semibold text-white shadow-lift">
               <motion.span animate={{ x: [0, -10, 10, 0] }} transition={{ duration: 1.4, repeat: 2 }}>

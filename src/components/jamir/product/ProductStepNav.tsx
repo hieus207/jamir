@@ -26,6 +26,7 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
   const [active, setActive] = useState(0)
   const location = useLocation()
   const step = (location.state as { step?: string } | null)?.step
+  const fromFeed = (location.state as { from?: string } | null)?.from === 'feed'
 
   // scroll-spy
   useEffect(() => {
@@ -63,7 +64,7 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
     if (strip && btn) strip.scrollTo({ left: btn.offsetLeft - (strip.clientWidth - btn.offsetWidth) / 2, behavior: 'smooth' })
   }, [active])
 
-  const goTo = (i: number) => {
+  const goTo = (i: number, behavior: ScrollBehavior = 'smooth') => {
     const el = document.getElementById(PRODUCT_STEPS[i]?.id ?? "")
     const nav = navRef.current
     if (!el || !nav) return
@@ -72,7 +73,7 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
     // use the stuck position (the nav may still be scrolling up towards it)
     const stuckBottom = (parseFloat(getComputedStyle(nav).top) || 0) + nav.offsetHeight
     const top = i === 0 ? 0 : el.getBoundingClientRect().top + window.scrollY - stuckBottom - 12
-    window.scrollTo({ top, behavior: 'smooth' })
+    window.scrollTo({ top, behavior })
   }
 
   // arriving from the home feed: swipe ↑ = KOL Review, comment = Đánh giá, Mua = Đặt hàng
@@ -87,7 +88,8 @@ export function ProductStepNav({ productId, className }: { productId: string; cl
       return nav && el ? el.getBoundingClientRect().top - ((parseFloat(getComputedStyle(nav).top) || 0) + nav.offsetHeight + 12) : 0
     }
     const ids = [
-      setTimeout(() => goTo(n), 380),
+      setTimeout(() => goTo(n, fromFeed ? ('instant' as ScrollBehavior) : 'smooth'), fromFeed ? 30 : 380),
+      ...(fromFeed ? [setTimeout(() => goTo(n, 'instant' as ScrollBehavior), 360)] : []),
       ...[1100, 1800].map((ms) =>
         setTimeout(() => {
           const d = off()
