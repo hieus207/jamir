@@ -508,6 +508,14 @@ const POOL_SAMPLE = `[
     "display": "nickname",
     "content": "Kết nối nhanh, pin ổn, nút cảm ứng hơi nhạy.",
     "media": [{ "type": "image", "src": "/media/reviews/1.jpg", "thumbnail": "/media/reviews/1.jpg" }]
+  },
+  {
+    "productSlug": "loa-mini-s2",
+    "rating": 5,
+    "name": "Lê Minh Châu",
+    "display": "full",
+    "avatar": "/media/avatars/w5.jpg",
+    "content": "Loa nhỏ mà bass chắc, mang đi picnic nghe cả buổi vẫn còn pin."
   }
 ]`
 
@@ -530,8 +538,6 @@ export function FeederPanel() {
           <Badge size="sm" variant="warning" className="mx-1">Demo</Badge> trong trang quản trị, không có nhãn "Đã mua hàng", và xoá được toàn bộ bằng một nút.
         </p>
       </div>
-
-      <PoolFormatGuide />
 
       <DocForm<SiteSettings>
         doc="settings"
@@ -614,6 +620,7 @@ export function FeederPanel() {
               ))}
             </ul>
           )}
+          <PoolFormatGuide />
         </CardContent>
       </Card>
 
@@ -643,10 +650,15 @@ function PoolFormatGuide() {
     URL.revokeObjectURL(url)
   }
   return (
-    <Card>
-      <CardHeader className="flex-wrap">
-        <CardTitle>File JSON mẫu</CardTitle>
-        <div className="flex gap-2">
+    <details className="group rounded-[12px] border border-line bg-surface">
+      <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-2.5 text-sm font-semibold text-ink select-none [&::-webkit-details-marker]:hidden">
+        <FileJson className="size-4 text-brand-600" aria-hidden="true" />
+        File JSON mẫu (3 kiểu: ẩn danh · biệt danh + ảnh · tên đầy đủ + avatar)
+        <span className="ml-auto text-xs font-medium text-muted group-open:hidden">Bấm để xem</span>
+        <span className="ml-auto hidden text-xs font-medium text-muted group-open:inline">Thu gọn</span>
+      </summary>
+      <div className="flex flex-col gap-3 border-t border-line px-3 pt-3 pb-3 text-sm">
+        <div className="flex flex-wrap gap-2">
           <Button variant="outline" size="sm" onClick={() => copy(POOL_SAMPLE, 'file mẫu')}>
             Sao chép
           </Button>
@@ -654,8 +666,6 @@ function PoolFormatGuide() {
             Tải file mẫu
           </Button>
         </div>
-      </CardHeader>
-      <CardContent className="flex flex-col gap-3 text-sm">
         <pre className="overflow-x-auto rounded-[10px] bg-line-soft p-3 font-mono text-xs leading-relaxed">{POOL_SAMPLE}</pre>
         <ul className="ml-4 list-disc space-y-1 text-muted">
           <li>
@@ -666,6 +676,9 @@ function PoolFormatGuide() {
           </li>
           <li>
             <code>display</code>: <code>full</code> tên đầy đủ, <code>nickname</code> biệt danh (kèm <code>nickname</code>), <code>anonymous</code> ẩn danh. Bỏ trống thì ngẫu nhiên.
+          </li>
+          <li>
+            <code>avatar</code>: link ảnh đại diện (ví dụ <code>/media/avatars/w5.jpg</code> hoặc link ảnh đã tải lên ở Tệp tải lên). Hiện khi <code>display</code> là <code>full</code> hoặc <code>nickname</code>; ẩn danh thì không hiện avatar. Bỏ trống thì hiện chữ cái đầu của tên.
           </li>
           <li>
             Không bắt buộc: <code>name</code>, <code>avatar</code>, <code>media</code> (ảnh/video đính kèm). File có thể là một mảng hoặc <code>{'{ "items": [...] }'}</code>; mẫu trùng nội dung tự bị bỏ qua.
@@ -681,7 +694,7 @@ function PoolFormatGuide() {
           <p className="text-xs text-muted">Dán câu lệnh này vào ChatGPT, Claude hoặc Gemini, lưu kết quả thành file .json rồi bấm "Nạp kho từ file JSON".</p>
           <pre className="mt-2 max-h-40 overflow-y-auto rounded-[10px] bg-surface p-3 font-mono text-[11px] whitespace-pre-wrap text-ink-soft">{AI_PROMPT}</pre>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </details>
   )
 }
