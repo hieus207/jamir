@@ -223,6 +223,6 @@ export function seoRoutes(r: Router, db: Store) {
 
   r.get('/seo/robots.txt', ({ req, res }) => {
     res.writeHead(200, { 'Content-Type': 'text/plain; charset=utf-8' })
-    res.end(`User-agent: *\nDisallow: /admin\nDisallow: /account\nDisallow: /api/\nSitemap: ${origin(req)}/sitemap.xml\n`)
+    res.end(`User-agent: *\nDisallow: /admin\nDisallow: /uploads\nDisallow: /account\nDisallow: /api/\nSitemap: ${origin(req)}/sitemap.xml\n`)
   })
 }

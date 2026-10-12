@@ -1,6 +1,7 @@
 import {
   Clapperboard,
   FlaskConical,
+  FolderOpen,
   FolderTree,
   Images,
   CalendarHeart,
@@ -22,6 +23,7 @@ import {
 import { type ReactNode, useEffect } from 'react'
 import { NavLink, useParams } from 'react-router'
 import { FeederPanel, OverviewPanel, CustomersPanel, SettingsPanel, STORY_SAMPLE, StoriesConfigCard, StoryImportButton } from '@/components/admin/panels'
+import { FileBrowser } from '@/components/admin/FileBrowser'
 import { ResourcePanel } from '@/components/admin/ResourcePanel'
 import * as R from '@/components/admin/resources'
 import { useAuthDialog, useSession } from '@/components/jamir/auth/authStore'
@@ -70,6 +72,22 @@ const SECTIONS: Section[] = [
   { id: 'landing-pages', label: 'Landing page', icon: Megaphone, render: () => <ResourcePanel config={R.landingPages} /> },
   { id: 'events', label: 'Sự kiện & popup', icon: CalendarHeart, render: () => <ResourcePanel config={R.events} /> },
   { id: 'categories', label: 'Danh mục', icon: FolderTree, render: () => <ResourcePanel config={R.categories} /> },
+  {
+    id: 'files',
+    label: 'Tệp tải lên',
+    icon: FolderOpen,
+    render: () => (
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 className="text-xl font-bold">Tệp tải lên</h2>
+          <a href="/uploads" target="_blank" rel="noreferrer" className="text-sm font-semibold text-brand-700 hover:underline">
+            Mở trang /uploads ↗
+          </a>
+        </div>
+        <FileBrowser />
+      </div>
+    ),
+  },
   { id: 'settings', label: 'Cài đặt', icon: Settings, render: () => <SettingsPanel /> },
 ]
 

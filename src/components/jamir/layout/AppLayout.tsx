@@ -35,6 +35,8 @@ export function AppLayout() {
   const pageKey = onProduct ? 'product' : pathname
   // ad landing pages: no site navigation
   const bare = !!useMatch('/uu-dai/:slug')
+  // admin tools: no promo popup / community strip
+  const tool = pathname.startsWith('/admin') || pathname === '/uploads'
   // mobile home is the full-screen video feed (step 1): no header / footer around it
   const wide = useIsDesktop()
   const feedHome = pathname === '/' && !wide
@@ -60,10 +62,10 @@ export function AppLayout() {
           </motion.div>
         </Suspense>
       </main>
-      {!bare && !feedHome && !pathname.startsWith('/admin') && <CommunityBar className="mt-4" />}
+      {!bare && !feedHome && !tool && <CommunityBar className="mt-4" />}
       {!bare && !feedHome && <Footer className={onProduct ? 'pb-[176px] md:pb-28 lg:pb-0' : 'pb-20 md:pb-0'} />}
       {!bare && <BottomNavigation dark={feedHome} />}
-      <EventPopup />
+      {!tool && <EventPopup />}
       <MountOnce when={authOpen}>
         <AuthDialog />
       </MountOnce>

@@ -8,6 +8,7 @@ import { Router } from './http'
 import { newId } from './logic'
 import { accountRoutes } from './routes/account'
 import { adminRoutes } from './routes/admin'
+import { fileRoutes } from './routes/files'
 import { publicRoutes } from './routes/public'
 import { createJsonStore } from './store'
 
@@ -32,6 +33,7 @@ router.get('/health', () => ({ ok: true }))
 publicRoutes(router, db)
 accountRoutes(router, db)
 adminRoutes(router, db)
+fileRoutes(router)
 seoRoutes(router, db)
 startFeeder(db)
 

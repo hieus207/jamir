@@ -22,6 +22,21 @@ export type AdminDoc = 'settings' | 'stories-config' | 'recommendations'
 
 type Rec = Record<string, unknown> & { id: string }
 
+export interface FileEntry {
+  name: string
+  path: string
+  size: number
+  mtime: string
+  url: string
+  kind: 'image' | 'video' | 'file'
+}
+export interface FileListing {
+  path: string
+  dirs: { name: string; path: string; items: number; mtime: string }[]
+  files: FileEntry[]
+  totalSize: number
+}
+
 export const adminApi = {
   overview: () => get<AdminOverview>('/admin/overview'),
   customers: () => get<AdminCustomer[]>('/admin/customers'),
@@ -42,6 +57,17 @@ export const adminApi = {
   runFeeder: () => post<FeederStatus>('/admin/feeder/run', {}),
   importPool: (json: unknown) => post<{ added: number; skipped: number }>('/admin/review-pool/import', json),
   purgeSeeded: () => request<{ removed: number }>('DELETE', '/admin/reviews/seeded'),
+
+  // uploads folder (file manager)
+  files: (path: string) => get<FileListing>('/admin/files', { path }),
+  mkdir: (path: string, name: string) => post<{ path: string }>('/admin/files/mkdir', { path, name }),
+  deleteFile: (path: string) => request<{ ok: true }>('DELETE', '/admin/files', { query: { path } }),
+  uploadTo: (path: string, file: File) =>
+    request<{ name: string; path: string; size: number; url: string }>('POST', '/admin/files/upload', {
+      query: { path, filename: file.name },
+      raw: file,
+      headers: { 'Content-Type': file.type || 'application/octet-stream' },
+    }),
 
   /** Streams the file as the raw request body. */
   upload: (file: File) =>

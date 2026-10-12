@@ -15,6 +15,7 @@ const AccountPage = lazy(() => import('@/pages/AccountPage'))
 const NewsPage = lazy(() => import('@/pages/NewsPage'))
 const NewsArticlePage = lazy(() => import('@/pages/NewsArticlePage'))
 const AdminPage = lazy(() => import('@/pages/AdminPage'))
+const UploadsPage = lazy(() => import('@/pages/UploadsPage'))
 const LandingPage = lazy(() => import('@/pages/LandingPage'))
 const LandingPreviewPage = lazy(() => import('@/pages/LandingPreviewPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
@@ -55,6 +56,7 @@ export const router = createBrowserRouter([
       { path: 'news', element: <Navigate to="/tin-tuc" replace /> },
       { path: 'news/:slug', element: <Legacy to={(s) => `/tin-tuc/${s}`} /> },
       { path: 'admin/:section?', element: <AdminPage /> },
+      { path: 'uploads', element: <UploadsPage /> },
       { path: 'uu-dai/:slug', element: <LandingPage /> },
       { path: 'lp/:slug', element: <Legacy to={(s) => `/uu-dai/${s}`} /> },
       { path: '*', element: <NotFoundPage /> },
